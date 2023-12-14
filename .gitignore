@@ -3,5 +3,5 @@
 *.fls
 *.log
 *.dvi
+*.pdf
 .live_server_pid
-.pdf
