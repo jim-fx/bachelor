@@ -8,10 +8,15 @@
 <body style="margin: 0; height: 100vh;">
     <embed src="ideas.pdf" width="100%" height="100%" type="application/pdf">
     <script>
-      const hash = window.location.hash.replace("#","");
+      let hash = window.location.hash.replace("#","");
+      if(!hash) {
+        hash = "thesis.pdf";
+      }
+      if(!hash.endsWith(".pdf")) {
+        hash += ".pdf";
+      }
       const embed = document.querySelector("embed");
       document.title = hash;
-      console.log(hash);
       embed.src = `/${hash}`;
     </script>
 </body>
