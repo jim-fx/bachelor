@@ -12,13 +12,9 @@ jobs:
           root_file: |
             ideas.tex
             expose.tex
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v3
+      - name: Release
+        uses: softprops/action-gh-release@v1
         with:
-          name: PDF
-          path: ideas.pdf
-      - name: Upload PDF file
-        uses: actions/upload-artifact@v3
-        with:
-          name: PDF
-          path: expose.pdf
+          files: |
+            ideas.pdf
+            expose.tex
