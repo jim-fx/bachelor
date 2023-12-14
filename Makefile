@@ -1,3 +1,7 @@
+# This amazing snippets makes it so the website stays on the same scroll position when the pdf is reloaded.
+# https://github.com/mozilla/pdf.js/issues/11359#issuecomment-558841393
+export SOURCE_DATE_EPOCH ?= $(shell date -u +%s)
+
 FILE = ideas
 TEX_FILE = $(FILE).tex
 PDF_FILE = $(FILE).pdf

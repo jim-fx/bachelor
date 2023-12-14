@@ -3,3 +3,4 @@
 *.fls
 *.log
 *.dvi
+.live_server_pid

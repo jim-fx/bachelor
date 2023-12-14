@@ -1,26 +1,9 @@
 \documentclass{article}
-\usepackage{xcolor}
-\usepackage{inconsolata}
-\usepackage[T1]{fontenc}
-\usepackage{pgffor}
-\usepackage{graphicx}
-\usepackage{tcolorbox}
-\usepackage[margin=1.2in]{geometry}
+
+\input{common}
 
 \title{Bachelor Ideen}
 \author{Max Richter}
-
-\renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
-
-% Define a custom command for colored boxes around words
-\newcommand{\topics}[1]{%
-  \linebreak
-  \linebreak
-  \foreach \word in {#1} {%
-    \colorbox{gray!30}{\word}\hspace{1ex}%
-  }%
-  \linebreak
-}
 
 \begin{document}
 \raggedright
