@@ -6,7 +6,7 @@ FILE = ideas
 TEX_FILE = $(FILE).tex
 PDF_FILE = $(FILE).pdf
 
-all: $(PDF_FILE)
+pdf: $(PDF_FILE)
 
 $(PDF_FILE): $(TEX_FILE)
 	pdflatex $(TEX_FILE)
