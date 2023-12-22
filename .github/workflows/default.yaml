@@ -34,7 +34,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
           asset_path: ./expose.pdf
-          asset_name: expose-v${{github.run_number}}.pdf
+          asset_name: expose.pdf
           asset_content_type: application/pdf
 
       - name: Upload Ideas.pdf
@@ -44,5 +44,5 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
           asset_path: ./ideas.pdf
-          asset_name: ideas-v${{github.run_number}}.pdf
+          asset_name: ideas.pdf
           asset_content_type: application/pdf
