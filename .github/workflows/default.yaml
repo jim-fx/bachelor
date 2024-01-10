@@ -16,6 +16,9 @@ jobs:
             ideas.tex
             expose.tex
 
+      - name: Generate latexdiff pdf
+        run: make diff FILE=expose && make diff FILE=expose
+
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -26,6 +29,16 @@ jobs:
           release_name: v${{ github.run_number }}
           draft: false
           prerelease: false
+
+      - name: Upload expose-diff.pdf
+        uses: actions/upload-release-asset@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          upload_url: ${{ steps.create_release.outputs.upload_url }} 
+          asset_path: ./expose-diff.pdf
+          asset_name: exposed-diff.pdf
+          asset_content_type: application/pdf
 
       - name: Upload Expose.pdf
         uses: actions/upload-release-asset@v1

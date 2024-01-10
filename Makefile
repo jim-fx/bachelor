@@ -14,6 +14,9 @@ $(PDF_FILE): $(TEX_FILE)
 open:
 	/mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe $$(wslpath -w "$$PWD/$(PDF_FILE)")
 
+diff:
+	./scripts/latex-diff.sh $(FILE)
+
 watch:
 	(live-server --no-browser --watch=$(PDF_FILE) & \
 	make FILE=$(FILE)) & \
