@@ -9,7 +9,7 @@ PDF_FILE = $(FILE).pdf
 pdf: $(PDF_FILE)
 
 $(PDF_FILE): $(TEX_FILE)
-	pdflatex $(TEX_FILE)
+	pdflatex $(TEX_FILE) && biber $(FILE) && pdflatex $(TEX_FILE)
 
 open:
 	/mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe $$(wslpath -w "$$PWD/$(PDF_FILE)")

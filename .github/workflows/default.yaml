@@ -5,16 +5,19 @@ jobs:
   build_latex:
     runs-on: ubuntu-latest
     permissions: write-all
+    container:
+      image: jimfx/tex
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
 
-      - name: Compile LaTeX document
-        uses: xu-cheng/latex-action@v3
-        with:
-          root_file: |
-            ideas.tex
-            expose.tex
+      - run: which tlmgr
+
+      - name: Generate expose.pdf
+        run: make pdf FILE=expose
+
+      - name: Generate ideas.pdf
+        run: make pdf FILE=ideas
 
       - name: Generate latexdiff pdf
         run: make diff FILE=expose && make diff FILE=expose
