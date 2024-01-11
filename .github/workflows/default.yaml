@@ -24,6 +24,7 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
+          name: pdfs
           path: |
             expose.pdf
             expose-diff.pdf
@@ -47,6 +48,8 @@ jobs:
           prerelease: false
 
       - uses: actions/download-artifact@v4
+        with:
+          name: pdfs
 
       - name: Upload expose-diff.pdf
         uses: actions/upload-release-asset@v1
