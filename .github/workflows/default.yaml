@@ -3,8 +3,7 @@ on: [push]
 
 jobs:
   build_latex:
-    runs-on: ubuntu-latest
-    permissions: write-all
+    runs_on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, 'feat:') }}
     container:
       image: ghcr.io/jim-fx/tex
@@ -23,6 +22,16 @@ jobs:
       - name: Generate ideas.pdf
         run: make pdf FILE=ideas
 
+      - uses: actions/upload-artifact@v4
+        with:
+          path: *.pdf
+
+  create_release:
+    permissions: write-all
+    if: ${{ contains(github.event.head_commit.message, 'release') }}
+    runs_on: ubuntu-latest
+    needs: build_latex
+    steps:
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -33,11 +42,11 @@ jobs:
           release_name: v${{ github.run_number }}
           draft: false
           prerelease: false
-        if: ${{ contains(github.event.head_commit.message, 'release') }}
+
+      - uses: actions/download-artifact@v4
 
       - name: Upload expose-diff.pdf
         uses: actions/upload-release-asset@v1
-        needs: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -48,7 +57,6 @@ jobs:
 
       - name: Upload Expose.pdf
         uses: actions/upload-release-asset@v1
-        needs: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -59,7 +67,6 @@ jobs:
 
       - name: Upload Ideas.pdf
         uses: actions/upload-release-asset@v1
-        needs: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
