@@ -9,7 +9,7 @@
 
 \pagestyle{fancy}
 \fancyhead{} % clear all header fields
-\fancyhead[RO,LE]{\textbf{WebAssembly-basierten visuellen Programmiersprache}}
+\fancyhead[RO,LE]{\textbf{WebAssembly-basierte visuelle Programmiersprache}}
 \fancyfoot{} % clear all footer fields
 \fancyfoot[LE,RO]{\thepage}
 \fancyfoot[LO,CE]{\href{https://github.com/jim-fx/bachelor}{github.com/jim-fx/bachelor}}
@@ -20,11 +20,11 @@
 \maketitle
 \pagebreak
 
-{\LARGE Entwicklung einer Performanten WebAssembly-basierten visuellen Programmiersprache}
+{\LARGE Entwicklung einer performanten WebAssembly-basierten visuellen Programmiersprache}
   
 \section{Problemstellung}
-In unserer heutigen digitalisierten  Welt spielen Human-Computer Interfaces eine entscheidende Rolle. Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. Meiner Meinung nach bieten visuelle Programmiersprachen einen guten Mittelweg für programmierunerfahrenen Nutzer.
-Sie verbinden die Benutzerfreundlichkeit grafischer Interfaces mit der Komplexität und Freiheit textbasierter Programmiersprachen. 
+In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces eine entscheidende Rolle. Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. Meiner Meinung nach bieten visuelle Programmiersprachen einen guten Mittelweg für programmierunerfahrenen Nutzer*innen.
+Sie vereinen die Benutzerfreundlichkeit grafischer Interfaces mit der Komplexität und Flexibilität textbasierter Programmiersprachen. 
 \linebreak
 \linebreak
 In dieser Bachelorarbeit werde ich eine node-basierte visuelle Programmiersprache entwickeln bei der die einzelnen Nodes WebAssembly Module sind. Diese Programmiersprache soll es Nutzer*innen ermöglichen, eigene Nodes für unterschiedlichste Anwendungsfälle zu entwickeln und miteinander zu teilen.
@@ -41,7 +41,7 @@ Dies wiederum würde es erlauben, ein generelles Framework bereitzustellen, bei 
 \linebreak
 \linebreak
 \subsection{Anwendungsgebiete}
-Dieses Framework würde es Nutzer*innen ermöglichen, eigene Nodes für die unterschiedlichsten Anwendungsgebiete zu entwickeln und miteinander zu teilen. Aus eigener Erfahrung kann ich sagen, dass sich node-basierte Programmiersprachen gut zum Modellieren parametrischer 3D Objekte eignen \cite{Plantarium}. Aus einem Gespräch mit einem befreundeten Anlagenmechaniker ergab sich, dass so ein System außerdem sehr interessant für die Regelungstechnik von Heizungen sein könnte, in der unterschiedliche Sensoren und Aktoren miteinander verbunden werden müssen. Des Weiteren könnte man eine interaktive Lernumgebung für Kinder entwickeln, bei der sie spielerisch die Grundlagen der Programmierung erlernen können.
+Aus eigener Erfahrung kann ich sagen, dass sich node-basierte Programmiersprachen gut zum Modellieren parametrischer 3D Objekte eignen \cite{Plantarium}. Aus einem Gespräch mit einem befreundeten Anlagenmechaniker ergab sich, dass so ein System außerdem sehr interessant für die Regelungstechnik von Heizungen sein könnte, in der unterschiedliche Sensoren und Aktoren miteinander verbunden werden müssen. Des Weiteren könnte man eine interaktive Lernumgebung für Kinder entwickeln, bei der sie spielerisch die Grundlagen der Programmierung erlernen können.
 
 \section{Abgeleitete Forschungsfrage}
 Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache, und welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
@@ -51,13 +51,13 @@ Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle
 Als Erstes werde ich eine allgemeine Literaturrecherche zu den Themen \topic{WebAssembly}, \topic{visuelle Programmiersprachen} und im speziellen \topic{node-basierte visuelle Programmiersprachen} durchführen.
 
 \subsection{Recherche von bestehenden Lösungen}
-Node-basierte visuelle Programmiersprachen sind nichts Neues und es bereites bestehende Lösungen mit unterschiedlichen Ansätzen. Diese werde ich umfassend recherchieren und spezifisch auf die Punkte untersuchen, die ich in meiner Anforderungsanalyse festgelegt habe.
+Es existieren bereits einige node-basierte visuelle Programmiersprachen mit unterschiedlichen Ansätzen. Diese werde ich umfassend recherchieren und spezifisch auf die Punkte untersuchen, die ich in meiner Anforderungsanalyse festgelegt habe.
 
 \subsection{Anforderungsanalyse}
 Nun werde ich festlegen, welche Anforderung meine Implementierung erfüllen sollte. Hierbei werde ich meine potenzielle Nutzergruppe definieren und ausgehend von dieser funktionale Anforderungen wie zum Beispiel das Herunterladen von Nodes und nicht-funktionale Anforderungen wie zum Beispiel Performance, Skalierbarkeit und Sicherheit definieren.
 
 \subsection{Implementierung}
-Der Großteil der Arbeit wird in der Implementierung liegen. Hierbei sehe ich im Moment zwei Bereiche, die besonders interessant sind. Zum einen die Performance, da die Kommunikation zwischen einzelnen Nodes höchstwahrscheinlich über das Hostsystem laufen muss. Zweitens muss man eine Möglichkeit finden wie die einzelnen Nodes angeben welche Argumente sie erwarten. 
+Der Großteil der Arbeit wird in der Implementierung liegen. Hierbei sehe ich im Moment zwei Bereiche, die besonders interessant sind. Zum einen die Performance, da die Kommunikation zwischen einzelnen Nodes höchstwahrscheinlich über das Hostsystem laufen muss. Zweitens muss man eine Möglichkeit finden wie die einzelnen Nodes angeben welche Inputs sie erwarten. 
 \linebreak
 \linebreak
 Die Implementierung wird im Kontext einer \href{https://plant.max-richter.dev}{3D-Anwendung} stattfinden, da ich in diesem Bereich viel Erfahrung habe. Außerdem werden in dieser speziellen Anwendung große Datenmengen zwischen den Nodes hin- und hertransportiert, was die Performance-Problematik gut verdeutlichen sollte.
