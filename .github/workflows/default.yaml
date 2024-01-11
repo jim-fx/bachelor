@@ -5,13 +5,14 @@ jobs:
   build_latex:
     runs-on: ubuntu-latest
     permissions: write-all
+    if: contains(github.event.head_commit.message, 'feat:')
     container:
       image: ghcr.io/jim-fx/tex
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
         with:
-          fetch-depth: 3
+          fetch-depth: 50
 
       - name: Generate expose.pdf
         run: make pdf FILE=expose
@@ -32,9 +33,11 @@ jobs:
           release_name: v${{ github.run_number }}
           draft: false
           prerelease: false
+        if: contains(github.event.head_commit.message, 'release')
 
       - name: Upload expose-diff.pdf
         uses: actions/upload-release-asset@v1
+        needs: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -45,6 +48,7 @@ jobs:
 
       - name: Upload Expose.pdf
         uses: actions/upload-release-asset@v1
+        needs: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
@@ -55,6 +59,7 @@ jobs:
 
       - name: Upload Ideas.pdf
         uses: actions/upload-release-asset@v1
+        needs: create_release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
