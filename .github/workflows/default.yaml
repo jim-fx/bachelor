@@ -6,7 +6,7 @@ jobs:
     runs-on: ubuntu-latest
     permissions: write-all
     container:
-      image: jimfx/tex
+      image: ghcr.io/jim-fx/tex
     steps:
       - name: Set up Git repository
         uses: actions/checkout@v4
