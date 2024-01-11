@@ -24,7 +24,10 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          path: *.pdf
+          path: |
+            expose.pdf
+            expose-diff.pdf
+            ideas.pdf
 
   create_release:
     permissions: write-all
