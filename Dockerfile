@@ -1,15 +1,15 @@
-
-FROM ubuntu:bionic
+FROM ubuntu:focal
 
 WORKDIR /var/local
 
 # combine into one run command to reduce image size
-RUN apt-get update && apt-get install -y perl wget libfontconfig1 make git nodejs && \
+RUN apt-get update && apt-get install -y perl wget curl libfontconfig1 make git gnupg && \
+    curl -sL https://deb.nodesource.com/setup_21.x  | bash - && \
+    apt-get -y install nodejs && \
     wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh  && \
     apt-get clean
+
 ENV PATH="${PATH}:/root/bin"
-# RUN tlmgr install xetex
-# RUN fmtutil-sys --all
 
 # Install additional TexLive packages using tlmgr
 RUN tlmgr install --verify-repo=none \
