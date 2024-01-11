@@ -1,11 +1,9 @@
-FROM ubuntu:focal
+FROM node:slim
 
 WORKDIR /var/local
 
 # combine into one run command to reduce image size
-RUN apt-get update && apt-get install -y perl wget curl libfontconfig1 make git gnupg && \
-    curl -sL https://deb.nodesource.com/setup_21.x  | bash - && \
-    apt-get -y install nodejs && \
+RUN apt-get update && apt-get install -y perl wget libfontconfig1 make git && \
     wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh  && \
     apt-get clean
 

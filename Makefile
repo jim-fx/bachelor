@@ -6,9 +6,7 @@ FILE = ideas
 TEX_FILE = $(FILE).tex
 PDF_FILE = $(FILE).pdf
 
-pdf: $(PDF_FILE)
-
-$(PDF_FILE): $(TEX_FILE)
+pdf:
 	pdflatex $(TEX_FILE) && biber $(FILE) && pdflatex $(TEX_FILE)
 
 open:
@@ -24,3 +22,6 @@ watch:
 			inotifywait -e modify $(TEX_FILE); \
 			make FILE=$(FILE); \
 	done
+
+clean:
+	rm -f *.aux *.log *.bbl *.bcf *.blg *.run.xml

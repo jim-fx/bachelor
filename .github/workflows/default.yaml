@@ -11,16 +11,14 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v4
 
-      - run: which tlmgr
-
       - name: Generate expose.pdf
         run: make pdf FILE=expose
 
+      - name: Generate expose-diff.pdf
+        run: make pdf FILE=expose && make diff FILE=expose
+
       - name: Generate ideas.pdf
         run: make pdf FILE=ideas
-
-      - name: Generate latexdiff pdf
-        run: make diff FILE=expose && make diff FILE=expose
 
       - name: Create Release
         id: create_release

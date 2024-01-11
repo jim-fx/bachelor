@@ -9,8 +9,9 @@ fi
 # File to be compared
 file="$1"
 
-
-# rm old-* diff-*
+if [ "$CI" == "true" ]; then
+  git config --global --add safe.directory "*"
+fi
 
 # Use git show to get the content of the previous version and save it to file-old
 git show HEAD^:"$file.tex" > "old-$file.tex"
