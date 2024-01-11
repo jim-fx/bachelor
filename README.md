@@ -4,7 +4,7 @@ Willkommen zu meiner Bachelorarbeit :)
 
 Dieses Repo wird wahrscheinlich für drei Monate voller Mühe, Schweiß, Blut und Tränen stehen, aber die habe ich im Moment noch vor mir.
 
-[https://github.com/jim-fx/bachelor/releases/latest/download/expose.pdf](Latest expose.pdf)
+[Latest expose.pdf](https://github.com/jim-fx/bachelor/releases/latest/download/expose.pdf)
 
 ## Inhaltsangabe
 
