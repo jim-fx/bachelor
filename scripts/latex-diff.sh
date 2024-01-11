@@ -16,6 +16,8 @@ fi
 # Use git show to get the content of the previous version and save it to file-old
 git show HEAD^:"$file.tex" > "old-$file.tex"
 
+
+
 # Generate the latexdiff
 latexdiff "old-$file.tex" "$file.tex" --flatten > "diff-$file.tex"
 

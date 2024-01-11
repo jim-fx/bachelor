@@ -23,11 +23,11 @@
 {\LARGE Entwicklung einer Performanten WebAssembly-basierten visuellen Programmiersprache}
   
 \section{Problemstellung}
-In unserer heutigen digitalisieten Welt spielen Human-Computer Interfaces eine entscheidende Rolle. Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. Meiner Meinung nach bieten visuelle Programmiersprachen einen guten Mittelweg für programmierunerfahrenen Nutzer.
-Sie verbinden die Benuterfreundlichkeit grafischer Interfaces mit der Komplexität und Freiheit textbasierter Programmiersprachen. 
+In unserer heutigen digitalisierten  Welt spielen Human-Computer Interfaces eine entscheidende Rolle. Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. Meiner Meinung nach bieten visuelle Programmiersprachen einen guten Mittelweg für programmierunerfahrenen Nutzer.
+Sie verbinden die Benutzerfreundlichkeit grafischer Interfaces mit der Komplexität und Freiheit textbasierter Programmiersprachen. 
 \linebreak
 \linebreak
-In dieser Bachelorarbeit werde ich eine node-basierte visuelle Programmiersprache entwickeln, mit der Besonderheit das die einzelnen Nodes WebAssembly Module sind. Diese Programmiersprache soll es Nutzer*innen ermöglichen eigene Nodes für unterschiedlichste Anwendungsfälle zu entwickeln und miteinander zu teilen.
+In dieser Bachelorarbeit werde ich eine node-basierte visuelle Programmiersprache entwickeln bei der die einzelnen Nodes WebAssembly Module sind. Diese Programmiersprache soll es Nutzer*innen ermöglichen, eigene Nodes für unterschiedlichste Anwendungsfälle zu entwickeln und miteinander zu teilen.
 \begin{figure}[h]
 \includegraphics[width=\textwidth]{ideas/nodes.pdf}
 \caption{Illustration eines Node-Systems}
@@ -37,11 +37,11 @@ In dieser Bachelorarbeit werde ich eine node-basierte visuelle Programmiersprach
 WebAssembly bietet sich hier gut an, da es plattformunabhängig, isoliert und performant ist \cite{Haas2017}. Gerade die Isolation der einzelnen Module ist spannend, da sie es möglich macht Nodes von unterschiedlichen Quellen zu laden, und trotzdem die Sicherheit des Hostsystems zu gewährleisten.
 \linebreak
 \linebreak
-Dies wiederum würde es erlauben ein generelles Framework bereitzustellen bei denen node-basierte UI's für unterschiedliche Anwendungsfälle und dank der cross-plattform Eigenschaften von WebAssembly auch für unterschiedliche Plattformen erstellt werden können.
+Dies wiederum würde es erlauben, ein generelles Framework bereitzustellen, bei denen node-basierte UI's für unterschiedliche Anwendungsfälle und dank der cross-plattform Eigenschaften von WebAssembly auch für unterschiedliche Plattformen erstellt werden können.
 \linebreak
 \linebreak
 \subsection{Anwendungsgebiete}
-Dieses Framework würde es Nutzer*innen ermöglichen eigene Nodes für die unterschiedlichsten Anwendungsgebiete zu entwickeln und miteinander zu teilen. Aus eigener Erfahrung kann ich sagen das sich node-basierte Programmiersprachen gut zum Modellieren parametrischer 3D Objekte eignen \cite{Plantarium}. Aus einem Gespräch mit einem befreundeten Anlagenmechaniker ergab sich, dass so ein System außerdem sehr interessant für die Regelungstechnik von Heizungen sein könnte, in der unterschiedliche Sensoren und Aktoren miteinander verbunden werden müssen. Des Weiteren könnte man eine interaktive Lernumgebung für Kinder entwickeln, bei der sie spielerisch die Grundlagen der Programmierung erlernen können.
+Dieses Framework würde es Nutzer*innen ermöglichen, eigene Nodes für die unterschiedlichsten Anwendungsgebiete zu entwickeln und miteinander zu teilen. Aus eigener Erfahrung kann ich sagen, dass sich node-basierte Programmiersprachen gut zum Modellieren parametrischer 3D Objekte eignen \cite{Plantarium}. Aus einem Gespräch mit einem befreundeten Anlagenmechaniker ergab sich, dass so ein System außerdem sehr interessant für die Regelungstechnik von Heizungen sein könnte, in der unterschiedliche Sensoren und Aktoren miteinander verbunden werden müssen. Des Weiteren könnte man eine interaktive Lernumgebung für Kinder entwickeln, bei der sie spielerisch die Grundlagen der Programmierung erlernen können.
 
 \section{Abgeleitete Forschungsfrage}
 Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache, und welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
