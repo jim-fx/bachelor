@@ -3,7 +3,7 @@ on: [push]
 
 jobs:
   build_latex:
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     if: ${{ contains(github.event.head_commit.message, 'feat:') }}
     container:
       image: ghcr.io/jim-fx/tex
@@ -32,7 +32,7 @@ jobs:
   create_release:
     permissions: write-all
     if: ${{ contains(github.event.head_commit.message, 'release') }}
-    runs_on: ubuntu-latest
+    runs-on: ubuntu-latest
     needs: build_latex
     steps:
       - name: Create Release
