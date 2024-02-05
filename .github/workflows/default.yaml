@@ -4,7 +4,7 @@ on: [push]
 jobs:
   build_latex:
     runs-on: ubuntu-latest
-    if: ${{ contains(github.event.head_commit.message, 'feat:') }}
+    if: ${{ contains(github.event.head_commit.message, 'feat') }}
     container:
       image: ghcr.io/jim-fx/tex
     steps:
