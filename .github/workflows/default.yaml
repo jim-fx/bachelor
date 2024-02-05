@@ -58,7 +58,7 @@ jobs:
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }} 
           asset_path: ./expose-diff.pdf
-          asset_name: exposed-diff.pdf
+          asset_name: expose-diff.pdf
           asset_content_type: application/pdf
 
       - name: Upload Expose.pdf

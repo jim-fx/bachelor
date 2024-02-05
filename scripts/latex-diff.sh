@@ -14,7 +14,7 @@ if [ "$CI" == "true" ]; then
 fi
 
 # Find the SHA of the last commit with the commit message containing "release"
-last_release_commit=$(git log --grep="release" -n 1 --format="%H")
+last_release_commit=$(git log --grep="release" -n 2 --format="%H" | tail -n 1)
 
 # If no commit with "release" in the message is found, set it to the previous commit
 if [ -z "$last_release_commit" ]; then
