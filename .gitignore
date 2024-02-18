@@ -10,4 +10,5 @@
 *.bcf
 *.blg
 *.run.xml
+*.toc
 latexdiff_output/
