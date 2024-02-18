@@ -1,0 +1,60 @@
+\documentclass[ngerman]{article}
+
+\input{common}
+
+\title{Bachelorarbeit}
+\author{Max Richter}
+
+\begin{document}
+
+\pagestyle{fancy}
+\fancyhead{} % clear all header fields
+\fancyhead[RO,LE]{\textbf{WebAssembly-basierte visuelle Programmiersprache}}
+\fancyfoot{} % clear all footer fields
+\fancyfoot[LE,RO]{\thepage}
+\fancyfoot[LO,CE]{\href{https://github.com/jim-fx/bachelor}{github.com/jim-fx/bachelor}}
+\fancyfoot[CO,RE]{Max Richter}
+
+\raggedright
+
+\maketitle
+\pagebreak
+
+\tableofcontents
+
+\pagebreak
+
+\section{Einleitung}
+\subsection{Hintergrund}
+\subsection{Problemstellung}
+\subsection{Zielsetzung}
+\subsection{Forschungsfragen}
+
+\section{Theoretischer Rahmen}
+\subsection{Literatur Recherche}
+\subsection{WebAssembly}
+WebAssembly (WASM) ist ein Bytecode-Format für eine stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}.
+\linebreak
+\linebreak
+Es wird hauptsächlich als Kompilierungsziel für Programmiersprachen wie C, C++, Rust und TypeScript verwendet, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht Garbage-Collectet und ist außerdem stark typisiert. Dies ermöglicht es, performante und sicherere Anwendungen zu entwickeln.
+\subsubsection{WASI}
+\cmt{WebAssembly System Interface}
+\subsubsection{WAT}
+\cmt{WebAssembly Text Format}
+\subsubsection{WebAssembly Component Model}
+\cmt{Kind of like ES-Modules or C-Style Linking}
+\subsection{Visuelle Programmiersprachen}
+\subsubsection{Node-basierte visuelle Programmiersprachen}
+
+\section{Implementierung}
+\subsection{UI}
+\subsection{Backend}
+
+\section{Evaluation}
+\section{Fazit}
+\section{Literaturverzeichnis}
+
+
+\printbibliography
+
+\end{document}
