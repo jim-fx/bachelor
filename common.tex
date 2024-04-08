@@ -1,5 +1,4 @@
 \usepackage{xcolor}
-\usepackage{inconsolata}
 \usepackage[T1]{fontenc}
 \usepackage{pgffor}
 \usepackage{todonotes}
@@ -7,9 +6,13 @@
 \usepackage{fancyhdr}
 \usepackage{hyperref}
 \usepackage{tcolorbox}
+\usepackage{etoolbox}
 \usepackage[margin=1.2in]{geometry}
 \usepackage[ngerman]{babel} 
+\usepackage{inconsolata}
 \usepackage{bookmark}
+\usepackage{wrapfig} 
+\usepackage{lipsum}
 \usepackage[sorting=none, autolang=other, backend=biber]{biblatex}
 \addbibresource{refs.bib}
 
@@ -25,6 +28,14 @@
 \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
 
 \newcommand{\topic}[1]{\tcbox[on line,arc=4pt,colframe=white,boxrule=0pt,boxsep=0pt,left=4pt,right=4pt,top=3pt,bottom=2pt,colback=gray!30]{#1}}
+
+\newcommand{\link}[2][]{%
+    \ifblank{#1}{%
+        \hyperref[sec:#2]{#2}%
+    }{%
+        \hyperref[sec:#1]{#2}%
+    }%
+}
 
 \newcommand{\cmt}[1]{\textcolor{gray!60}{\textit{/* #1 */}}}
 

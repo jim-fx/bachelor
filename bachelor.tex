@@ -25,15 +25,111 @@
 \pagebreak
 
 \section{Einleitung}
+In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces (HCI's) eine entscheidende Rolle.
+Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. 
+
+Da Menschen Konzepte und Relationen größtenteils visuell und räumlich verarbeiten \cite{smith1975pygmalion}, bieten visuelle Programmiersprachen einen guten Mittelweg für programmierunerfahrenen Nutzer*innen. 
+ 
 \subsection{Hintergrund}
 \subsection{Problemstellung}
+Sie vereinen die Benutzerfreundlichkeit grafischer Interfaces mit der Komplexität und Flexibilität textbasierter Programmiersprachen. 
 \subsection{Zielsetzung}
 \subsection{Forschungsfragen}
 
+Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache?  
+\linebreak
+\linebreak
+Welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
+
 \section{Theoretischer Rahmen}
-\subsection{Literatur Recherche}
+
+\subsection{Definition von visuellen Programmiersprachen}
+Eine visuelle Programmiersprache stellt die Komponenten und Verbindungen eines Programs in mehr als einer Dimension dar. Oft ist diese Dimension eine zweidimensional Fläche auf der die einzelnen Funktionen oder Componenten eines Systems visuell dargestellt werden. \cite{Myers}
+
+Auch wenn textuelle Sprache auf einer zweidimensionalen Oberfläche dargestellt wird, so ist sie meist aus Sicht des Interpreters oder Compilers ein eindimensionaler Stream aus Tokens.
+
+\subsection{Klassifikation von visuellen Programmiersprachen}
+
+Nach Burnett\&Mayer können Visuelle Programmiersprachen oder (VPL's) in 5 verschiedenen Klassen eingeteilt werden \cite{BURNETT1994287}. Diese einzelnen Klassen schließen sich nicht gegenseitig aus und können auch in Kombination verwendet werden.
+
+\subsubsection{Purely visual languages}
+Purely visual languages haben keine textuelle Repräsentation und sind ausschließlich visuell. Ein Beispiel hierfür ist \textit{Scratch}, das es Nutzern ermöglicht, durch das Zusammensetzen von Blöcken Programme zu erstellen, ohne eine einzige Zeile Code zu schreiben.
+
+\subsubsection{Hybrid text and visual systems}
+Hybrid text and visual systems haben eine textuelle Repräsentation, die parallel zur visuellen Repräsentation existiert. Ein Beispiel hierfür ist \textit{Microsoft's Visual Programming Language (VPL)}, das Teil von Microsoft Robotics Developer Studio ist und eine hybride Umgebung bietet, in der Nutzer sowohl Code schreiben als auch visuelle Elemente nutzen können.
+
+\subsubsection{Programming-by-example systems}
+Programming-by-example systems erlauben es dem Nutzer, ein Programm zu schreiben, indem er die gewünschte Funktionalität in einem Beispiel demonstriert. \textit{Etoys}, basierend auf Squeak, ist ein Beispiel für ein solches System, bei dem Benutzer durch das Demonstrieren von Aktionen Objekte programmieren können.
+
+\subsubsection{Constraint-oriented systems}
+Constraint-oriented systems erlauben es dem Nutzer, Constraints zwischen den Komponenten des Programms zu definieren. \textit{ThingLab} ist ein Beispiel für ein constraint-orientiertes System, das dem Benutzer ermöglicht, durch die Definition von Einschränkungen zwischen Objekten interaktive Simulationen zu erstellen.
+
+\subsubsection{Form-based systems}
+Form-based systems erlauben es dem Nutzer, Programme zu schreiben, indem er Formen ausfüllt. Ein klassisches Beispiel für ein formbasiertes System ist \textit{Oracle Forms}, das eine GUI für Datenbankabfragen und -transaktionen bietet, indem es Benutzern ermöglicht, Formulare auszufüllen, die dann in SQL-Code umgewandelt werden.
+
+\subsection{Historische Vorbilder}
+
+\subsubsection{SketchPad}
+\label{sec:Sketchpad}
+\begingroup
+\setlength\intextsep{2pt}
+\begin{minipage}{\linewidth}
+\begin{wrapfigure}{R}{0.3\textwidth}
+  \centering
+  \includegraphics[width=0.3\textwidth]{./graphics/sketchpad-sutherland.jpg} % Change example-image-a with your image filename
+  \caption{SketchPad \cite{sutherlandSketchpad}}
+  \label{fig:your_label}
+\end{wrapfigure}
+SketchPad ist ein von Ivan Sutherland entwickeltes Program das 1963 am MIT veröffentlicht wurde. 
+SketchPad benutzte eine Lightpen als Eingabegerät und war das erste Programm, das die Interaktion mit einem Computer über eine grafische Benutzeroberfläche ermöglichte. 
+Es erlaubte den Nutzer*innen, geometrische Formen auf einem Bildschirm zu zeichnen und diese zu manipulieren.
+Dabei existierten diese Formen auf einem virtuellen "Papier" das der Nutzer bewegen und zoomen konnte. Dieses Konzkept von bewegen und Zoomen virtueller Oberflächen war revolutionär für die damalige Zeit.
+  Dies wird deutlich durch den Fakt das der Präsentator während der Präsentation von SketchPad \cite{sketchpadDemo} (10:30) kein Worte fand um diesen Vorgang zu beschreiben.
+Ein weiteres Feature war die Möglichkeit, Constraints zwischen den Formen zu definieren, ähnlich wie in modernen CAD-Programmen. 
+Wenn man sich die Videodemo von SketchPad anschaut fallen viele Paradigmen auf die wir heute als gegeben ansehen.
+\linebreak
+\linebreak
+Auch wenn SketchPad nicht direkt in die Definition einer VPL passt, war es ein Meilenstein der Entwicklung von grafischen HCI's. Was durch die Verleihung des Turing Awards an Ivan Sutherland 1988 bestätigt wurde.
+\end{minipage}
+\endgroup
+\subsubsection{Pygmalion}
+
+\begingroup
+\setlength\intextsep{2pt}
+
+\begin{minipage}{\linewidth}
+
+
+\begin{wrapfigure}{L}{0.4\textwidth}
+  \centering
+  \includegraphics[width=0.4\textwidth]{./graphics/pygmalion.jpg} % Change example-image-a with your image filename
+  \caption{Factorial in Pygmalion \cite{smith1975pygmalion}}
+  \label{fig:pygmalion_demo}
+\end{wrapfigure}
+
+Pygmalion ist eine visuelle Programmiersprache die um 1970 von David Canfield Smith im Rahmen seiner Doktoarbeit entwickelt wurde. Inspiriert wurde sie von der mythischen Figure des Bildhauers Pygmalion der seine Skulpturen zum Leben erwecken konnte.
+Die Sprache erlangte nie eine große Verbreitung, war aber ein wichtiger Meilenstein in der Entwicklung von visuellen Programmiersprachen und HCI's.
+Pygmalion wurde in Smalltalk implementiert und war eine der ersten visuellen Programmiersprachen. Über eine grafische Oberfläche konnten die Nutzer*innen Blöcke, Icons und Verbindungen erstellen und manipulieren im damit Programme zu definieren.
+Icons waren damals eine Neuerung und wurden von den Entwicklern als "eine Art von visuellen Variablen" bezeichnet. 
+Das Sprache war eine der ersten Beispiele von PBE oder "Programming By Example".
+Die Nutzer*innen konnten Programme schreiben indem sie die gewünschte Funktionalität in einem Beispiel demonstrieren. 
+In Abbildung \ref{fig:pygmalion_demo} wird auf diese Art die Fakultät einer Zahl berechnet. 
+\end{minipage}
+\endgroup
+
+\pagebreak
+
+\subsubsection{Cube}
+\cmt{Erste visuelle Programmiersprache mit Higher-Order-Functions} \cite{najork1996programming}
+\linebreak
+\linebreak
+
+\subsection{Node-basierte visuelle Programmiersprachen}
+\subsubsection{Node-RED}
+\subsubsection{Blender}
+\subsubsection{SpeedTree}
 \subsection{WebAssembly}
-WebAssembly (WASM) ist ein Bytecode-Format für eine stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}.
+WebAssembly (WASM) ist ein Bytecode-Format für eine stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
 \linebreak
 \linebreak
 Es wird hauptsächlich als Kompilierungsziel für Programmiersprachen wie C, C++, Rust und TypeScript verwendet, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht Garbage-Collectet und ist außerdem stark typisiert. Dies ermöglicht es, performante und sicherere Anwendungen zu entwickeln.
@@ -43,8 +139,50 @@ Es wird hauptsächlich als Kompilierungsziel für Programmiersprachen wie C, C++
 \cmt{WebAssembly Text Format}
 \subsubsection{WebAssembly Component Model}
 \cmt{Kind of like ES-Modules or C-Style Linking}
-\subsection{Visuelle Programmiersprachen}
-\subsubsection{Node-basierte visuelle Programmiersprachen}
+\subsubsection{WIT}
+\cmt{WebAssembly Interface Types}
+
+\section{Konzept}
+\subsection{Anforderungen}
+\subsection{Architektur}
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/OVERVIEW_SEQUENCE.pdf}
+    \caption{Sequenzdiagramm der Architektur}
+    \label{fig:your_label}
+\end{figure}
+
+\subsubsection{Higher Order Nodes}
+\cmt{Nodes die andere Nodes als Input oder Output haben}
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphics/PURE_GRAPH.pdf}
+        \caption{Darstellung eines \link{Node-Graph}}
+        \label{sec:PURE_GRAPH}
+    \end{minipage}
+    \hfill
+    \begin{minipage}[b]{0.45\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphics/RANDOM_PROBLEM.pdf}
+        \caption{Problemdarstellung}
+        \label{fig:problem}
+    \end{minipage}
+\end{figure}
+
+\subsubsection{NODE\_INTERFACE}
+\cmt{Visuelles Interface für den Node-Graph}
+\subsubsection{NODE\_REGISTRY}
+\cmt{Verwaltung der Nodes}
+\subsubsection{RUNTIME\_EXECUTOR}
+\cmt{Ausführung der Nodes}
+\subsection{Technologien}
+\subsubsection{Svelte}
+\subsubsection{Rust}
+\subsection{Design}
 
 \section{Implementierung}
 \subsection{UI}
@@ -52,8 +190,36 @@ Es wird hauptsächlich als Kompilierungsziel für Programmiersprachen wie C, C++
 
 \section{Evaluation}
 \section{Fazit}
-\section{Literaturverzeichnis}
 
+\pagebreak
+\section{Glossar}
+
+\subsection{Node}
+\label{sec:Node}
+Einzelner Baustein eines \hyperref[sec:Node-Graph]{Node-Graphs}. Eine Node funktioniert etwa wie eine Funktion in einer textuellen Programmiersprache. Sie nimmt \hyperref[sec:Node-Argumente]{Node-Argumente} entgegen, verarbeitet diese und gibt ein Ergebnis zurück. 
+
+\begin{figure}[htbp]
+    \centering
+    \includegraphics[width=0.8\textwidth]{graphics/NODE_ANATOMY.pdf}
+    \caption{Anatomie einer Node}
+    \label{sec:NODE_ANATOMY}
+\end{figure}
+
+\subsection{Node-Graph}
+\label{sec:Node-Graph}
+Node-Graphs sind ein direkter \link[PURE_GRAPH]{acyclischer Graph (DAG)} von \hyperref[sec:Node]{Nodes}. Sie bestehen aus einer Menge von Nodes und deren Verknüpfungen. 
+
+\subsection{Node-Argumente}
+\label{sec:Node-Argumente}
+Node-Argumente sind die Eingabeparameter einer Node. Ein Node-Argument kann entweder direkt in einer \hyperref[sec:Node]{Node} definiert sein oder indem der User einen Output-Socket einer anderen Node mit dem \link{Node-Socket} eines Node-Argument verknüpft.
+
+\subsection{Node-Socket}
+\label{sec:Node-Socket}
+Node-Sockets sind die Verbindungspunkte zwischen \link[Node]{Nodes}. Eine Node hat mehrere Input-Sockets und einen Output Socket.
+
+
+\pagebreak
+\section{Literaturverzeichnis}
 
 \printbibliography
 

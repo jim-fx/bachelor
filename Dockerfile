@@ -22,11 +22,14 @@ RUN tlmgr install --verify-repo=none \
     upquote \
     hyperref \
     tcolorbox \
+    todonotes \
     geometry \
     babel  \
     bookmark \
     ulem \
     oberdiek \
+    lipsum \
+    wrapfig \
     biblatex && \
     tlmgr path add
 

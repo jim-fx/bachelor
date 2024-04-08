@@ -17,6 +17,7 @@ diff:
 
 watch:
 	(live-server --no-browser --watch=$(PDF_FILE) & \
+	/mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe "http://localhost:8080/#$(FILE)" & \
 	make FILE=$(FILE)) & \
 	while true; do \
 			inotifywait -e modify $(TEX_FILE); \
