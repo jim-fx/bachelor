@@ -12,3 +12,4 @@
 *.run.xml
 *.toc
 latexdiff_output/
+!graphics/*
