@@ -7,10 +7,18 @@ TEX_FILE = $(FILE).tex
 PDF_FILE = $(FILE).pdf
 
 pdf:
-	pdflatex $(TEX_FILE) && biber $(FILE) && pdflatex $(TEX_FILE)
+	pdflatex $(FILE) && biber $(FILE) && pdflatex $(TEX_FILE)
 
 open:
-	/mnt/c/Program\ Files/Mozilla\ Firefox/firefox.exe $$(wslpath -w "$$PWD/$(PDF_FILE)")
+	if [ -x "$$(command -v zathura)" ]; then \
+		zathura "$$(wslpath -w "$(FILE).pdf")"; \
+	elif [ -f "/mnt/c/Program Files/Adobe/Acrobat DC/Acrobat/Acrobat.exe" ]; then \
+		"/mnt/c/Program Files/Adobe/Acrobat DC/Acrobat/Acrobat.exe" "$$(wslpath -w "$(FILE).pdf")"; \
+	elif [ -f "/mnt/c/Program Files/Mozilla Firefox/firefox.exe" ]; then \
+		"/mnt/c/Program Files/Mozilla Firefox/firefox.exe" "$$(wslpath -w "$(FILE).pdf")"; \
+	else \
+		echo "No suitable PDF viewer found."; \
+	fi
 
 diff:
 	./scripts/latex-diff.sh $(FILE)
