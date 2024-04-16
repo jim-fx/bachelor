@@ -46,7 +46,7 @@
         colframe=black,
         boxrule=0.5pt,
         arc=4pt,
-        left=0mm,
+        left=2mm,
         right=2mm,
         top=2mm,
         bottom=2mm,
@@ -59,25 +59,6 @@
 \newcommand{\cmt}[1]{\textcolor{gray!60}{\textit{/* #1 */}}}
 
 \newcommand{\qt}[1]{„#1“}
-
-% New environment to wrap minted in tcolorbox
-\newenvironment{code}[1]
-{%
-  \begin{tcolorbox}[
-    colback=white, % Background color
-    colframe=black, % Border color
-    boxrule=0.7pt, % Border width
-    arc=5pt, % Border radius
-    left=2mm, % Left padding
-    right=2mm, % Right padding
-    top=2mm, % Top padding
-    bottom=2mm % Bottom padding
-  ]
-  \begin{minted}{#1}
-}{%
-  \end{minted}
-  \end{tcolorbox}
-}
 
 % Define a custom command for colored boxes around words
 \newcommand{\topics}[1]{%

@@ -79,7 +79,6 @@ Form-based systems erlauben es dem Nutzer, Programme zu schreiben, indem er Form
   \centering
   \includegraphics[width=0.3\textwidth]{./graphics/sketchpad-sutherland.jpg} % Change example-image-a with your image filename
   \caption{SketchPad \cite{sutherlandSketchpad}}
-  \label{fig:your_label}
 \end{wrapfigure}
 SketchPad ist ein von Ivan Sutherland entwickeltes Programm das 1963 am MIT veröffentlicht wurde. 
 SketchPad benutzte einen Lightpen als Eingabegerät und war das erste Programm, das die Interaktion mit einem Computer über eine grafische Benutzeroberfläche ermöglichte. 
@@ -150,13 +149,11 @@ Node-RED ist eine webbasierte Programmier- und Ausführungsumgebung die auf Node
 Es wurde 2013 von IBM entwickelt und ist seit 2016 teil der OpenJS Foundation (damals JS Foundation).
 \cite{nodered}
 
-
-
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.7\textwidth]{./graphics/node-red-3_1_8.png}
   \caption{Node Red v3.1.8}
-  \label{fig:}
+  \label{fig:node_red}
 \end{figure}
 
 Node-RED findet vor allem Anwendung in den Bereichen IoT und Home Automation, da es eine Vielzahl von Anbindungen an verschiedene Geräte und Dienste bietet. 
@@ -196,7 +193,7 @@ Im Gegensatz zum Shader Editor (sieht Abbildung \ref{fig:blender-shader}) bietet
 WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
 \linebreak
 \linebreak
-Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und Rust, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert. Dies ermöglicht es, performante und sicherere Anwendungen zu entwickeln.
+Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und Rust benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert. Dies ermöglicht es, performante und sicherere Anwendungen zu entwickeln.
 \subsubsection{WASI}
 \cmt{WebAssembly System Interface}
 \subsubsection{WAT}
@@ -207,30 +204,96 @@ Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprache
 \cmt{WebAssembly Interface Types}
 
 \section{Konzept}
+
 \subsection{Anforderungen}
 
-- speed/performance
-- einfachheit damit auch andere leute die sache implementieren können
+- Flexibilität
+
+\ \ $\rightarrow$  Einfachheit
+
+
+- Gute UX
+
+\ \ $\rightarrow$ Geschwindigkeit
+
+
 - gerne das die einzelnen komponenten nicht in derselben umgebung laufen müssen
+
 - Ähnlich wie die Ziele von WASM
+
 - Damit die einzelnen Komponenten in unterschiedlichen Umgebungen implementiert werden können
 
 \subsection{Architektur}
 
+Aus den vorher genannten Zielen ergeben sich folgende Anforderungen an die Architektur:
+
+\begin{itemize}
+  \item Geschwindigkeit
+  \item Einfachheit
+  \item Erweiterbarkeit
+\end{itemize}
+
 - drei unterschiedlich module. 
+
 - Möglichst minimale interfaces. 
 
 \subsubsection{Datentypen}
 
-\begin{code}
-\begin{minted}{typescript}
-const d: string = "Hello, world!";
+Die Datentypen wurden möglichst minimal gehalten. Dies dient zum einen dem Ziel das gesamte System so einfach und verständlich wie möglich zu halten, und zum
+anderen macht es die Serialisierung und Deserialisierung der Daten schneller.
+\linebreak
+\linebreak
+Die drei Hauptdatentypen sind \link[Node]{Node}, \link[data_node_type]{Node-Type} und \link[Node-Graph]{Node-Graph}. 
 
-function test<T>(a: string, b: T): T {
-    return b;
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{typescript}
+type Node = {
+  id: number;                     // Primäre ID der Node
+  type: string;                   // Type der Node, bsp: max/plantarium/math
+  props?: Record<string, any>,    // Daten der Node
+  position: [x: number, y: number]
 }
-\end{minted}
-\end{code}
+    \end{minted}
+  \end{code}
+
+  \caption{Datenstruktur einer \link[Node]{Node} (TypeScript)}
+  \label{fig:data_node}
+
+\end{figure}
+
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{typescript}
+type NodeType = {
+  id: string;
+  inputs?: Record<string, NodeInput>
+  outputs?: string[];
+  execute?: (args: number[]) => unknown;
+}
+    \end{minted}
+  \end{code}
+
+  \caption{Datenstruktur des \link[Node-Typ]{Node-Typen} (TypeScript)}
+  \label{sec:data_node_type}
+
+\end{figure}
+
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{typescript}
+type Graph = {
+  id: number;                                 // Primäre ID des Graphen
+  nodes: Node[];                              // Liste aller Nodes
+  edges: [number, number, number, string][];  // Liste aller Verbindungen
+}
+    \end{minted}
+  \end{code}
+
+  \caption{Datenstruktur eines \link{Node-Graph} (TypeScript)}
+  \label{fig:data_node_graph}
+
+\end{figure}
 
 \begin{figure}
     \centering
@@ -247,13 +310,6 @@ function test<T>(a: string, b: T): T {
         \caption{Darstellung eines \link{Node-Graph}}
         \label{sec:PURE_GRAPH}
     \end{minipage}
-    \hfill
-    \begin{minipage}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{graphics/RANDOM_PROBLEM.pdf}
-        \caption{Problemdarstellung}
-        \label{fig:problem}
-    \end{minipage}
 \end{figure}
 
 \subsubsection{NODE\_INTERFACE}
@@ -263,9 +319,41 @@ function test<T>(a: string, b: T): T {
 \subsubsection{RUNTIME\_EXECUTOR}
 \cmt{Ausführung der Nodes}
 
-\subsubsection{Higher Order Nodes}
+\subsubsection{Higher Order Nodes / Parameter}
 \label{sec:HON}
 \cmt{Nodes die andere Nodes als Input oder Output haben}
+\linebreak
+\linebreak
+In vorherigen Abschnitten wurden einzelne Nodes wie Funktionen besch
+Es gibt Situationen, in denen es sinnvoll ist, von dem Konzept einer Node als reiner Funktion abzuweichen, die ihr Ergebnis berechnet und direkt an die nächste Node weitergibt.
+\linebreak
+\linebreak
+Wie in Abbildung \ref{fig:random_problem} dargestellt, würde das Ergebnis der \topic{random} Node identisch sein, wenn sie nur einmal ausgeführt wird, unabhängig davon, wie viele \topic{math/add} Nodes als Empfänger dienen. 
+Eine mögliche Lösung wäre, die \topic{random} Node für jede ihrer ausgehenden Verbindungen separat auszuführen. 
+Dies könnte jedoch zur unnötigen Mehrfachausführung von Nodes führen, die dies nicht erfordern.
+Außerdem erschwert dies das Caching von Node-Ergebnissen, da nicht nur die Node-Parameter, sondern auch die Anzahl der Verbindungen das Ergebnis beeinflussen würden.
+\linebreak
+\linebreak
+Ein weiterer Nachteil ist das für dieses Konzept die Ausführung der Nodes nicht mehr nur in eine Richtung verläuft. Das könnte zu konzeptioneller Verwirrung und Komplexität führen.
+\linebreak
+\linebreak
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.5\textwidth]{graphics/RANDOM_PROBLEM.pdf}
+  \caption{Illustration eines Problems mit der \texttt{random} Node}
+  \label{fig:random_problem}
+\end{figure}
+
+\pagebreak
+
+Ein weiteres Problem soll durch Abbildung \ref{fig:noise_problem} verdeutlicht werden.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.8\textwidth]{./graphics/NOISE_PROBLEM.pdf}
+  \caption{Problemdarstellung}
+  \label{fig:noise_problem}
+\end{figure}
 
 \subsection{Technologien}
 \subsubsection{Svelte}
@@ -293,13 +381,17 @@ Einzelner Baustein eines \hyperref[sec:Node-Graph]{Node-Graphs}. Eine Node funkt
     \label{sec:NODE_ANATOMY}
 \end{figure}
 
+\subsection{Node-Typ}
+\label{sec:Node-Typ}
+Eine Node ist quasi eine Instanz eines Node-Typs. Ein Node-Typ definiert die Struktur einer Node. Er enthält Informationen über die Inputs und Outputs einer Node und die Funktion, die die Node ausführt.
+
 \subsection{Node-Graph}
 \label{sec:Node-Graph}
-Node-Graphs sind ein direkter \link[PURE_GRAPH]{azyklischer Graph (DAG)} von \hyperref[sec:Node]{Nodes}. Sie bestehen aus einer Menge von Nodes und deren Verknüpfungen. 
+Node-Graphs sind ein gerichteter \link[PURE_GRAPH]{azyklischer Graph (DAG)} von \hyperref[sec:Node]{Nodes}. Sie bestehen aus einer Menge von Nodes und deren Verknüpfungen. 
 
 \subsection{Node-Argumente}
 \label{sec:Node-Argumente}
-Node-Argumente sind die Eingabeparameter einer Node. Ein Node-Argument kann entweder direkt in einer \hyperref[sec:Node]{Node} definiert sein oder indem der User einen Output-Socket einer anderen Node mit dem \link{Node-Socket} eines Node-Argument verknüpft.
+Node-Argumente sind die Eingabeparameter einer Node. Ein Node-Argument kann entweder direkt über das Interface in einer \hyperref[sec:Node]{Node} definiert werden oder indem der User einen Output-Socket einer anderen Node mit dem \link{Node-Socket} eines Node-Argument verknüpft.
 
 \subsection{Node-Socket}
 \label{sec:Node-Socket}
