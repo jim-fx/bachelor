@@ -3,6 +3,8 @@
 \usepackage{pgffor}
 \usepackage{todonotes}
 \usepackage{graphicx}
+\usepackage{minted}
+\usemintedstyle{vs}
 \usepackage{fancyhdr}
 \usepackage{hyperref}
 \usepackage{tcolorbox}
@@ -15,8 +17,6 @@
 \usepackage{lipsum}
 \usepackage[autolang=other, backend=biber]{biblatex}
 \addbibresource{refs.bib}
-
-
 
 \hypersetup{
   colorlinks=true,
@@ -37,6 +37,23 @@
         \hyperref[sec:#1]{#2}%
     }%
 }
+
+\newenvironment{code}
+  {%
+    \begin{tcolorbox}[
+        colback=white,
+        colframe=black,
+        boxrule=0.5pt,
+        arc=4pt,
+        left=0mm,
+        right=2mm,
+        top=2mm,
+        bottom=2mm,
+      ]
+      }{% 
+    \end{tcolorbox}
+    }
+
 
 \newcommand{\cmt}[1]{\textcolor{gray!60}{\textit{/* #1 */}}}
 

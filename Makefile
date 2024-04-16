@@ -7,7 +7,7 @@ TEX_FILE = $(FILE).tex
 PDF_FILE = $(FILE).pdf
 
 pdf:
-	pdflatex $(FILE) && biber $(FILE) && pdflatex $(TEX_FILE)
+	pdflatex --shell-escape $(FILE) && biber $(FILE) && pdflatex --shell-escape $(TEX_FILE)
 
 open:
 	if [ -x "$$(command -v zathura)" ]; then \

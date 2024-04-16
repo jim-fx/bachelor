@@ -13,3 +13,4 @@
 *.toc
 latexdiff_output/
 !graphics/*
+_minted-*/

@@ -203,7 +203,25 @@ Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprache
 
 \section{Konzept}
 \subsection{Anforderungen}
+
+- speed/performance
+- einfachheit damit auch andere leute die sache implementieren können
+- gerne das die einzelnen komponenten nicht in derselben umgebung laufen müssen
+- Ähnlich wie die Ziele von WASM
+- Damit die einzelnen Komponenten in unterschiedlichen Umgebungen implementiert werden können
+
 \subsection{Architektur}
+
+- drei unterschiedlich module. 
+- Möglichst minimale interfaces. 
+
+\subsubsection{Datentypen}
+
+\begin{code}
+\begin{minted}{typescript}
+  const d:string = "asdasd";
+\end{minted}
+\end{code}
 
 \begin{figure}[htbp]
     \centering
@@ -211,10 +229,6 @@ Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprache
     \caption{Sequenzdiagramm der Architektur}
     \label{fig:your_label}
 \end{figure}
-
-\subsubsection{Higher Order Nodes}
-\label{sec:HON}
-\cmt{Nodes die andere Nodes als Input oder Output haben}
 
 \begin{figure}[htbp]
     \centering
@@ -239,6 +253,11 @@ Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprache
 \cmt{Verwaltung der Nodes}
 \subsubsection{RUNTIME\_EXECUTOR}
 \cmt{Ausführung der Nodes}
+
+\subsubsection{Higher Order Nodes}
+\label{sec:HON}
+\cmt{Nodes die andere Nodes als Input oder Output haben}
+
 \subsection{Technologien}
 \subsubsection{Svelte}
 \subsubsection{Rust}
