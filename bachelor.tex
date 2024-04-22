@@ -25,16 +25,54 @@
 \pagebreak
 
 \section{Einleitung}
-In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces (HCI's) eine entscheidende Rolle.
-Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. 
-
-Da Menschen Konzepte und Relationen größtenteils visuell und räumlich verarbeiten \cite{smith1975pygmalion}, bieten visuelle Programmiersprachen (VPL's) einen guten Mittelweg für programmierunerfahrene Nutzer*innen. 
- 
-Sie vereinen die Benutzerfreundlichkeit grafischer Interfaces mit der Komplexität und Flexibilität textbasierter Programmiersprachen. 
 
 \subsection{Hintergrund}
+In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces (HCI's) eine entscheidende Rolle.
+Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. 
+\linebreak
+\linebreak
+Da Menschen Konzepte und Relationen größtenteils visuell und räumlich verarbeiten \cite{smith1975pygmalion}, bieten visuelle Programmiersprachen (VPL's) einen guten Mittelweg für programmierunerfahrene Nutzer*innen. 
+Sie vereinen die Benutzerfreundlichkeit grafischer Interfaces mit der Komplexität und Flexibilität textbasierter Programmiersprachen.
+\linebreak
+\linebreak
+Das Ziel dieser Bachelorarbeit ist es eine visuelle Programmiersprache zu entwickeln, die \textbf{performant}, \textbf{erweiterbar} und möglichst \textbf{einfach zu bedienen} ist.
+Um diese drei Anforderungen laufend zu überprüfen wird die VPL im Kontext einer Web-App entwickelt die den Nutzer*innen erlaubt prozedurale 3D-Modelle von Pflanzen zu erstellen.
+Dieser Anwendungsfall wurde gewählt da die hohen Datenmengen von 3D-Modellen eine gute Möglichkeit bieten die Performance der VPL zu testen.
+\linebreak
+\linebreak
+Ein weiteres Ziel dieser Arbeit ist es, die Eignung von WebAssembly als Grundlage für eine solche VPL zu untersuchen. 
+Dadurch das WebAssembly plattformunabhängig ist und es sich eignet, um performante Anwendungen zu entwickeln, könnte es sich als Grundlage für eine VPL anbieten.
+
 \subsection{Problemstellung}
-\subsection{Zielsetzung}
+
+Die Entscheidung diese VPL als Webanwendung zu entwickeln wurde aus mehreren Gründen getroffen. 
+Einerseits verfüge ich bereits über einige Erfahrung in der Entwicklung von Webanwendungen. 
+Andererseits bietet das Web Nutzer*innen einen niedrigschwelligen Zugang zur Anwendung, da sie keine zusätzliche Software installieren müssen.
+\linebreak
+\linebreak
+Trotz dieser Vorteile bringt die Entwicklung von Webanwendungen auch spezifische Herausforderungen mit sich.
+So ist die Sprache in der dynamische Webanwendungen entwickelt werden, Javascript, \qt{garbage-collected} und nicht stark typisiert. 
+Dies macht es theoretisch schwieriger performante und robuste Anwendungen zu entwickeln. 
+Um die Entwicklung etwas leichter zu gestalten habe ich mich entschieden die VPL in \link[TypeScript]{TypeScript} zu entwickeln, da diese Sprache stark typisiert ist und zu JavaScript kompiliert wird.
+\linebreak
+\linebreak
+Weitere Herausforderungen entstehen durch die Nutzung von WebAssembly. 
+WebAssembly führt Code in einer virtuellen Maschine aus, die nicht direkt Zugang auf den Speicher oder Variablen der Host-Umgebung (den Browser) hat.
+Innerhalb dieser virtuellen Maschine wird der Code nahe der nativen Geschwindigkeit ausgeführt, was zu einer hohen Performance führt. 
+Die Herausforderung besteht darin das die Kommunikation zwischen der Host-Umgebung und dieser virtuellen Maschine relativ langsam ist und so zu einem Engpass führen kann.
+\linebreak
+\linebreak
+Außerdem erlaubt WebAssembly nur sehr wenige numerische Datentypen; 32 und 64 Bit Integer sowie 32 und 64 Bit Floats nach dem IEEE 754 Standard. 
+Größere und komplexe Datentypen müssen serialisiert werden, um sie an WebAssembly zu übergeben. 
+Um komplexere Werte wieder an die Host-Umgebung zu übergeben, muss diese direkt auf den Speicher der virtuellen Maschine zugreifen.
+Zum Glück gibt es Bibliotheken wie \link[WASM-Bindgen]{WASM-Bindgen} die diese Kommunikation abstrahieren und vereinfachen.
+\linebreak
+\linebreak
+Da WebAssembly ein binäres Format ist, wird es selten direkt geschrieben und meistens als Kompilierungsziel für komplexere Programmiersprachen benutzt.
+Ich entschied mich für die Programmiersprache \link[Rust]{Rust}, da sie eine starke Typisierung, Performance und Speicher-Sicherheit bietet \cite{bugden2022rust}.
+Außerdem bietet Rust eine gute Integration mit WebAssembly und ermöglicht es, Rust-Code direkt in WebAssembly zu kompilieren. 
+Die \href{https://rustwasm.github.io/}{Rust and WebAssembly domain working group} bietet viele Tools und Bibliotheken an, die die Entwicklung von WebAssembly-Anwendungen in Rust erleichtern.
+\subsection{Zielsetzung} 
 \subsection{Forschungsfragen}
 
 Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache?  
@@ -207,20 +245,25 @@ Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprache
 
 \subsection{Anforderungen}
 
-- Flexibilität
+\textbf{Non-Goals (at this stage)}
 
-\ \ $\rightarrow$  Einfachheit
+- Accessibility
+
+- Mobile
+
+\textbf{Goals}
+
+Diese Programmiersprache soll auch für komplexe Anwendungsfälle geeignet sein.
+
+Außerdem soll sie durch andere Programmierer*innen erweiterbar sein. 
+Einer der Gründe WebAssembly zu benutzen ist die Eigenschaft das es Plattform unabhängig ist. Dies wiederum ermöglicht es das in der Zukunft Node-Graphen in klassischen Desktop-Anwendungen, auf Embedded Devices oder in der Cloud ausgeführt werden können.
+
+Außerdem soll sie performant sein.
+
+Außerdem soll sie möglichst einfach zu benutzen sein.
 
 
-- Gute UX
-
-\ \ $\rightarrow$ Geschwindigkeit
-
-
-- gerne das die einzelnen komponenten nicht in derselben umgebung laufen müssen
-
-- Ähnlich wie die Ziele von WASM
-
+- gerne das die einzelnen Komponenten nicht in derselben Umgebung laufen müssen
 - Damit die einzelnen Komponenten in unterschiedlichen Umgebungen implementiert werden können
 
 \subsection{Architektur}
@@ -356,8 +399,14 @@ Ein weiteres Problem soll durch Abbildung \ref{fig:noise_problem} verdeutlicht w
 \end{figure}
 
 \subsection{Technologien}
+\subsubsection{WASM-Bindgen}
+\label{sec:WASM-Bindgen}
 \subsubsection{Svelte}
+\label{sec:Svelte}
 \subsubsection{Rust}
+\label{sec:Rust}
+\subsubsection{TypeScript}
+\label{sec:TypeScript}
 \subsection{Design}
 
 \section{Implementierung}
