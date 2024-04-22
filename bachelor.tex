@@ -30,8 +30,15 @@
 In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces (HCI's) eine entscheidende Rolle.
 Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. 
 \br
-Da Menschen Konzepte und Relationen größtenteils visuell und räumlich verarbeiten \cite{smith1975pygmalion}, bieten visuelle Programmiersprachen (VPL's) einen guten Mittelweg für programmierunerfahrene Nutzer/innen. 
+Da Menschen Konzepte und Relationen größtenteils visuell und räumlich verarbeiten \cite{smith1974pygmalion}, bieten visuelle Programmiersprachen (VPL's) einen guten Mittelweg für programmierunerfahrene Nutzer/innen. 
 Sie vereinen die Benutzerfreundlichkeit grafischer Interfaces mit der Komplexität und Flexibilität textbasierter Programmiersprachen.
+\br
+Es gibt bereits eine Vielzahl von VPL's, die in unterschiedlichen Bereichen Anwendung finden. 
+Diese reichen von einfachen Tools wie \textit{Scratch} für Kinder bis zu komplexen Systemen wie \textit{Blender} für 3D-Modellierung und Animation.
+\br
+In dieser Bachelorarbeit wird eine VPL entwickelt bei der die einzelnen Bausteine als WebAssembly-Module implementiert sind. 
+Dies ermöglicht es neue Bausteine von anderen Entwickler/innen einfach hinzuzufügen und so die Funktionalität der VPL zu erweitern.
+Hierbei garantiert WebAssembly eine hohe Performance und Sicherheit, da der Code in einer virtuellen Maschine ausgeführt wird.
 
 \subsection{Problemstellung}
 
@@ -56,8 +63,8 @@ Zum Glück gibt es Bibliotheken wie \link[WASM-Bindgen]{WASM-Bindgen} die diese 
 \br
 Da WebAssembly ein binäres Format ist, wird es selten direkt geschrieben und meistens als Kompilierungsziel für komplexere Programmiersprachen benutzt.
 Ich entschied mich für die Programmiersprache \link[Rust]{Rust}, da sie eine starke Typisierung, Performance und Speicher-Sicherheit bietet \cite{bugden2022rust}.
-Außerdem bietet Rust eine gute Integration mit WebAssembly und ermöglicht es, Rust-Code direkt in WebAssembly zu kompilieren. 
-Die \href{https://rustwasm.github.io/}{Rust and WebAssembly domain working group} bietet viele Tools und Bibliotheken an, die die Entwicklung von WebAssembly-Anwendungen in Rust erleichtern.
+Außerdem bietet \link[Rust]{Rust} eine gute Integration mit WebAssembly und ermöglicht es, Rust-Code direkt in WebAssembly zu kompilieren. 
+Die \href{https://rustwasm.github.io/}{Rust and WebAssembly domain working group} bietet viele Tools und Bibliotheken an, die die Entwicklung von WebAssembly-Anwendungen in \link[Rust]{Rust} erleichtern.
 
 \subsection{Zielsetzung} 
 \label{sec:Zielsetzung}
@@ -218,34 +225,55 @@ Im Gegensatz zum Shader Editor (sieht Abbildung \ref{fig:blender-shader}) bietet
 
 \subsubsection{SpeedTree}
 
-\subsection{WebAssembly}
-WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
-\br
-Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und Rust benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert. Dies ermöglicht es, performante und sicherere Anwendungen zu entwickeln.
-\subsubsection{WASI}
-\cmt{WebAssembly System Interface}
-\subsubsection{WAT}
-\cmt{WebAssembly Text Format}
-\subsubsection{WebAssembly Component Model}
-\cmt{Kind of like ES-Modules or C-Style Linking}
-\subsubsection{WIT}
-\cmt{WebAssembly Interface Types}
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.6\textwidth]{./graphics/generationeditor_7_speedtree.jpg}
+  \caption{SpeedTree Screenshot \cite{speedtreeGettingstartedSpeedTree}}
+  \label{fig:blender-repeat}
+\end{figure}
+
+\cmt{Need to write more here}
+
+- pretty good for procedural generation
+
+- nicht erweiterbar
+
+- nicht webbasiert
+
+- nicht open-source
+
+- nicht generalisiert
+
 
 \section{Konzept}
 
 Die VPL die in dieser Arbeit entwickelt wird, basiert auf einem node-basierten Ansatz. 
-\link[Node]{Nodes} sind in diesem Kontext einzelne Bausteine die ähnlich wie eine Funktion in einer textuellen Programmiersprache funktionieren.
+\link[node]{Nodes} sind in diesem Kontext einzelne Bausteine die ähnlich wie eine Funktion in einer textuellen Programmiersprache funktionieren.
 Das heißt, sie nehmen Argumente entgegen, verarbeiten diese und geben ein Ergebnis zurück.
 \br
-Die einzelnen Argumente können entweder direkt über das Interface einer \link{Node} definiert werden oder in dem der/die Nutzer/in das Ergebnis einer anderen \link{Node} mit diesem Argument verknüpft.
+Die einzelnen Argumente können entweder direkt über das Interface einer \link[node]{Node} definiert werden oder in dem der/die Nutzer/in das Ergebnis einer anderen \link[node]{Node} mit diesem Argument verknüpft.
 Bei der visuellen Gestaltung lehnt sich die VPL sehr an die verschiedenen Node-Editoren in Blender an.
 \br
-Die einzelnen \link[Node]{Nodes} sind hierbei jeweils Instanzen eines WebAssembly-Moduls. 
-Dies erlaubt es das System um neue Node-Typen zu erweitern, indem man eine einzelne WebAssembly Datei lädt.
+Die einzelnen \link[node]{Nodes} sind hierbei jeweils Instanzen eines WebAssembly-Moduls. 
+Dies erlaubt es das System um neue Node-Definitionen zu erweitern, indem man eine einzelne WebAssembly Datei lädt.
 Woher diese Dateien kommen ist dabei egal, sie können von der Festplatte, einem Server oder aus dem lokalen Speicher geladen werden.
 \br
-Die Verbindungen mehrerer \link[Node]{Nodes} stellt einen \link{Node-Graph} dar. 
-Dieser \link{Node-Graph} kann als JSON-Objekt serialisiert und deserialisiert werden und so gespeichert und geladen werden.
+Die Verbindungen mehrerer \link[node]{Nodes} stellt einen \link[node_graph]{Node-Graph} dar. 
+Dieser \link[node_graph]{Node-Graph} kann als JSON-Objekt serialisiert und deserialisiert werden und so gespeichert und geladen werden.
+\br
+In Abbildung \ref{sec:PURE_GRAPH} ist ein Beispiel für einen \link[node_graph]{Node-Graph} dargestellt. 
+Der Datenfluss ist von links nach rechts und die Verbindungen zwischen den Nodes sind gerichtet.
+
+
+\begin{figure}[htbp]
+    \centering
+    \begin{minipage}[b]{0.8\textwidth}
+        \centering
+        \includegraphics[width=\textwidth]{graphics/PURE_GRAPH.pdf}
+        \caption{Darstellung eines \link[node_graph]{Node-Graph}}
+        \label{sec:PURE_GRAPH}
+    \end{minipage}
+\end{figure}
 
 \pagebreak
 
@@ -255,12 +283,13 @@ Wie in der \hyperref[sec:Zielsetzung]{Zielsetzung} beschrieben, gibt es drei Hau
 
 \subsubsection{Erweiterbarkeit}
 
-Hiermit ist gemeint, dass das System einfach um neue Node-Typen erweitert werden kann.
+Hiermit ist gemeint, dass das System einfach um neue \link[node_definition]{Node-Definitionen} erweitert werden kann.
 \qt{Einfach} heißt in diesem Kontext das ein/e andere/r Programmierer/in möglichst 
 schnell in der Lage sein soll eigene WebAssembly-Module zu schreiben welche dann von der VPL geladen und ausgeführt werden können.
+Um dies zu erreichen müssen die Interfaces und Abstraktionen möglichst minimal gehalten werden.
 \br
 Außerdem sollen die Komponenten, auf die ich in der \link{Architektur} noch genauer eingehen werde, in unterschiedlichen Umgebungen implementiert und ausgeführt werden können.
-Vorstellbar wäre zum Beispiel das der/die Nutzer/in den \link{Node-Graph} in einer Web-App bearbeitet, dieser aber in Echtzeit auf einem Server ausgeführt wird.
+Vorstellbar wäre zum Beispiel das der/die Nutzer/in den \link[node_graph]{Node-Graph} in einer Web-App bearbeitet, dieser aber in Echtzeit auf einem Server ausgeführt wird.
 
 Dies erfordert eine möglichst lose Kopplung und die Minimierung des Datentransfers zwischen den einzelnen Komponenten.
 
@@ -276,6 +305,8 @@ Hierbei muss darauf geachtet werden diese so kurz wie möglich zu halten.
 
 Diese Anforderung ist deutlich schwieriger zu konkretisieren. User-Experience umfasst die gesamte Interaktion von der ersten Interaktion bis zur regelmäßigen Nutzung.
 Hierbei spielen Performance, Konsistenz, Fehlermanagement und Feedback eine große Rolle.
+\br
+\cmt{Hier muss definitiv noch mehr rein}
 
 \subsubsection{Nicht-Ziele}
 
@@ -285,102 +316,144 @@ Soweit möglich sollte auf Zugänglichkeit geachtet werden, diese aber umfassend
 \br
 Auch die Optimierung für mobile Endgeräte ist nicht vorgesehen, da die Art der Anwendung sich nicht für kleine Bildschirme oder Touch-Interfaces eignet.
 \br
-Hierbei ist aber zu erwähnen das diese Ziele nur im Kontext der Bachelorarbeit ausgeklammert werden, für zukünftige Weiterentwicklung durchaus infrage kommen.
+Hierbei ist aber zu erwähnen das diese Ziele nur im Kontext der Bachelorarbeit ausgeklammert werden, für zukünftige Weiterentwicklung aber durchaus infrage kommen.
+
+\pagebreak
 
 \subsection{Architektur}
 \label{sec:Architektur}
 
-Aus den vorher genannten Zielen ergeben sich folgende Anforderungen an die Architektur:
+Die Architektur besteht aus drei Hauptkomponenten. 
+Das \link[node_interface]{NODE\_INTERFACE} ist für das visuelle Interface zuständig, hier interagieren Nutzer/innen mit dem \link[node_graph]{Node-Graph}.
+Der \link[runtime_executor]{RUNTIME\_EXECUTOR} ist für die Ausführung der Nodes zuständig. Er nimmt einen serialisierten \link[node_graph]{Node-Graph} entgegen und gibt das Ergebnis zurück.
+Die \link[node_registry]{NODE\_REGISTRY} ist für das Verwalten der Nodes zuständig. Die beiden anderen Komponenten laden aus ihr die einzelnen WebAssembly-Binärdateien der Nodes.
+\br
+In Abbildung \ref{fig:overview_sequence} ist in einem Sequenzdiagramm dargestellt wie die drei Komponenten zusammenarbeiten.
 
-\begin{itemize}
-  \item Geschwindigkeit
-  \item Einfachheit
-  \item Erweiterbarkeit
-\end{itemize}
+\begin{figure}[hbtp]
+    \centering
+    \includegraphics[width=1\textwidth]{graphics/OVERVIEW_SEQUENCE.pdf}
+    \caption{Sequenzdiagramm der Architektur}
+    \label{fig:overview_sequence}
+\end{figure}
 
-- drei unterschiedlich module. 
-
-- Möglichst minimale interfaces. 
+\pagebreak
 
 \subsubsection{Datentypen}
 
 Die Datentypen wurden möglichst minimal gehalten. Dies dient zum einen dem Ziel das gesamte System so einfach und verständlich wie möglich zu halten, und zum
 anderen macht es die Serialisierung und Deserialisierung der Daten schneller.
 \br
-Die drei Hauptdatentypen sind \link[Node]{Node}, \link[data_node_type]{Node-Type} und \link[Node-Graph]{Node-Graph}. 
+Die drei Hauptdatentypen sind  \link[data_node_type]{Node-Definition}, \hyperref[fig:data_node]{Node},  und \hyperref[fig:data_node_graph]{Node-Graph}. 
+
+
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{typescript}
+type NodeDefinition = {
+  id: string;
+  inputs?: Record<string, NodeInput>
+  outputs?: string[];
+  execute?: (args: Int32Array) => Int32Array;
+}
+
+const mathNodeType: NodeDefinition = {
+  id: "max/plantarium/math",
+  inputs: { 
+    op_type: { type:"select", options: ["add","subtract","multiply","divide"] }, 
+    a: { type: "float" }, 
+    b: { type: "float" } 
+  },
+  outputs: ["float"],
+  execute: (inputs) => {
+    // Implementierung der Math Node
+  }
+}
+    \end{minted}
+  \end{code}
+
+  \caption{Datenstruktur der \link[node_definition]{Node-Definition} (TypeScript)}
+  \label{sec:data_node_type}
+
+\end{figure}
+
+Die Node-Definition besteht aus einer \topic{id}, \topic{inputs}, \topic{outputs} und einer \topic{execute} Funktion. Die \topic{inputs} einer \link[node]{Node} können unterschiedliche \topic{type} Werte haben:
+
+\begin{itemize}
+  \setlength\itemsep{0.0em}
+  \item float
+  \item integer
+  \item boolean
+  \item select
+  \item vec3
+  \item etc.
+\end{itemize}
+
+Diese Inputs legen fest welche \link[node]{Nodes} mit dieser \link[node]{Node} verbunden werden können. 
+Außerdem benutzt das \link[node_interface]{Node-Interface} diese Information, um das Interface einer Node zu konstruieren.
+\br
+Einige andere Attribute wurden ausgeklammert um die Lesbarkeit zu erhöhen. So kann ein \topic{input} noch ein \topic{label}, ein \topic{default} und eine \topic{description} haben.
+
+\pagebreak
 
 \begin{figure}[htbp]
   \begin{code}
     \begin{minted}{typescript}
 type Node = {
-  id: number;                     // Primäre ID der Node
-  type: string;                   // Type der Node, bsp: max/plantarium/math
-  props?: Record<string, any>,    // Daten der Node
-  position: [x: number, y: number]
+  id: number;                       // Primäre ID der Node
+  type: string;                     // Type der Node, bsp: max/plantarium/math
+  props?: Record<string, any>,      // Daten der Node
+  position: [x: number, y: number]  // Visuelle Position
 }
+
+const exampleNode: Node = {
+  id: 5,
+  type: "max/plantarium/math",
+  props: { op_type: 0, a: 400, b: 20},
+  position: [60, 90]
+}
+
     \end{minted}
   \end{code}
 
-  \caption{Datenstruktur einer \link[Node]{Node} (TypeScript)}
+  \caption{Datenstruktur einer \link[node]{Node} (TypeScript)}
   \label{fig:data_node}
 
 \end{figure}
 
-\begin{figure}[htbp]
-  \begin{code}
-    \begin{minted}{typescript}
-type NodeType = {
-  id: string;
-  inputs?: Record<string, NodeInput>
-  outputs?: string[];
-  execute?: (args: number[]) => unknown;
-}
-    \end{minted}
-  \end{code}
-
-  \caption{Datenstruktur des \link[Node-Typ]{Node-Typen} (TypeScript)}
-  \label{sec:data_node_type}
-
-\end{figure}
+Die \link[node]{Node} Datenstruktur besteht aus einer \topic{id}, einem \topic{type}, optionalen \topic{props} und einer \topic{position}. 
+Die \topic{id} ist inkrementell und dient zur eindeutigen Identifikation der Node. Der \topic{type} verbindet eine \link[node]{Node} mit einer \link[node_definition]{Node-Definition}.
+Die \topic{props} sind die Argumente die an die \topic{execute} Funktion der \link[node_definition]{Node-Definition} übergeben werden.
 
 \begin{figure}[htbp]
   \begin{code}
     \begin{minted}{typescript}
-type Graph = {
+type NodeGraph = {
   id: number;                                 // Primäre ID des Graphen
   nodes: Node[];                              // Liste aller Nodes
-  edges: [number, number, number, string][];  // Liste aller Verbindungen
+  edges: [number, number, string][];  // Liste aller Verbindungen
 }
     \end{minted}
   \end{code}
 
-  \caption{Datenstruktur eines \link{Node-Graph} (TypeScript)}
+  \caption{Datenstruktur eines \link[node_graph]{Node-Graph} (TypeScript)}
   \label{fig:data_node_graph}
 
 \end{figure}
 
-\begin{figure}
-    \centering
-    \includegraphics[width=0.8\textwidth]{graphics/OVERVIEW_SEQUENCE.pdf}
-    \caption{Sequenzdiagramm der Architektur}
-    \label{fig:your_label}
-\end{figure}
+Der \link[node_graph]{Node-Graph} besteht aus einer \topic{id}, einer Liste aller \link[node]{Nodes} und einer Liste aller Verbindungen. 
+Die Verbindungen sind jeweils ein Tupel aus der \topic{id} der \link[node]{Node} von der die Verbindung ausgeht, der \topic{id} der \link[node]{Node} zu der die Verbindung geht, und der \topic{id} des \topic{inputs} der empfangenden Node.
 
-\begin{figure}[htbp]
-    \centering
-    \begin{minipage}[b]{0.45\textwidth}
-        \centering
-        \includegraphics[width=\textwidth]{graphics/PURE_GRAPH.pdf}
-        \caption{Darstellung eines \link{Node-Graph}}
-        \label{sec:PURE_GRAPH}
-    \end{minipage}
-\end{figure}
+\pagebreak
 
 \subsubsection{NODE\_INTERFACE}
+\label{sec:node_interface}
 \cmt{Visuelles Interface für den Node-Graph}
 \subsubsection{NODE\_REGISTRY}
+\label{sec:node_registry}
 \cmt{Verwaltung der Nodes}
 \subsubsection{RUNTIME\_EXECUTOR}
+\label{sec:runtime_executor}
 \cmt{Ausführung der Nodes}
 
 \subsubsection{Higher Order Nodes / Parameter}
@@ -424,6 +497,23 @@ Ein weiteres Problem soll durch Abbildung \ref{fig:noise_problem} verdeutlicht w
 \label{sec:Rust}
 \subsubsection{TypeScript}
 \label{sec:TypeScript}
+\subsubsection{WebAssembly}
+WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
+\br
+Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und \link[Rust]{Rust} benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert. Dies ermöglicht es, performante und sicherere Anwendungen zu entwickeln.
+\linebreak
+\textbf{WASI}
+\cmt{WebAssembly System Interface}
+\linebreak
+\textbf{WAT}
+\cmt{WebAssembly Text Format}
+\linebreak
+\textbf{WebAssembly Component Model}
+\cmt{Kind of like ES-Modules or C-Style Linking}
+\linebreak
+\textbf{WIT}
+\cmt{WebAssembly Interface Types}
+
 \subsection{Design}
 
 \section{Implementierung}
@@ -437,8 +527,8 @@ Ein weiteres Problem soll durch Abbildung \ref{fig:noise_problem} verdeutlicht w
 \section{Glossar}
 
 \subsection{Node}
-\label{sec:Node}
-Einzelner Baustein eines \hyperref[sec:Node-Graph]{Node-Graphs}. Eine Node funktioniert etwa wie eine Funktion in einer textuellen Programmiersprache. Sie nimmt \hyperref[sec:Node-Argumente]{Node-Argumente} entgegen, verarbeitet diese und gibt ein Ergebnis zurück. 
+\label{sec:node}
+Einzelner Baustein eines \hyperref[sec:node_graph]{Node-Graphs}. Eine Node funktioniert etwa wie eine Funktion in einer textuellen Programmiersprache. Sie nimmt \hyperref[sec:node_argumente]{Node-Argumente} entgegen, verarbeitet diese und gibt ein Ergebnis zurück. 
 
 \begin{figure}[htbp]
     \centering
@@ -447,21 +537,21 @@ Einzelner Baustein eines \hyperref[sec:Node-Graph]{Node-Graphs}. Eine Node funkt
     \label{sec:NODE_ANATOMY}
 \end{figure}
 
-\subsection{Node-Typ}
-\label{sec:Node-Typ}
-Eine Node ist quasi eine Instanz eines Node-Typs. Ein Node-Typ definiert die Struktur einer Node. Er enthält Informationen über die Inputs und Outputs einer Node und die Funktion, die die Node ausführt.
+\subsection{Node-Definition}
+\label{sec:node_definition}
+Eine Node ist quasi eine Instanz einer Node-Definition. Eine Node-Definition definiert die Struktur einer Node. Sie enthält Informationen über die Inputs und Outputs einer Node und die Funktion, die die Node ausführt.
 
 \subsection{Node-Graph}
-\label{sec:Node-Graph}
-Node-Graphs sind ein gerichteter \link[PURE_GRAPH]{azyklischer Graph (DAG)} von \hyperref[sec:Node]{Nodes}. Sie bestehen aus einer Menge von Nodes und deren Verknüpfungen. 
+\label{sec:node_graph}
+Node-Graphs sind ein gerichteter \link[PURE_GRAPH]{azyklischer Graph (DAG)} von \link[node]{Nodes}. Sie bestehen aus einer Menge von Nodes und deren Verknüpfungen. 
 
 \subsection{Node-Argumente}
-\label{sec:Node-Argumente}
-Node-Argumente sind die Eingabeparameter einer Node. Ein Node-Argument kann entweder direkt über das Interface in einer \hyperref[sec:Node]{Node} definiert werden oder indem der User einen Output-Socket einer anderen Node mit dem \link{Node-Socket} eines Node-Argument verknüpft.
+\label{sec:node_argumente}
+Node-Argumente sind die Eingabeparameter einer Node. Ein Node-Argument kann entweder direkt über das Interface in einer \link[node]{Node} definiert werden oder indem der User einen Output-Socket einer anderen Node mit dem \link[node_socket]{Node-Socket} eines Node-Argument verknüpft.
 
 \subsection{Node-Socket}
-\label{sec:Node-Socket}
-Node-Sockets sind die Verbindungspunkte zwischen \link[Node]{Nodes}. Eine Node hat mehrere Input-Sockets und einen Output Socket.
+\label{sec:node_socket}
+Node-Sockets sind die Verbindungspunkte zwischen \link[node]{Nodes}. Eine Node hat mehrere Input-Sockets und einen Output Socket.
 
 
 \pagebreak
