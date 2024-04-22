@@ -29,55 +29,50 @@
 \subsection{Hintergrund}
 In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces (HCI's) eine entscheidende Rolle.
 Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. 
-\linebreak
-\linebreak
-Da Menschen Konzepte und Relationen größtenteils visuell und räumlich verarbeiten \cite{smith1975pygmalion}, bieten visuelle Programmiersprachen (VPL's) einen guten Mittelweg für programmierunerfahrene Nutzer*innen. 
+\br
+Da Menschen Konzepte und Relationen größtenteils visuell und räumlich verarbeiten \cite{smith1975pygmalion}, bieten visuelle Programmiersprachen (VPL's) einen guten Mittelweg für programmierunerfahrene Nutzer/innen. 
 Sie vereinen die Benutzerfreundlichkeit grafischer Interfaces mit der Komplexität und Flexibilität textbasierter Programmiersprachen.
-\linebreak
-\linebreak
-Das Ziel dieser Bachelorarbeit ist es eine visuelle Programmiersprache zu entwickeln, die \textbf{performant}, \textbf{erweiterbar} und möglichst \textbf{einfach zu bedienen} ist.
-Um diese drei Anforderungen laufend zu überprüfen wird die VPL im Kontext einer Web-App entwickelt die den Nutzer*innen erlaubt prozedurale 3D-Modelle von Pflanzen zu erstellen.
-Dieser Anwendungsfall wurde gewählt da die hohen Datenmengen von 3D-Modellen eine gute Möglichkeit bieten die Performance der VPL zu testen.
-\linebreak
-\linebreak
-Ein weiteres Ziel dieser Arbeit ist es, die Eignung von WebAssembly als Grundlage für eine solche VPL zu untersuchen. 
-Dadurch das WebAssembly plattformunabhängig ist und es sich eignet, um performante Anwendungen zu entwickeln, könnte es sich als Grundlage für eine VPL anbieten.
 
 \subsection{Problemstellung}
 
 Die Entscheidung diese VPL als Webanwendung zu entwickeln wurde aus mehreren Gründen getroffen. 
 Einerseits verfüge ich bereits über einige Erfahrung in der Entwicklung von Webanwendungen. 
-Andererseits bietet das Web Nutzer*innen einen niedrigschwelligen Zugang zur Anwendung, da sie keine zusätzliche Software installieren müssen.
-\linebreak
-\linebreak
+Andererseits bietet das Web Nutzer/innen einen niedrigschwelligen Zugang zur Anwendung, da sie keine zusätzliche Software installieren müssen.
+\br
 Trotz dieser Vorteile bringt die Entwicklung von Webanwendungen auch spezifische Herausforderungen mit sich.
 So ist die Sprache in der dynamische Webanwendungen entwickelt werden, Javascript, \qt{garbage-collected} und nicht stark typisiert. 
 Dies macht es theoretisch schwieriger performante und robuste Anwendungen zu entwickeln. 
 Um die Entwicklung etwas leichter zu gestalten habe ich mich entschieden die VPL in \link[TypeScript]{TypeScript} zu entwickeln, da diese Sprache stark typisiert ist und zu JavaScript kompiliert wird.
-\linebreak
-\linebreak
+\br
 Weitere Herausforderungen entstehen durch die Nutzung von WebAssembly. 
 WebAssembly führt Code in einer virtuellen Maschine aus, die nicht direkt Zugang auf den Speicher oder Variablen der Host-Umgebung (den Browser) hat.
 Innerhalb dieser virtuellen Maschine wird der Code nahe der nativen Geschwindigkeit ausgeführt, was zu einer hohen Performance führt. 
 Die Herausforderung besteht darin das die Kommunikation zwischen der Host-Umgebung und dieser virtuellen Maschine relativ langsam ist und so zu einem Engpass führen kann.
-\linebreak
-\linebreak
+\br
 Außerdem erlaubt WebAssembly nur sehr wenige numerische Datentypen; 32 und 64 Bit Integer sowie 32 und 64 Bit Floats nach dem IEEE 754 Standard. 
 Größere und komplexe Datentypen müssen serialisiert werden, um sie an WebAssembly zu übergeben. 
 Um komplexere Werte wieder an die Host-Umgebung zu übergeben, muss diese direkt auf den Speicher der virtuellen Maschine zugreifen.
 Zum Glück gibt es Bibliotheken wie \link[WASM-Bindgen]{WASM-Bindgen} die diese Kommunikation abstrahieren und vereinfachen.
-\linebreak
-\linebreak
+\br
 Da WebAssembly ein binäres Format ist, wird es selten direkt geschrieben und meistens als Kompilierungsziel für komplexere Programmiersprachen benutzt.
 Ich entschied mich für die Programmiersprache \link[Rust]{Rust}, da sie eine starke Typisierung, Performance und Speicher-Sicherheit bietet \cite{bugden2022rust}.
 Außerdem bietet Rust eine gute Integration mit WebAssembly und ermöglicht es, Rust-Code direkt in WebAssembly zu kompilieren. 
 Die \href{https://rustwasm.github.io/}{Rust and WebAssembly domain working group} bietet viele Tools und Bibliotheken an, die die Entwicklung von WebAssembly-Anwendungen in Rust erleichtern.
+
 \subsection{Zielsetzung} 
+\label{sec:Zielsetzung}
+
+Das Ziel dieser Bachelorarbeit ist es eine visuelle Programmiersprache zu entwickeln, die \textbf{performant}, \textbf{erweiterbar} und möglichst \textbf{einfach zu bedienen} ist.
+Um diese drei Anforderungen laufend zu überprüfen wird die VPL im Kontext einer Web-App entwickelt die den Nutzer/innen erlaubt prozedurale 3D-Modelle von Pflanzen zu erstellen.
+Dieser Anwendungsfall wurde gewählt da die hohen Datenmengen von 3D-Modellen eine gute Möglichkeit bieten die Performance der VPL zu testen.
+\br
+Ein weiteres Ziel dieser Arbeit ist es, die Eignung von WebAssembly als Grundlage für eine solche VPL zu untersuchen. 
+Dadurch das WebAssembly plattformunabhängig ist und es sich eignet, um performante Anwendungen zu entwickeln, könnte es sich als Grundlage für eine VPL anbieten.
+
 \subsection{Forschungsfragen}
 
 Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache?  
-\linebreak
-\linebreak
+\br
 Welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
 
 \section{Theoretischer Rahmen}
@@ -119,14 +114,13 @@ Form-based systems erlauben es dem Nutzer, Programme zu schreiben, indem er Form
   \caption{SketchPad \cite{sutherlandSketchpad}}
 \end{wrapfigure}
 SketchPad ist ein von Ivan Sutherland entwickeltes Programm das 1963 am MIT veröffentlicht wurde. 
-SketchPad benutzte einen Lightpen als Eingabegerät und war das erste Programm, das die Interaktion mit einem Computer über eine grafische Benutzeroberfläche ermöglichte. 
-Es erlaubte den Nutzer*innen, geometrische Formen auf einem Bildschirm zu zeichnen und diese zu manipulieren.
+Es benutzte einen Lightpen als Eingabegerät und war das erste Programm, das die Interaktion mit einem Computer über eine grafische Benutzeroberfläche ermöglichte. 
+Es erlaubte den Nutzer/innen, geometrische Formen auf einem Bildschirm zu zeichnen und diese zu manipulieren.
   Dabei existierten diese Formen auf einem virtuellen \qt{Papier}, dass der Nutzer bewegen und zoomen konnte. Dieses Konzept von bewegen und Zoomen virtueller Oberflächen war revolutionär für die damalige Zeit.
   Dies wird deutlich durch den Fakt das der Präsentator während der Präsentation von SketchPad \cite{sketchpadDemo} (10:30) keine Worte fand, um diesen Vorgang zu beschreiben.
 Ein weiteres Feature war die Möglichkeit, Constraints zwischen den Formen zu definieren, ähnlich wie in modernen CAD-Programmen. 
 Wenn man sich die Videodemo von SketchPad anschaut fallen viele Paradigmen auf, die wir heute als gegeben ansehen.
-\linebreak
-\linebreak
+\br
 Auch wenn SketchPad nicht direkt in die Definition einer VPL passt, war es ein Meilenstein der Entwicklung von grafischen HCI's. Was durch die Verleihung des Turing Awards an Ivan Sutherland 1988 bestätigt wurde.
 \end{minipage}
 \endgroup
@@ -137,17 +131,17 @@ Auch wenn SketchPad nicht direkt in die Definition einer VPL passt, war es ein M
 \begin{minipage}{\linewidth}
 \begin{wrapfigure}{L}{0.4\textwidth}
   \centering
-  \includegraphics[width=0.4\textwidth]{./graphics/pygmalion.jpg} % Change example-image-a with your image filename
+  \includegraphics[width=0.4\textwidth]{./graphics/pygmalion.jpg}
   \caption{Fakultät in Pygmalion \cite{smith1975pygmalion}}
   \label{fig:pygmalion_demo}
 \end{wrapfigure}
 
 Pygmalion ist eine visuelle Programmiersprache die um 1970 von David Canfield Smith im Rahmen seiner Doktorarbeit entwickelt wurde. Inspiriert wurde sie von der mythischen Figur des Bildhauers Pygmalion der seine Skulpturen zum Leben erwecken konnte.
 Die Sprache erlangte nie eine große Verbreitung, war aber ein wichtiger Meilenstein in der Entwicklung von visuellen Programmiersprachen und HCI's.
-Pygmalion wurde in Smalltalk implementiert und war eine der ersten visuellen Programmiersprachen. Über eine grafische Oberfläche konnten die Nutzer*innen Blöcke, Icons und Verbindungen erstellen und manipulieren im damit Programme zu definieren.
+Pygmalion wurde in Smalltalk implementiert und war eine der ersten visuellen Programmiersprachen. Über eine grafische Oberfläche konnten die Nutzer/innen Blöcke, Icons und Verbindungen erstellen und manipulieren im damit Programme zu definieren.
   Icons waren damals eine Neuerung und wurden von den Entwicklern als \qt{eine Art von visuellen Variablen} bezeichnet. 
   Die Sprache war eine der ersten Beispiele von \qt{Programming By Example} oder PBE.
-Die Nutzer*innen konnten Programme schreiben, indem sie die gewünschte Funktionalität in einem Beispiel demonstrieren. 
+Die Nutzer/innen konnten Programme schreiben, indem sie die gewünschte Funktionalität in einem Beispiel demonstrieren. 
 In Abbildung \ref{fig:pygmalion_demo} wird auf diese Art die Fakultät einer Zahl berechnet. 
 
 \end{minipage}
@@ -166,12 +160,11 @@ In Abbildung \ref{fig:pygmalion_demo} wird auf diese Art die Fakultät einer Zah
   \label{fig:cube_demo}
 \end{wrapfigure}
   \qt{Cube ist eine dreidimensionale, visuelle, statisch typisierte Programmiersprache höherer Ordnung, die für den Einsatz in einer auf virtueller Realität basierenden Programmierumgebung entwickelt wurde.}  \cite{najork1996programming}
-In \textit{Cube} werden einzelne Funktionen als, wie der Name schon verrät, Würfel dargestellt. Die Nutzer*innen können dann diese Cubes miteinander verbinden, um Programme zu erstellen.
+In \textit{Cube} werden einzelne Funktionen als, wie der Name schon verrät, Würfel dargestellt. Die Nutzer/innen können dann diese Cubes miteinander verbinden, um Programme zu erstellen.
 Canfield geht in seiner Arbeit spezifisch auf den Vergleich zu Rohren und Wasserfluss ein. Somit bedient sich \textit{Cube} einer für Menschen relativ intuitiven Darstellung von Wasserfluss durch Rohre, um den Datenfluss innerhalb des Programms darzustellen.
   Ein interessantes Detail hierbei ist, das diese \qt{Rohre} keine Richtung haben und Daten in beide Richtungen fließen können. 
 Da \textit{Cube} eine höhere Programmiersprache ist, können die Cubes auch als Argumente an andere Cubes übergeben werden. Dies ermöglicht es, komplexe Programme zu erstellen, die aus vielen einzelnen Cubes bestehen. 
-\linebreak
-\linebreak
+\br
 Dieses Konzept ist relevant für meine persönliche Arbeit, siehe \link[HON]{Higher Order Nodes}.
 
 \end{minipage}
@@ -213,9 +206,7 @@ Für diese Arbeit ist Blender relevant, da es sich auch mit dem Erstellen von 3D
 
 Vor allem die User-Experience der Blender Node-Editoren ist ein großer Vorteil. So bietet Blender für die meisten oft benötigten Funktionen Shortcuts an, die es ermöglichen, schnell und effizient zu arbeiten.
 Ähnlich wie in Node-RED ist der Datenfluss der westlichen Leserichtung angepasst, von links nach rechts. Dies ermöglicht es, den Datenfluss intuitiv zu verfolgen und zu verstehen.
-\linebreak
-\linebreak
-% erklären wie der geometrz node editor nodes benutzt im higher order functions zu machen, wie z.b. loops caching simulationen etc.
+\br
 Im Gegensatz zum Shader Editor (sieht Abbildung \ref{fig:blender-shader}) bietet der Geometry Node Editor die Möglichkeit komplexere Setups zu erstellen. So gibt es zum Beispiel \qt{Repeat Zones}  die es ermöglichen eine Gruppe von Nodes arbiträr oft zu wiederholen.
 
 \begin{figure}[htbp]
@@ -229,8 +220,7 @@ Im Gegensatz zum Shader Editor (sieht Abbildung \ref{fig:blender-shader}) bietet
 
 \subsection{WebAssembly}
 WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
-\linebreak
-\linebreak
+\br
 Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und Rust benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert. Dies ermöglicht es, performante und sicherere Anwendungen zu entwickeln.
 \subsubsection{WASI}
 \cmt{WebAssembly System Interface}
@@ -243,30 +233,62 @@ Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprache
 
 \section{Konzept}
 
+Die VPL die in dieser Arbeit entwickelt wird, basiert auf einem node-basierten Ansatz. 
+\link[Node]{Nodes} sind in diesem Kontext einzelne Bausteine die ähnlich wie eine Funktion in einer textuellen Programmiersprache funktionieren.
+Das heißt, sie nehmen Argumente entgegen, verarbeiten diese und geben ein Ergebnis zurück.
+\br
+Die einzelnen Argumente können entweder direkt über das Interface einer \link{Node} definiert werden oder in dem der/die Nutzer/in das Ergebnis einer anderen \link{Node} mit diesem Argument verknüpft.
+Bei der visuellen Gestaltung lehnt sich die VPL sehr an die verschiedenen Node-Editoren in Blender an.
+\br
+Die einzelnen \link[Node]{Nodes} sind hierbei jeweils Instanzen eines WebAssembly-Moduls. 
+Dies erlaubt es das System um neue Node-Typen zu erweitern, indem man eine einzelne WebAssembly Datei lädt.
+Woher diese Dateien kommen ist dabei egal, sie können von der Festplatte, einem Server oder aus dem lokalen Speicher geladen werden.
+\br
+Die Verbindungen mehrerer \link[Node]{Nodes} stellt einen \link{Node-Graph} dar. 
+Dieser \link{Node-Graph} kann als JSON-Objekt serialisiert und deserialisiert werden und so gespeichert und geladen werden.
+
+\pagebreak
+
 \subsection{Anforderungen}
 
-\textbf{Non-Goals (at this stage)}
+Wie in der \hyperref[sec:Zielsetzung]{Zielsetzung} beschrieben, gibt es drei Hauptanforderungen an diese VPL; \textbf{Erweiterbarkeit}, \textbf{Performance} und \textbf{gute User-Experience}.
 
-- Accessibility
+\subsubsection{Erweiterbarkeit}
 
-- Mobile
+Hiermit ist gemeint, dass das System einfach um neue Node-Typen erweitert werden kann.
+\qt{Einfach} heißt in diesem Kontext das ein/e andere/r Programmierer/in möglichst 
+schnell in der Lage sein soll eigene WebAssembly-Module zu schreiben welche dann von der VPL geladen und ausgeführt werden können.
+\br
+Außerdem sollen die Komponenten, auf die ich in der \link{Architektur} noch genauer eingehen werde, in unterschiedlichen Umgebungen implementiert und ausgeführt werden können.
+Vorstellbar wäre zum Beispiel das der/die Nutzer/in den \link{Node-Graph} in einer Web-App bearbeitet, dieser aber in Echtzeit auf einem Server ausgeführt wird.
 
-\textbf{Goals}
+Dies erfordert eine möglichst lose Kopplung und die Minimierung des Datentransfers zwischen den einzelnen Komponenten.
 
-Diese Programmiersprache soll auch für komplexe Anwendungsfälle geeignet sein.
+\subsubsection{Performance}
 
-Außerdem soll sie durch andere Programmierer*innen erweiterbar sein. 
-Einer der Gründe WebAssembly zu benutzen ist die Eigenschaft das es Plattform unabhängig ist. Dies wiederum ermöglicht es das in der Zukunft Node-Graphen in klassischen Desktop-Anwendungen, auf Embedded Devices oder in der Cloud ausgeführt werden können.
+Geschwindigkeit von User-Interfaces ist ein wichtiger Indikator für die User-Experience \cite{6876022}. 
+Je schneller Nutzende nach einer Änderung das Ergebnis sehen, desto schneller und effizienter können diese iterieren. 
 
-Außerdem soll sie performant sein.
+Da diese VPL als Webanwendung entwickelt wird, spielt auch die Ladezeit eine Rolle. 
+Hierbei muss darauf geachtet werden diese so kurz wie möglich zu halten.
 
-Außerdem soll sie möglichst einfach zu benutzen sein.
+\subsubsection{User-Experience}
 
+Diese Anforderung ist deutlich schwieriger zu konkretisieren. User-Experience umfasst die gesamte Interaktion von der ersten Interaktion bis zur regelmäßigen Nutzung.
+Hierbei spielen Performance, Konsistenz, Fehlermanagement und Feedback eine große Rolle.
 
-- gerne das die einzelnen Komponenten nicht in derselben Umgebung laufen müssen
-- Damit die einzelnen Komponenten in unterschiedlichen Umgebungen implementiert werden können
+\subsubsection{Nicht-Ziele}
+
+Die Webplattform als solche bietet viele Möglichkeiten Anwendungen für Nutzer/innen mit Behinderungen angenehmer zu gestalten. 
+Die dynamische Struktur einer VPL, sowie spezifische Details der Implementierung machen dies für diese Anwendung ein sehr großes Unterfangen. 
+Soweit möglich sollte auf Zugänglichkeit geachtet werden, diese aber umfassend zu garantieren wird nicht Teil dieser Arbeit sein.
+\br
+Auch die Optimierung für mobile Endgeräte ist nicht vorgesehen, da die Art der Anwendung sich nicht für kleine Bildschirme oder Touch-Interfaces eignet.
+\br
+Hierbei ist aber zu erwähnen das diese Ziele nur im Kontext der Bachelorarbeit ausgeklammert werden, für zukünftige Weiterentwicklung durchaus infrage kommen.
 
 \subsection{Architektur}
+\label{sec:Architektur}
 
 Aus den vorher genannten Zielen ergeben sich folgende Anforderungen an die Architektur:
 
@@ -284,8 +306,7 @@ Aus den vorher genannten Zielen ergeben sich folgende Anforderungen an die Archi
 
 Die Datentypen wurden möglichst minimal gehalten. Dies dient zum einen dem Ziel das gesamte System so einfach und verständlich wie möglich zu halten, und zum
 anderen macht es die Serialisierung und Deserialisierung der Daten schneller.
-\linebreak
-\linebreak
+\br
 Die drei Hauptdatentypen sind \link[Node]{Node}, \link[data_node_type]{Node-Type} und \link[Node-Graph]{Node-Graph}. 
 
 \begin{figure}[htbp]
@@ -365,21 +386,17 @@ type Graph = {
 \subsubsection{Higher Order Nodes / Parameter}
 \label{sec:HON}
 \cmt{Nodes die andere Nodes als Input oder Output haben}
-\linebreak
-\linebreak
+\br
 In vorherigen Abschnitten wurden einzelne Nodes wie Funktionen besch
 Es gibt Situationen, in denen es sinnvoll ist, von dem Konzept einer Node als reiner Funktion abzuweichen, die ihr Ergebnis berechnet und direkt an die nächste Node weitergibt.
-\linebreak
-\linebreak
+\br
 Wie in Abbildung \ref{fig:random_problem} dargestellt, würde das Ergebnis der \topic{random} Node identisch sein, wenn sie nur einmal ausgeführt wird, unabhängig davon, wie viele \topic{math/add} Nodes als Empfänger dienen. 
 Eine mögliche Lösung wäre, die \topic{random} Node für jede ihrer ausgehenden Verbindungen separat auszuführen. 
 Dies könnte jedoch zur unnötigen Mehrfachausführung von Nodes führen, die dies nicht erfordern.
 Außerdem erschwert dies das Caching von Node-Ergebnissen, da nicht nur die Node-Parameter, sondern auch die Anzahl der Verbindungen das Ergebnis beeinflussen würden.
-\linebreak
-\linebreak
+\br
 Ein weiterer Nachteil ist das für dieses Konzept die Ausführung der Nodes nicht mehr nur in eine Richtung verläuft. Das könnte zu konzeptioneller Verwirrung und Komplexität führen.
-\linebreak
-\linebreak
+\br
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.5\textwidth]{graphics/RANDOM_PROBLEM.pdf}
