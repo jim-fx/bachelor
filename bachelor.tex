@@ -30,7 +30,7 @@
 In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces (HCI's) eine entscheidende Rolle.
 Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. 
 \br
-Da Menschen Konzepte und Relationen größtenteils visuell und räumlich verarbeiten \cite{smith1974pygmalion}, bieten visuelle Programmiersprachen (VPL's) einen guten Mittelweg für programmierunerfahrene Nutzer/innen. 
+Da Menschen Konzepte und Relationen größtenteils visuell und räumlich verarbeiten \cite{smith1975pygmalion}, bieten visuelle Programmiersprachen (VPL's) einen guten Mittelweg für programmierunerfahrene Nutzer/innen. 
 Sie vereinen die Benutzerfreundlichkeit grafischer Interfaces mit der Komplexität und Flexibilität textbasierter Programmiersprachen.
 \br
 Es gibt bereits eine Vielzahl von VPL's, die in unterschiedlichen Bereichen Anwendung finden. 
@@ -93,31 +93,35 @@ Auch wenn textuelle Sprache auf einer zweidimensionalen Oberfläche dargestellt 
 Nach Burnett\&Mayer können VPL's in 5 verschiedenen Klassen eingeteilt werden \cite{BURNETT1994287}. Diese einzelnen Klassen schließen sich nicht gegenseitig aus und können auch in Kombination verwendet werden.
 
 \subsubsection{\qt{Purely visual languages}}
-Purely visual languages haben keine textuelle Repräsentation und sind ausschließlich visuell. Ein Beispiel hierfür ist \textit{Scratch}, das es Nutzern ermöglicht, durch das Zusammensetzen von Blöcken Programme zu erstellen, ohne eine einzige Zeile Code zu schreiben.
+\qt{Purely visual languages} haben keine textuelle Repräsentation und sind ausschließlich visuell. Ein Beispiel hierfür ist Scratch, das es Nutzern ermöglicht, durch das Zusammensetzen von Blöcken Programme zu erstellen, ohne eine einzige Zeile Code zu schreiben. \cite{mitScratchAbout}
 
 
-\subsubsection{\qt{Hybrid text and visual systems}}
-Hybrid text and visual systems haben eine textuelle Repräsentation, die parallel zur visuellen Repräsentation existiert. Ein Beispiel hierfür ist \textit{Microsoft's Visual Programming Language}, das Teil von Microsoft Robotics Developer Studio ist und eine hybride Umgebung bietet, in der Nutzer sowohl Code schreiben als auch visuelle Elemente nutzen können.
+\subsubsection{\qt{Hybrid text and visual Systems}}
+\qt{Hybrid text and visual systems} haben eine textuelle Repräsentation, die parallel zur visuellen Repräsentation existiert. 
+Ein Beispiel hierfür ist Microsoft's Visual Programming Language, das Teil von Microsoft Robotics Developer Studio ist und eine hybride Umgebung bietet, in der Nutzer sowohl Code schreiben als auch visuelle Elemente nutzen können. \cite{microsoftIntroduction}
 
 \subsubsection{\qt{Programming-by-example Systems}}
-Programming-by-example systems erlauben es dem Nutzer, ein Programm zu schreiben, indem er die gewünschte Funktionalität in einem Beispiel demonstriert. \textit{Etoys}, basierend auf Squeak, ist ein Beispiel für ein solches System, bei dem Benutzer durch das Demonstrieren von Aktionen Objekte programmieren können.
+Programming-by-example systems erlauben es dem Nutzer, ein Programm zu schreiben, indem er die gewünschte Funktionalität in einem Beispiel demonstriert. Etoys, basierend auf Squeak, ist ein Beispiel für ein solches System, bei dem Benutzer durch das Demonstrieren von Aktionen Objekte programmieren können. \cite{squeakSqueakSmalltalk}
 
 \subsubsection{\qt{Constraint-oriented Systems}}
-Constraint-oriented Systems erlauben es dem Nutzer, Constraints zwischen den Komponenten des Programms zu definieren. \textit{ThingLab} ist ein Beispiel für ein constraint-orientiertes System, das dem Benutzer ermöglicht, durch die Definition von Einschränkungen zwischen Objekten interaktive Simulationen zu erstellen.
+\qt{Constraint-oriented Systems} erlauben es dem Nutzer, Constraints zwischen den Komponenten des Programms zu definieren. SketchPad wäre ein Beispiel für ein solches System, bei dem Benutzer geometrische Formen zeichnen und Constraints zwischen ihnen definieren können. \cite{sutherlandSketchpad}
+
 
 \subsubsection{\qt{Form-based systems}}
-Form-based systems erlauben es dem Nutzer, Programme zu schreiben, indem er Formen ausfüllt. Ein klassisches Beispiel für ein formbasiertes System ist \textit{Oracle Forms}, das eine GUI für Datenbankabfragen und -transaktionen bietet, indem es Benutzern ermöglicht, Formulare auszufüllen, die dann in SQL-Code umgewandelt werden.
+In \qt{Form-based systems} schreiben die Nutzer Programme, indem sie Formulare ausfüllen. 
+Ein klassisches Beispiel für ein formular-basiertes System ist Oracle Forms, 
+das eine GUI für Datenbankabfragen und -transaktionen bietet, indem es Benutzern ermöglicht, Formulare auszufüllen, die dann in SQL-Code umgewandelt werden. \cite{wikipediaOracleForms}
 
 \subsection{Historische Vorbilder}
 
 \subsubsection{SketchPad (1963)}
 \label{sec:SketchPad}
 \begingroup
-\setlength\intextsep{2pt}
+\setlength\intextsep{4pt}
 \begin{minipage}{\linewidth}
-\begin{wrapfigure}{R}{0.3\textwidth}
+\begin{wrapfigure}{R}{0.5\textwidth}
   \centering
-  \includegraphics[width=0.3\textwidth]{./graphics/sketchpad-sutherland.jpg} % Change example-image-a with your image filename
+  \includegraphics[width=0.4\textwidth]{./graphics/sketchpad-sutherland.jpg} % Change example-image-a with your image filename
   \caption{SketchPad \cite{sutherlandSketchpad}}
 \end{wrapfigure}
 SketchPad ist ein von Ivan Sutherland entwickeltes Programm das 1963 am MIT veröffentlicht wurde. 
@@ -127,7 +131,6 @@ Es erlaubte den Nutzer/innen, geometrische Formen auf einem Bildschirm zu zeichn
   Dies wird deutlich durch den Fakt das der Präsentator während der Präsentation von SketchPad \cite{sketchpadDemo} (10:30) keine Worte fand, um diesen Vorgang zu beschreiben.
 Ein weiteres Feature war die Möglichkeit, Constraints zwischen den Formen zu definieren, ähnlich wie in modernen CAD-Programmen. 
 Wenn man sich die Videodemo von SketchPad anschaut fallen viele Paradigmen auf, die wir heute als gegeben ansehen.
-\br
 Auch wenn SketchPad nicht direkt in die Definition einer VPL passt, war es ein Meilenstein der Entwicklung von grafischen HCI's. Was durch die Verleihung des Turing Awards an Ivan Sutherland 1988 bestätigt wurde.
 \end{minipage}
 \endgroup
@@ -234,20 +237,20 @@ Im Gegensatz zum Shader Editor (sieht Abbildung \ref{fig:blender-shader}) bietet
 
 \cmt{Need to write more here}
 
-- pretty good for procedural generation
+\cmt{pretty good for procedural generation}
 
-- nicht erweiterbar
+\cmt{nicht erweiterbar}
 
-- nicht webbasiert
+\cmt{nicht webbasiert}
 
-- nicht open-source
+\cmt{nicht open-source}
 
-- nicht generalisiert
+\cmt{nicht generalisiert}
 
 
 \section{Konzept}
 
-Die VPL die in dieser Arbeit entwickelt wird, basiert auf einem node-basierten Ansatz. 
+Die in dieser Arbeit entwickelte VPL nutzt einem node-basierten Ansatz. 
 \link[node]{Nodes} sind in diesem Kontext einzelne Bausteine die ähnlich wie eine Funktion in einer textuellen Programmiersprache funktionieren.
 Das heißt, sie nehmen Argumente entgegen, verarbeiten diese und geben ein Ergebnis zurück.
 \br
@@ -255,7 +258,7 @@ Die einzelnen Argumente können entweder direkt über das Interface einer \link[
 Bei der visuellen Gestaltung lehnt sich die VPL sehr an die verschiedenen Node-Editoren in Blender an.
 \br
 Die einzelnen \link[node]{Nodes} sind hierbei jeweils Instanzen eines WebAssembly-Moduls. 
-Dies erlaubt es das System um neue Node-Definitionen zu erweitern, indem man eine einzelne WebAssembly Datei lädt.
+Dies erlaubt es das System um neue Node-Definitionen zu erweitern, indem man eine einzelne WebAssembly Dateien lädt.
 Woher diese Dateien kommen ist dabei egal, sie können von der Festplatte, einem Server oder aus dem lokalen Speicher geladen werden.
 \br
 Die Verbindungen mehrerer \link[node]{Nodes} stellt einen \link[node_graph]{Node-Graph} dar. 
@@ -324,9 +327,11 @@ Hierbei ist aber zu erwähnen das diese Ziele nur im Kontext der Bachelorarbeit 
 \label{sec:Architektur}
 
 Die Architektur besteht aus drei Hauptkomponenten. 
-Das \link[node_interface]{NODE\_INTERFACE} ist für das visuelle Interface zuständig, hier interagieren Nutzer/innen mit dem \link[node_graph]{Node-Graph}.
-Der \link[runtime_executor]{RUNTIME\_EXECUTOR} ist für die Ausführung der Nodes zuständig. Er nimmt einen serialisierten \link[node_graph]{Node-Graph} entgegen und gibt das Ergebnis zurück.
-Die \link[node_registry]{NODE\_REGISTRY} ist für das Verwalten der Nodes zuständig. Die beiden anderen Komponenten laden aus ihr die einzelnen WebAssembly-Binärdateien der Nodes.
+Das \link[node_interface]{Node-Interface} ist für das visuelle Interface zuständig, hier interagieren Nutzer/innen mit dem \link[node_graph]{Node-Graph}.
+\br
+Der \link[runtime_executor]{Runtime-Executor} ist für die Ausführung der Nodes zuständig. Er nimmt einen serialisierten \link[node_graph]{Node-Graph} entgegen und gibt das Ergebnis zurück.
+\br
+Die \link[node_registry]{Node-Registry} ist für das Verwalten der \link[node_definition]{Node-Definitionen} zuständig. Die beiden anderen Komponenten laden aus ihr die einzelnen WebAssembly-Binärdateien der Nodes.
 \br
 In Abbildung \ref{fig:overview_sequence} ist in einem Sequenzdiagramm dargestellt wie die drei Komponenten zusammenarbeiten.
 
@@ -346,6 +351,7 @@ anderen macht es die Serialisierung und Deserialisierung der Daten schneller.
 \br
 Die drei Hauptdatentypen sind  \link[data_node_type]{Node-Definition}, \hyperref[fig:data_node]{Node},  und \hyperref[fig:data_node_graph]{Node-Graph}. 
 
+\subsubsection*{Node-Definition}
 
 \begin{figure}[htbp]
   \begin{code}
@@ -389,12 +395,16 @@ Die Node-Definition besteht aus einer \topic{id}, \topic{inputs}, \topic{outputs
   \item etc.
 \end{itemize}
 
-Diese Inputs legen fest welche \link[node]{Nodes} mit dieser \link[node]{Node} verbunden werden können. 
-Außerdem benutzt das \link[node_interface]{Node-Interface} diese Information, um das Interface einer Node zu konstruieren.
+Über diese \topic{inputs} legen die Nutzer fest welche Argumente eine \link[node]{Node} entgegennimmt.
+Im \link[node_interface]{Node-Interface} werden diese dann als Eingabefelder dargestellt. Außerdem legen diese Inputs fest welche \link[node]{Nodes} mit dieser \link[node]{Node} verbunden werden können. 
+\br
+Ein weiteres Attribut eines \topic{inputs} ist \topic{setting}. So können die Nutzer Argumente festlegen die global für den ganzen \link[node_graph]{Node-Graph} gelten und nicht direkt von einer \link[node]{Node} abhängen. Ein Beispiel aus der Entwicklung wäre hier die \topic{resolution}. Diese legt fest wie viele Vertices eine \link[node]{Node} für ein 3D-Modell generieren soll. Das \link[node_interface]{Node-Interface} konstruiert aus allen \topic{settings} ein globales Einstellungsmenü.
+\br
+Außerdem gibt es bestimmte Input-Typen die besondere Funktionen haben. So kann eine \link[node]{Node} zum Beispiel einen Input mit \topic{\{"type":\\"\\seed"\}} festlegen, und diesem wird bei der Ausführung durch den \link[runtime_executor]{Runtime-Executor} ein zufälliger Wert zugewiesen.
 \br
 Einige andere Attribute wurden ausgeklammert um die Lesbarkeit zu erhöhen. So kann ein \topic{input} noch ein \topic{label}, ein \topic{default} und eine \topic{description} haben.
 
-\pagebreak
+\subsubsection*{Node}
 
 \begin{figure}[htbp]
   \begin{code}
@@ -421,9 +431,13 @@ const exampleNode: Node = {
 
 \end{figure}
 
-Die \link[node]{Node} Datenstruktur besteht aus einer \topic{id}, einem \topic{type}, optionalen \topic{props} und einer \topic{position}. 
+Eine \link[node]{Node} ist eine Instanz einer \link[node_definition]{Node-Definition}. Die Datenstruktur besteht aus einer \topic{id}, einem \topic{type}, optionalen \topic{props} und einer \topic{position}. 
+Dieser Datentype findet vorallem Anwendung im \link[node_interface]{Node-Interface}, während der Laufzeit und der Serialisierung und Deserialisierung.
+\br
 Die \topic{id} ist inkrementell und dient zur eindeutigen Identifikation der Node. Der \topic{type} verbindet eine \link[node]{Node} mit einer \link[node_definition]{Node-Definition}.
 Die \topic{props} sind die Argumente die an die \topic{execute} Funktion der \link[node_definition]{Node-Definition} übergeben werden.
+
+\subsubsection*{Node-Graph}
 
 \begin{figure}[htbp]
   \begin{code}
@@ -446,23 +460,23 @@ Die Verbindungen sind jeweils ein Tupel aus der \topic{id} der \link[node]{Node}
 
 \pagebreak
 
-\subsubsection{NODE\_INTERFACE}
+\subsubsection{Node-Interface}
 \label{sec:node_interface}
 \cmt{Visuelles Interface für den Node-Graph}
-\subsubsection{NODE\_REGISTRY}
+\subsubsection{Node-Registry}
 \label{sec:node_registry}
 \cmt{Verwaltung der Nodes}
-\subsubsection{RUNTIME\_EXECUTOR}
+\subsubsection{Runtime-Executor}
 \label{sec:runtime_executor}
 \cmt{Ausführung der Nodes}
 
+\pagebreak
+
 \subsubsection{Higher Order Nodes / Parameter}
 \label{sec:HON}
-\cmt{Nodes die andere Nodes als Input oder Output haben}
-\br
-In vorherigen Abschnitten wurden einzelne Nodes wie Funktionen besch
-Es gibt Situationen, in denen es sinnvoll ist, von dem Konzept einer Node als reiner Funktion abzuweichen, die ihr Ergebnis berechnet und direkt an die nächste Node weitergibt.
-\br
+In vorherigen Abschnitten wurde der Vergleich zwischen \link[node]{Nodes} und Funktionen gezogen. Dies hat den Vorteil, dass es das Konzept etwas leichter verständlich macht.
+Es gibt jedoch Situationen, in denen es sinnvoll ist, von dem Konzept einer Node als reiner Funktion abzuweichen, damit die VPL zum einen flexibler und zum anderen einfacher zu bedienen ist.
+\subsubsection*{Random Problem}
 Wie in Abbildung \ref{fig:random_problem} dargestellt, würde das Ergebnis der \topic{random} Node identisch sein, wenn sie nur einmal ausgeführt wird, unabhängig davon, wie viele \topic{math/add} Nodes als Empfänger dienen. 
 Eine mögliche Lösung wäre, die \topic{random} Node für jede ihrer ausgehenden Verbindungen separat auszuführen. 
 Dies könnte jedoch zur unnötigen Mehrfachausführung von Nodes führen, die dies nicht erfordern.
@@ -479,7 +493,12 @@ Ein weiterer Nachteil ist das für dieses Konzept die Ausführung der Nodes nich
 
 \pagebreak
 
-Ein weiteres Problem soll durch Abbildung \ref{fig:noise_problem} verdeutlicht werden.
+\subsubsection*{Noise Problem}
+
+Ein weiteres Problem soll durch Abbildung \ref{fig:noise_problem} verdeutlicht werden. 
+Die hypothetische \topic{cylinder} Node generiert 3D-Modelle von Zylindern. Sie hat einen Input für den Radius, die Höhe und die Anzahl der generierten Zylinder. 
+\br
+Wenn die vorherigen Nodes als pure Funktionen modelliert wären, gäbe es für sie jeweils nur ein Ergebnis und die \topic{cylinder} Node würde 10 identische Zylinder generieren.
 
 \begin{figure}[htbp]
   \centering
@@ -487,6 +506,71 @@ Ein weiteres Problem soll durch Abbildung \ref{fig:noise_problem} verdeutlicht w
   \caption{Problemdarstellung}
   \label{fig:noise_problem}
 \end{figure}
+
+\subsubsection*{Lösung}
+
+Eine Lösung für dieses Problem ist die Einführung von parametrisierten Nodes. Das heißt bestimmte Nodes geben kein Ergebnis zurück, sondern eine parametrisierte Version ihrer selbst, die dann von anderen Nodes evaluiert werden kann.
+\br
+Dies hat den entscheidenden Vorteil das andere Nodes frei entscheiden können, wo und wie oft sie ihre Argumente evaluieren.
+Des Weiteren können diese Nodes wiederum eigene Argumente bei der Evaluierung übergeben.
+\br
+Die \topic{cylinder} Node im vorherigen Beispiel könnte zum Beispiel bei der Evaluierung der \topic{random} Node ein \topic{seed} übergeben.
+\br
+Eine Herausforderung in der Implementierung dieser Lösung besteht darin das jedes Argument nun entweder ein direkter Wert, der von den Nutzern über das \link[node_interface]{Node-Interface} festgelegt wird, oder ein Teil das gesamten \link[node_graph]{Node-Graphen} sein kann.
+\br
+Da der \link[runtime_executor]{Runtime-Executor} aus Gründen der Erweiterbarkeit möglichst wenig spezifische Informationen über einzelne Nodes brauchen soll,
+habe ich mich dazu entschieden das die einzelnen Nodes sich selber serialisieren und diese Serialisierung als Ergebnis zurückgeben.
+\br
+Die erste Implementierung bestand darin das die Nodes ein serialisiertes JSON-Objekt zurückgeben. Dies hatte den Vorteil, dass einzelne Argumente zu Debugging-Zwecken menschenlesbar und die Serialisierung relativ einfach war. Die Performance war jedoch nicht optimal, da die Serialisierung und Deserialisierung relativ aufwendig ist. Des Weiteren hatte jede Node jetzt eine Abhängigkeit zu \href{ https://serde.rs/ }{Serde} (Der Standardbibliothek für Serialisierung in Rust), was die Dateigröße der WebAssembly-Module deutlich vergrößerte.
+\br
+Die aktuelle Version benutzt eine eigene Binär-Serialisierung. Diese ist schneller und die Dateigröße der WebAssembly-Module ist kleiner. Der Nachteil ist das die Serialisierung nicht mehr menschenlesbar und die Implementierung komplexer ist. 
+\\
+Die Grundidee ist es Nodes als ein Array aus 32Bit Integer darzustellen, die erste Stelle des Arrays enkodiert den Typ der Node, die darauffolgenden Stellen sind die Argumente. Die einzelnen Argumente sind entweder eine Zahl oder die enkodierte Version einer anderen Node.
+Gleitzahlen sind 32 Bit nach dem IEEE-754 Standard und können dank der gleichen Größe ohne weiter Anpassungen im Array gespeichert werden. 
+\br
+Da WebAssembly, sowie auch Rust keine verschachtelten Arrays unterstützen, muss dieser Array in einen linearen Array umgewandelt werden. 
+Der \qt{Recursive-Length Prefix Serialization} Algorithmus von Ethereum war ein guter Ansatz, jedoch nicht für die Anforderungen dieser Anwendung optimiert, da er für Strings ausgelegt ist. 
+\cite{wood2024ethereum}
+\br
+Das aktuelle Binärformat besteht darin jede Klammer in einer verschachtelten Struktur durch zwei 32 Bit Integer zu enkodieren. 
+Die erste Stelle gibt, an ob es sich um eine öffnende oder schließende Klammer handelt, die zweite Stelle gibt den Abstand zur nächsten Klammer an.
+
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{typescript}
+const input = [ 0, 2, 3, [ 2, [ 5 ] ] ]
+
+const endoded = [
+  0, // 0 => Klammer auf
+  3, // Abstand zur nächsten Klammer
+  2,
+  3,
+  0, // 0 => Klammer auf
+  2, // Abstand zur nächsten Klammer
+  2, 
+  0, // 0 => Klammer auf
+  2, // Abstand zur nächsten Klammer
+  5,
+  1, // 1 => Klammer zu
+  1, // 1 => Klammer zu
+  1, // 1 => Klammer zu
+  1, // 1 => Klammer zu
+  1, // 1 => Klammer zu
+  1, // 1 => Klammer zu
+]
+
+    \end{minted}
+  \end{code}
+
+  \caption{Beispiel einer Binär-Serialisierung}
+  \label{sec:data_nested_encoding}
+
+\end{figure}
+\br
+Eine Limitierung dieser Implementierung ist das 32 Bit integer nur Zahlen bis maximal $2^{31}-1$ darstellen können. Dies beschränkt die Länge eines Arrays auf $2,147,483,647$ Elemente. Für diese Anwendung ist dies jedoch mehr als ausreichend.
+
+\subsubsection*{O-Notation}
+Die O-Notation der \link[code_nested_encoding]{Beispiel-Implementierung} ist $O(n)$, wobei $n$ die Anzahl der Elemente in der Serialisierung ist. Während der Serialisierung der einzelnen \link[node]{Nodes} muss aber nicht der gesamte Array deserialisiert und serialisiert werden. Hier können wir den serialiserten Input in einzelne Argumente \link[code_nested_splitting]{aufteilen} und diese am Ende wieder \link[code_nested_joining]{zusammenfügen}. Dies hat den Vorteil das die Serialisierung und Deserialisierung von einzelnen Argumenten $O(1)$ ist.
 
 \subsection{Technologien}
 \subsubsection{WASM-Bindgen}
@@ -553,6 +637,156 @@ Node-Argumente sind die Eingabeparameter einer Node. Ein Node-Argument kann entw
 \label{sec:node_socket}
 Node-Sockets sind die Verbindungspunkte zwischen \link[node]{Nodes}. Eine Node hat mehrere Input-Sockets und einen Output Socket.
 
+\section{Beispiel-Code}
+
+\subsection{Binär-Serialisierung}
+\label{sec:code_nested_encoding}
+
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{typescript}
+// Recursiver Datenstruktur für verschachtelte Arrays
+type SparseArray = (number | number[] | SparseArray<T>)[];
+
+// Kodiert ein verschachteltes Array
+export function encodeNestedArray(array: SparseArray): number[] {
+  const encoded = [0, 0]; // Initialisiere das Ergebnis
+  let missingBracketIndex = 1; // Abstand zur letzten Klammer
+
+  for (let index = 0; index < array.length; index++) {
+    const item = array[index];
+    if (Array.isArray(item)) {
+      // Aktualisiere die letzte Klammer
+      encoded[missingBracketIndex] = encoded.length - missingBracketIndex;
+      if (item.length === 0) {
+        // Behandle leere Arrays
+        encoded.push(0, 1, 1, 1);
+      } else {
+        // Kodiere rekursiv nicht-leere Arrays
+        const child = encodeNestedArray(item);
+        encoded.push(...child);
+      }
+      // Aktualisiere den Abstand für die zuletzt geöffnete Klammer
+      missingBracketIndex = encoded.length - 1;
+    } else {
+      // Behandle Nicht-Array-Elemente
+      encoded.push(item);
+      // Aktualisiere den Abstand für die zuletzt geöffnete Klammer
+      if (missingBracketIndex) encoded[missingBracketIndex] = index + 2;
+    }
+  }
+
+  return [...encoded, 1, 1];
+};
+    \end{minted}
+  \end{code}
+
+  \caption{Beispiel-Code Binär-Serialisierung}
+  \label{sec:data_nested_encoding}
+
+\end{figure}
+
+\pagebreak
+
+\subsection{Binär-Splitting}
+\label{sec:code_nested_splitting}
+
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{rust}
+pub fn split_args(args: &[i32]) -> Vec<&[i32]> {
+    let mut out_args: Vec<&[i32]> = Vec::new();
+    let mut depth = 0;
+    let mut i = 0;
+    let mut start_index = 0;
+    let mut next_bracket_index = 0;
+    let len = args.len();
+
+    while i < len {
+        // check if we are at a bracket
+        if i == next_bracket_index {
+            next_bracket_index = i + args[i + 1] as usize + 1;
+            // check if the bracket is opening
+            if args[i] == 0 {
+                if depth == 1 {
+                    start_index = i;
+                }
+                depth += 1;
+            } else {
+                depth -= 1;
+                if depth == 1 {
+                    out_args.push(&args[start_index..i + 2]);
+                    start_index = i + 2;
+                }
+            }
+            i += 2;
+            continue;
+        } else if depth == 1 {
+            out_args.push(&args[i..i + 1]);
+            start_index = i + 1;
+        }
+        i += 1;
+    }
+
+    out_args
+}
+    \end{minted}
+  \end{code}
+
+  \caption{Beispiel-Code Binär-Splitting}
+
+\end{figure}
+
+\pagebreak
+
+\subsection{Binär-Joining}
+\label{sec:code_nested_joining}
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{rust}
+pub fn concat_args(data: Vec<&[i32]>) -> Vec<i32> {
+    // Start with 4 to account for opening/closing brackets
+    let mut total_length = 4; 
+
+    for vec in &data { // Calculate the total length first to avoid reallocations
+        if vec.len() == 1 {
+            total_length += 1;
+        } else {
+            total_length += vec.len(); // +4 for [0, 1] and [1, 1] per inner vec
+        }
+    }
+
+    let mut result = Vec::with_capacity(total_length);
+
+    result.push(0); // Add [0, 1] initially
+    result.push(1);
+
+    let mut last_closing_bracket = 1;
+
+    for vec in data.iter() { // Process each vector
+        if vec.len() == 1 {
+            result.push(vec[0]);
+            result[last_closing_bracket] += 1;
+            continue;
+        } else {
+            result.extend_from_slice(vec);
+            last_closing_bracket = result.len() - 1;
+            result[last_closing_bracket] = 1;
+        }
+    }
+
+    result.push(1); // Add [1, 1] at the end
+    result.push(1);
+
+    result
+}
+
+    \end{minted}
+  \end{code}
+
+  \caption{Beispiel-Code Binär-Joining}
+
+\end{figure}
 
 \pagebreak
 \section{Literaturverzeichnis}
