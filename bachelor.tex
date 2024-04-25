@@ -82,6 +82,8 @@ Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle
 \br
 Welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
 
+\pagebreak
+
 \section{Theoretischer Rahmen}
 
 \subsection{Definition von visuellen Programmiersprachen}
@@ -573,30 +575,26 @@ Eine Limitierung dieser Implementierung ist das 32 Bit integer nur Zahlen bis ma
 Die O-Notation der \link[code_nested_encoding]{Beispiel-Implementierung} ist $O(n)$, wobei $n$ die Anzahl der Elemente in der Serialisierung ist. Während der Serialisierung der einzelnen \link[node]{Nodes} muss aber nicht der gesamte Array deserialisiert und serialisiert werden. Hier können wir den serialiserten Input in einzelne Argumente \link[code_nested_splitting]{aufteilen} und diese am Ende wieder \link[code_nested_joining]{zusammenfügen}. Dies hat den Vorteil das die Serialisierung und Deserialisierung von einzelnen Argumenten $O(1)$ ist.
 
 \subsection{Technologien}
-\subsubsection{WASM-Bindgen}
+\subsubsection{WebAssembly}
+WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
+\br
+Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und \link[Rust]{Rust} benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert. Dies ermöglicht es, performante und sicherere Anwendungen zu entwickeln.
+\subsubsection*{WebAssembly Component Model}
+Das WebAssembly Component Model ist ein neuer Standard, der es ermöglicht das sich WebAssembly-Module untereinander instanziieren und aufrufen können. \cite{bytecodeallianceIntroductionWebAssembly} 
+Dies würde es ermöglichen den \link[runtime_executor]{Runtime-Executor} als WebAssembly-Modul zu implementieren und so die Ausführung der Nodes zu beschleunigen, da der Overhead der Kommunikation zwischen WebAssembly und Javascript vermieden wird. Allerdings gab es erst am 25. Januar 2024 die stabile Veröffentlichung dieses Standards, und zu diesem Zeitpunkt wird er von noch keinem Browser unterstützt.
+
+\subsubsection{WASM-Bindgen \& WASM-Pack}
 \label{sec:WASM-Bindgen}
+
+WASM-Bindgen und WASM-Pack sind ein Rust-Bibliotheken, die die Interaktion zwischen Rust und Javascript erleichtern. Sie generieren automatisch die notwendigen Bindings, um Rust- und Javascript-Code miteinander zu verknüpfen. Außerdem helfen sie bei der Kompilierung von Rust-Code in WebAssembly-Module. 
+\cite{rustwasmIntroductionwasmbindgen}
+
 \subsubsection{Svelte}
 \label{sec:Svelte}
 \subsubsection{Rust}
 \label{sec:Rust}
 \subsubsection{TypeScript}
 \label{sec:TypeScript}
-\subsubsection{WebAssembly}
-WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
-\br
-Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und \link[Rust]{Rust} benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert. Dies ermöglicht es, performante und sicherere Anwendungen zu entwickeln.
-\linebreak
-\textbf{WASI}
-\cmt{WebAssembly System Interface}
-\linebreak
-\textbf{WAT}
-\cmt{WebAssembly Text Format}
-\linebreak
-\textbf{WebAssembly Component Model}
-\cmt{Kind of like ES-Modules or C-Style Linking}
-\linebreak
-\textbf{WIT}
-\cmt{WebAssembly Interface Types}
 
 \subsection{Design}
 
@@ -605,7 +603,10 @@ Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprache
 \subsection{Backend}
 
 \section{Evaluation}
+\cmt{Verdammt schnell}
+
 \section{Fazit}
+\cmt{Joah, schnieke würd ich mal sagen}
 
 \pagebreak
 \section{Glossar}
@@ -681,7 +682,7 @@ export function encodeNestedArray(array: SparseArray): number[] {
     \end{minted}
   \end{code}
 
-  \caption{Beispiel-Code Binär-Serialisierung}
+  \caption{Beispiel-Code Binär-Serialisierung (Typescript)}
   \label{sec:data_nested_encoding}
 
 \end{figure}
@@ -703,10 +704,10 @@ pub fn split_args(args: &[i32]) -> Vec<&[i32]> {
     let len = args.len();
 
     while i < len {
-        // check if we are at a bracket
+        // Wenn wir uns an einer Klammer befinden
         if i == next_bracket_index {
             next_bracket_index = i + args[i + 1] as usize + 1;
-            // check if the bracket is opening
+            // Wenn die Klammer öffnet
             if args[i] == 0 {
                 if depth == 1 {
                     start_index = i;
@@ -733,7 +734,7 @@ pub fn split_args(args: &[i32]) -> Vec<&[i32]> {
     \end{minted}
   \end{code}
 
-  \caption{Beispiel-Code Binär-Splitting}
+  \caption{Beispiel-Code Binär-Splitting (Rust)}
 
 \end{figure}
 
@@ -745,25 +746,25 @@ pub fn split_args(args: &[i32]) -> Vec<&[i32]> {
   \begin{code}
     \begin{minted}{rust}
 pub fn concat_args(data: Vec<&[i32]>) -> Vec<i32> {
-    // Start with 4 to account for opening/closing brackets
+    // 4 um die erste/letzte Klammer zu berücksichtigen
     let mut total_length = 4; 
 
-    for vec in &data { // Calculate the total length first to avoid reallocations
+    for vec in &data { // Berechnen der Gesamtlänge, um Neuzuweisungen zu vermeiden
         if vec.len() == 1 {
             total_length += 1;
         } else {
-            total_length += vec.len(); // +4 for [0, 1] and [1, 1] per inner vec
+            total_length += vec.len(); // +4 für die Klammern um jeden Subarray
         }
     }
 
     let mut result = Vec::with_capacity(total_length);
 
-    result.push(0); // Add [0, 1] initially
+    result.push(0); // Öffnende Klammer
     result.push(1);
 
     let mut last_closing_bracket = 1;
 
-    for vec in data.iter() { // Process each vector
+    for vec in data.iter() {
         if vec.len() == 1 {
             result.push(vec[0]);
             result[last_closing_bracket] += 1;
@@ -775,7 +776,7 @@ pub fn concat_args(data: Vec<&[i32]>) -> Vec<i32> {
         }
     }
 
-    result.push(1); // Add [1, 1] at the end
+    result.push(1); // Schließende Klammer
     result.push(1);
 
     result
@@ -784,7 +785,7 @@ pub fn concat_args(data: Vec<&[i32]>) -> Vec<i32> {
     \end{minted}
   \end{code}
 
-  \caption{Beispiel-Code Binär-Joining}
+  \caption{Beispiel-Code Binär-Joining (Rust)}
 
 \end{figure}
 
