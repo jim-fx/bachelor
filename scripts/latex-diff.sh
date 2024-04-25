@@ -24,10 +24,16 @@ fi
 # Use git show to get the content of the previous version and save it to file-old
 git show "$last_release_commit":"$file.tex" > "old-$file.tex"
 
+mv common.tex common.tex.bak
+git show "$last_release_commit":"common.tex" > "common.tex"
+
 # Generate the latexdiff
 latexdiff "old-$file.tex" "$file.tex" --flatten > "diff-$file.tex"
 
 make pdf FILE="diff-$file"
+
+rm -rf common.tex
+mv common.tex.bak common.tex
 
 mv "diff-$file.pdf" "$file-diff.pdf"
 
