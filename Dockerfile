@@ -3,7 +3,7 @@ FROM node:slim
 WORKDIR /var/local
 
 # combine into one run command to reduce image size
-RUN apt-get update && apt-get install -y perl wget libfontconfig1 make git python-pygments && \
+RUN apt-get update && apt-get install -y perl wget libfontconfig1 make git python3-pygments && \
     wget -qO- "https://yihui.name/gh/tinytex/tools/install-unx.sh" | sh  && \
     apt-get clean
 
