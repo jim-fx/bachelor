@@ -62,7 +62,7 @@ Um komplexere Werte wieder an die Host-Umgebung zu übergeben, muss diese direkt
 Zum Glück gibt es Bibliotheken wie \link[WASM-Bindgen]{WASM-Bindgen} die diese Kommunikation abstrahieren und vereinfachen.
 \br
 Da WebAssembly ein binäres Format ist, wird es selten direkt geschrieben und meistens als Kompilierungsziel für komplexere Programmiersprachen benutzt.
-Ich entschied mich für die Programmiersprache \link[Rust]{Rust}, da sie eine starke Typisierung, Performance und Speicher-Sicherheit bietet \cite{bugden2022rust}.
+Ich entschied mich für die Programmiersprache \link[Rust]{Rust}, da sie eine starke Typisierung, Performance und Speichersicherheit bietet \cite{bugden2022rust}.
 Außerdem bietet \link[Rust]{Rust} eine gute Integration mit WebAssembly und ermöglicht es, Rust-Code direkt in WebAssembly zu kompilieren. 
 Die \href{https://rustwasm.github.io/}{Rust and WebAssembly domain working group} bietet viele Tools und Bibliotheken an, die die Entwicklung von WebAssembly-Anwendungen in \link[Rust]{Rust} erleichtern.
 
@@ -70,7 +70,7 @@ Die \href{https://rustwasm.github.io/}{Rust and WebAssembly domain working group
 \label{sec:Zielsetzung}
 
 Das Ziel dieser Bachelorarbeit ist es eine visuelle Programmiersprache zu entwickeln, die \textbf{performant}, \textbf{erweiterbar} und möglichst \textbf{einfach zu bedienen} ist.
-Um diese drei Anforderungen laufend zu überprüfen wird die VPL im Kontext einer Web-App entwickelt die den Nutzer/innen erlaubt prozedurale 3D-Modelle von Pflanzen zu erstellen.
+Um diese drei Anforderungen laufend zu überprüfen wird die VPL im Kontext einer Web-App entwickelt, die den Nutzer/innen erlaubt prozedurale 3D-Modelle von Pflanzen zu erstellen.
 Dieser Anwendungsfall wurde gewählt da die hohen Datenmengen von 3D-Modellen eine gute Möglichkeit bieten die Performance der VPL zu testen.
 \br
 Ein weiteres Ziel dieser Arbeit ist es, die Eignung von WebAssembly als Grundlage für eine solche VPL zu untersuchen. 
@@ -96,7 +96,6 @@ Nach Burnett\&Mayer können VPL's in 5 verschiedenen Klassen eingeteilt werden \
 
 \subsubsection{\qt{Purely visual languages}}
 \qt{Purely visual languages} haben keine textuelle Repräsentation und sind ausschließlich visuell. Ein Beispiel hierfür ist Scratch, das es Nutzern ermöglicht, durch das Zusammensetzen von Blöcken Programme zu erstellen, ohne eine einzige Zeile Code zu schreiben. \cite{mitScratchAbout}
-
 
 \subsubsection{\qt{Hybrid text and visual Systems}}
 \qt{Hybrid text and visual systems} haben eine textuelle Repräsentation, die parallel zur visuellen Repräsentation existiert. 
@@ -237,18 +236,9 @@ Im Gegensatz zum Shader Editor (sieht Abbildung \ref{fig:blender-shader}) bietet
   \label{fig:blender-repeat}
 \end{figure}
 
-\cmt{Need to write more here}
-
-\cmt{pretty good for procedural generation}
-
-\cmt{nicht erweiterbar}
-
-\cmt{nicht webbasiert}
-
-\cmt{nicht open-source}
-
-\cmt{nicht generalisiert}
-
+SpeedTree ist eine Software zur Erstellung von 3D-Modellen von Pflanzen. Der Nutzer legt über ein node-basiertes Interface die unterschiedlichen Teile eine Pflanze fest und kann so sehr detaillierte und realistische Modelle erstellen. SpeedTree wird seit 2000 von Interactive Data Visualization Inc. entwickelt und findet vor allem Anwendung in der Spieleindustrie. \cite{speedtreeGettingstartedSpeedTree}.
+\br
+Im Gegensatz zu Blender und Node-RED ist SpeedTree ein sehr spezialisiertes Tool.  Außerdem ist es nicht open-source und nicht kostenlos. Auch gibt es keine Möglichkeit, eigene Nodes zu erstellen oder die Software zu erweitern.
 
 \section{Konzept}
 
@@ -385,7 +375,7 @@ const mathNodeType: NodeDefinition = {
 
 \end{figure}
 
-Die Node-Definition besteht aus einer \topic{id}, \topic{inputs}, \topic{outputs} und einer \topic{execute} Funktion. Die \topic{inputs} einer \link[node]{Node} können unterschiedliche \topic{type} Werte haben:
+Die Node-Definition besteht aus einer \topic{id}, \topic{inputs}, \topic{outputs} und einer \topic{execute} Funktion. Die \topic{inputs} einer \link[node]{Node} können unterschiedliche \topic{type} Werte haben, beispielsweise:
 
 \begin{itemize}
   \setlength\itemsep{0.0em}
@@ -394,10 +384,9 @@ Die Node-Definition besteht aus einer \topic{id}, \topic{inputs}, \topic{outputs
   \item boolean
   \item select
   \item vec3
-  \item etc.
 \end{itemize}
 
-Über diese \topic{inputs} legen die Nutzer fest welche Argumente eine \link[node]{Node} entgegennimmt.
+Über diese \topic{inputs} wird festgelegt welche Argumente eine \link[node]{Node} entgegennimmt.
 Im \link[node_interface]{Node-Interface} werden diese dann als Eingabefelder dargestellt. Außerdem legen diese Inputs fest welche \link[node]{Nodes} mit dieser \link[node]{Node} verbunden werden können. 
 \br
 Ein weiteres Attribut eines \topic{inputs} ist \topic{setting}. So können die Nutzer Argumente festlegen die global für den ganzen \link[node_graph]{Node-Graph} gelten und nicht direkt von einer \link[node]{Node} abhängen. Ein Beispiel aus der Entwicklung wäre hier die \topic{resolution}. Diese legt fest wie viele Vertices eine \link[node]{Node} für ein 3D-Modell generieren soll. Das \link[node_interface]{Node-Interface} konstruiert aus allen \topic{settings} ein globales Einstellungsmenü.
@@ -463,26 +452,41 @@ Die Verbindungen sind jeweils ein Tupel aus der \topic{id} der \link[node]{Node}
 \pagebreak
 
 \subsubsection{Node-Interface}
+Abbildung \ref{fig:overview_sequence}
 \label{sec:node_interface}
 \cmt{Visuelles Interface für den Node-Graph}
+
 \subsubsection{Node-Registry}
 \label{sec:node_registry}
-\cmt{Verwaltung der Nodes}
+
+Die \link[node_registry]{Node-Registry} ist für das Verwalten der \link[node_definition]{Node-Definitionen} zuständig. Konzeptuell funktioniert sie ähnlich wie die Package-Manager der gängigen Programmiersprachen, z.B. \href{https://www.npmjs.com/}{npm} oder \href{https://crates.io/}{crates.io}.
+\br
+Damit diese \link[node_registry]{Node-Registry} erweiterbar ist wurde ein eigenes ID-Schema für die \link[node_definition]{Node-Definitionen} entworfen. Dies besteht aus einer \topic{user-id} einem \topic{namespace} und der \topic{node-id}. 
+Ein Beispiel aus der Entwicklung wäre \topic{max/plantarium/branch}.
+\br
+Die \topic{user-id} ist die ID des/der Entwicklers/Entwicklerin und dient dazu, die Nodes zu gruppieren. Der Namespace gruppiert Nodes die zusammen funktionieren. So kann das System der \link[HON]{Higher-Order Nodes} nur für Nodes in dem \topic{plantarium} Namespace implementiert werden und andere Namespaces können andere Implementierungen haben.
+\br
+Die \topic{node-id} muss individuell innerhalb eines \topic{namespace} sein. 
+\subsubsection*{Non-Goals}
+Obwohl im Design darauf geachtet wurde die \link[node_registry]{Node-Registry} so erweiterbar wie möglich zu machen, wurde darauf verzichtet Funktionen die eine \qt{echte} Registry haben sollte zu implementieren. So gibt es keine Ansätze zur Versionierung, auch auf Authentifizierung und Autorisierung wurde verzichtet.
+
 \subsubsection{Runtime-Executor}
 \label{sec:runtime_executor}
-\cmt{Ausführung der Nodes}
+
+Der \link[runtime_executor]{Runtime-Executor} ist für die Ausführung eines \link[node_graph]{Node-Graphen} zuständig. In meiner Implementierung wird diese Ausführung in mehrere Schritte unterteilt.
 
 \pagebreak
 
 \subsubsection{Higher Order Nodes / Parameter}
 \label{sec:HON}
 In vorherigen Abschnitten wurde der Vergleich zwischen \link[node]{Nodes} und Funktionen gezogen. Dies hat den Vorteil, dass es das Konzept etwas leichter verständlich macht.
-Es gibt jedoch Situationen, in denen es sinnvoll ist, von dem Konzept einer Node als reiner Funktion abzuweichen, damit die VPL zum einen flexibler und zum anderen einfacher zu bedienen ist.
+Es gibt jedoch Situationen, in denen es sinnvoll ist, von dem Konzept einer Node als reiner Funktion abzuweichen, damit die VPL zum einen flexibler und zum anderen einfacher zu bedienen ist. Hier werde ich nun zwei Beispiele für solche Situationen vorstellen.
 \subsubsection*{Random Problem}
-Wie in Abbildung \ref{fig:random_problem} dargestellt, würde das Ergebnis der \topic{random} Node identisch sein, wenn sie nur einmal ausgeführt wird, unabhängig davon, wie viele \topic{math/add} Nodes als Empfänger dienen. 
+In Abbildung \ref{fig:random_problem} ist ein beispielhafter Aufbau eines \link[node_graph]{Node-Graphen} dargestellt. Wären die \topic{random} Nodes als reine Funktion implementiert würde sie nur einmal ausgeführt und die beiden \topic{math/add} Nodes würden das gleiche Ergebnis produzieren. Dies wäre für die meisten Nutzenden ein überaschendes Ergebnis.
+\br
 Eine mögliche Lösung wäre, die \topic{random} Node für jede ihrer ausgehenden Verbindungen separat auszuführen. 
 Dies könnte jedoch zur unnötigen Mehrfachausführung von Nodes führen, die dies nicht erfordern.
-Außerdem erschwert dies das Caching von Node-Ergebnissen, da nicht nur die Node-Parameter, sondern auch die Anzahl der Verbindungen das Ergebnis beeinflussen würden.
+Außerdem erschwert dies das Caching von Node-Ergebnissen, da nicht nur die Node-Parameter, sondern auch die Anzahl der ausgehenden Verbindungen das Ergebnis beeinflussen würden.
 \br
 Ein weiterer Nachteil ist das für dieses Konzept die Ausführung der Nodes nicht mehr nur in eine Richtung verläuft. Das könnte zu konzeptioneller Verwirrung und Komplexität führen.
 \br
@@ -531,18 +535,18 @@ Die Grundidee ist es Nodes als ein Array aus 32Bit Integer darzustellen, die ers
 Gleitzahlen sind 32 Bit nach dem IEEE-754 Standard und können dank der gleichen Größe ohne weiter Anpassungen im Array gespeichert werden. 
 \br
 Da WebAssembly, sowie auch Rust keine verschachtelten Arrays unterstützen, muss dieser Array in einen linearen Array umgewandelt werden. 
-Der \qt{Recursive-Length Prefix Serialization} Algorithmus von Ethereum war ein guter Ansatz, jedoch nicht für die Anforderungen dieser Anwendung optimiert, da er für Strings ausgelegt ist. 
+Der \qt{Recursive-Length Prefix Serialization} Algorithmus von Ethereum war ein guter Ansatz, ist jedoch nicht für die Anforderungen dieser Anwendung optimiert, da er für Strings ausgelegt ist. 
 \cite{wood2024ethereum}
 \br
-Das aktuelle Binärformat besteht darin jede Klammer in einer verschachtelten Struktur durch zwei 32 Bit Integer zu enkodieren. 
+Das aktuelle Binärformat besteht darin jede Klammer in einem verschachtelten Array durch zwei 32 Bit Integer zu enkodieren. 
 Die erste Stelle gibt, an ob es sich um eine öffnende oder schließende Klammer handelt, die zweite Stelle gibt den Abstand zur nächsten Klammer an.
 
 \begin{figure}[htbp]
   \begin{code}
     \begin{minted}{typescript}
-const input = [ 0, 2, 3, [ 2, [ 5 ] ] ]
+input = [ 0, 2, 3, [ 2, [ 5 ] ] ]
 
-const endoded = [
+encoded = [
   0, // 0 => Klammer auf
   3, // Abstand zur nächsten Klammer
   2,
@@ -554,11 +558,11 @@ const endoded = [
   2, // Abstand zur nächsten Klammer
   5,
   1, // 1 => Klammer zu
+  1, // 1 => Abstand zur nächsten Klammer 
   1, // 1 => Klammer zu
+  1, // 1 => Abstand zur nächsten Klammer 
   1, // 1 => Klammer zu
-  1, // 1 => Klammer zu
-  1, // 1 => Klammer zu
-  1, // 1 => Klammer zu
+  1, // 1 => Abstand zur nächsten Klammer 
 ]
 
     \end{minted}
@@ -569,16 +573,24 @@ const endoded = [
 
 \end{figure}
 
-Eine Limitierung dieser Implementierung ist das 32 Bit integer nur Zahlen bis maximal $2^{31}-1$ darstellen können. Dies beschränkt die Länge eines Arrays auf $2,147,483,647$ Elemente. Für diese Anwendung ist dies jedoch mehr als ausreichend.
+Eine Limitierung dieser Implementierung ist das 32 Bit integer nur Zahlen bis maximal $2^{31}-1$ darstellen können. Dies beschränkt die Länge eines Arrays auf $2,147,483,647$ Elemente. Für diese Anwendung ist das jedoch mehr als ausreichend.
 
 \subsubsection*{O-Notation}
-Die O-Notation der \link[code_nested_encoding]{Beispiel-Implementierung} ist $O(n)$, wobei $n$ die Anzahl der Elemente in der Serialisierung ist. Während der Serialisierung der einzelnen \link[node]{Nodes} muss aber nicht der gesamte Array deserialisiert und serialisiert werden. Hier können wir den serialiserten Input in einzelne Argumente \link[code_nested_splitting]{aufteilen} und diese am Ende wieder \link[code_nested_joining]{zusammenfügen}. Dies hat den Vorteil das die Serialisierung und Deserialisierung von einzelnen Argumenten $O(1)$ ist.
+Die O-Notation der \link[code_nested_encoding]{Beispiel-Implementierung} ist $O(n)$, wobei $n$ die Anzahl der Elemente in der Serialisierung ist. Während der Serialisierung der einzelnen \link[node]{Nodes} muss aber nicht der gesamte Array deserialisiert und serialisiert werden. Hier können wir den serialisierten Input in einzelne Argumente \link[code_nested_splitting]{aufteilen} und diese am Ende wieder \link[code_nested_joining]{zusammenfügen}. Dies hat den Vorteil das die Serialisierung und Deserialisierung von einzelnen Argumenten $O(1)$ ist.
 
 \subsection{Technologien}
+
+Bei der Wahl der Technologien habe ich versucht Technologien auszuwählen die zukunftssicher sind und den Anforderungen dieser Anwendung entsprechen. Dies bedeutet zum einen das diese Technologien bereits weit verbreitet sind, eine aktive Community haben und aktiv weiterentwickelt werden.
+\br
+Ein weiterer Faktor war meine eigene Erfahrung und die Erfahrung die ich mir durch die Entwicklung dieser Anwendung aneignen wollte. So habe ich bereits viel Erfahrung mit TypeScript und Svelte, jedoch nicht mit Rust und WebAssembly.
+
 \subsubsection{WebAssembly}
 WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
 \br
-Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und \link[Rust]{Rust} benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert. Dies ermöglicht es, performante und sicherere Anwendungen zu entwickeln.
+Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und \link[Rust]{Rust} benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert.
+\br
+WebAssembly wurde gewählt, da es erlaubt performanten Code zu schreiben der in allen gängigen Browsern ausgeführt werden kann. 
+Zudem kann man durch die Isolation WebAssembly-Module von anderen Entwickler*innen ausführen, ohne das dies ein Sicherheitsrisiko darstellt. Dies macht die Anwendung leicht erweiterbar.
 \subsubsection*{WebAssembly Component Model}
 Das WebAssembly Component Model ist ein neuer Standard, der es ermöglicht das sich WebAssembly-Module untereinander instanziieren und aufrufen können. \cite{bytecodeallianceIntroductionWebAssembly} 
 Dies würde es ermöglichen den \link[runtime_executor]{Runtime-Executor} als WebAssembly-Modul zu implementieren und so die Ausführung der Nodes zu beschleunigen, da der Overhead der Kommunikation zwischen WebAssembly und Javascript vermieden wird. Allerdings gab es erst am 25. Januar 2024 die stabile Veröffentlichung dieses Standards, und zu diesem Zeitpunkt wird er von noch keinem Browser unterstützt.
@@ -591,11 +603,21 @@ WASM-Bindgen und WASM-Pack sind ein Rust-Bibliotheken, die die Interaktion zwisc
 
 \subsubsection{Svelte}
 \label{sec:Svelte}
+
+\href{https://svelte.dev/}{Svelte} ist ein deklaratives Frontend-Framework, das sich dadurch auszeichnet auf ein virtuelles DOM zu verzichten und möglichst viel der Arbeit in der Build-Zeit zu erledigen.
+
+\subsubsection{Three.js / Threlte}
+
+Three.js ist der Industriestandard für interaktive 3D-Webanwendung. Es abstrahiert die unterliegende komplexe WebGL-Api und bietet eine Vielzahl von Funktionen und Beispielen. Threlte ist eine Wrapper-Bibliothek um Three.js die es erlaubt Szenen deklarativ zu beschreiben und das Reaktivitätsmodell von Svelte zu nutzen.
+
 \subsubsection{Rust}
 \label{sec:Rust}
+
+Rust ist eine von Mozilla entwickelte Programmiersprache, die sich durch ihre Sicherheit und Performance auszeichnet. Sie ist statisch typisiert und besitzt ein Borrow-Checker, der die Speichersicherheit garantiert. \cite{Jung_2020} Rust bietet zum einen die Möglichkeit eng mit dem Speicher zu arbeiten bietet aber auch abstrakte Konzepte wie Traits und generischen Typen und ein mächtiges Makro-System, das mit bei der Entwicklung dieser Anwendung sehr geholfen hat.
+
 \subsubsection{TypeScript}
 \label{sec:TypeScript}
-
+TypeScript ist ein Superset von Javascript, das statische Typisierung und andere Features hinzufügt. Es kompiliert zu Javascript und kann daher in allen gängigen Browsers und in der Node.js Laufzeitumgebung ausgeführt werden.
 \subsection{Design}
 
 \section{Implementierung}
