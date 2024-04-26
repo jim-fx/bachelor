@@ -2,7 +2,7 @@
 
 \input{common}
 
-\title{Bachelorarbeit}
+\title{WebAssembly-basierte visuelle Programmiersprache \br \small Bachelorarbeit}
 \author{Max Richter}
 
 \begin{document}
@@ -63,7 +63,7 @@ Zum Glück gibt es Bibliotheken wie \link[WASM-Bindgen]{WASM-Bindgen} die diese 
 \br
 Da WebAssembly ein binäres Format ist, wird es selten direkt geschrieben und meistens als Kompilierungsziel für komplexere Programmiersprachen benutzt.
 Ich entschied mich für die Programmiersprache \link[Rust]{Rust}, da sie eine starke Typisierung, Performance und Speichersicherheit bietet \cite{bugden2022rust}.
-Außerdem bietet \link[Rust]{Rust} eine gute Integration mit WebAssembly und ermöglicht es, Rust-Code direkt in WebAssembly zu kompilieren. 
+Zusätzlich bietet \link[Rust]{Rust} eine gute Integration mit WebAssembly und ermöglicht es, Rust-Code direkt in WebAssembly zu kompilieren. 
 Die \href{https://rustwasm.github.io/}{Rust and WebAssembly domain working group} bietet viele Tools und Bibliotheken an, die die Entwicklung von WebAssembly-Anwendungen in \link[Rust]{Rust} erleichtern.
 
 \subsection{Zielsetzung} 
@@ -87,8 +87,8 @@ Welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly au
 \section{Theoretischer Rahmen}
 
 \subsection{Definition von visuellen Programmiersprachen}
-Eine visuelle Programmiersprache stellt die Komponenten und Verbindungen eines Programms in mehr als einer Dimension dar. Oft ist diese Dimension eine zweidimensionale Fläche auf der die einzelnen Funktionen oder Komponenten eines Systems visuell dargestellt werden. \cite{Myers}
-Auch wenn textuelle Sprache auf einer zweidimensionalen Oberfläche dargestellt wird, so ist sie meist aus Sicht des Interpreters oder Compilers ein eindimensionaler Stream aus Tokens.
+Eine visuelle Programmiersprache stellt die Komponenten und Verbindungen eines Programms in mehr als einer Dimension dar. Oft ist diese Dimension eine zweidimensionale Fläche auf der die einzelnen Funktionen oder Komponenten eines Systems visuell dargestellt werden. 
+Auch wenn textuelle Sprache auf einer zweidimensionalen Oberfläche dargestellt wird, so ist sie meist aus Sicht des Interpreters oder Compilers ein eindimensionaler Stream aus Tokens. \cite{Myers}
 
 \subsection{Klassifikation von visuellen Programmiersprachen}
 
@@ -99,10 +99,10 @@ Nach Burnett\&Mayer können VPL's in 5 verschiedenen Klassen eingeteilt werden \
 
 \subsubsection{\qt{Hybrid text and visual Systems}}
 \qt{Hybrid text and visual systems} haben eine textuelle Repräsentation, die parallel zur visuellen Repräsentation existiert. 
-Ein Beispiel hierfür ist Microsoft's Visual Programming Language, das Teil von Microsoft Robotics Developer Studio ist und eine hybride Umgebung bietet, in der Nutzer sowohl Code schreiben als auch visuelle Elemente nutzen können. \cite{microsoftIntroduction}
+Ein Beispiel hierfür ist Microsofts \qt{Visual Programming Language}, das Teil von Microsoft Robotics Developer Studio ist und eine hybride Umgebung bietet, in der Nutzer sowohl Code schreiben als auch visuelle Elemente nutzen können. \cite{microsoftIntroduction}
 
 \subsubsection{\qt{Programming-by-example Systems}}
-Programming-by-example systems erlauben es dem Nutzer, ein Programm zu schreiben, indem er die gewünschte Funktionalität in einem Beispiel demonstriert. Etoys, basierend auf Squeak, ist ein Beispiel für ein solches System, bei dem Benutzer durch das Demonstrieren von Aktionen Objekte programmieren können. \cite{squeakSqueakSmalltalk}
+Programming-by-example Systems erlauben es dem Nutzer, ein Programm zu schreiben, indem er die gewünschte Funktionalität in einem Beispiel demonstriert. Etoys, basierend auf Squeak, ist ein Beispiel für ein solches System, bei dem Benutzer durch das Demonstrieren von Aktionen Objekte programmieren können. \cite{squeakSqueakSmalltalk}
 
 \subsubsection{\qt{Constraint-oriented Systems}}
 \qt{Constraint-oriented Systems} erlauben es dem Nutzer, Constraints zwischen den Komponenten des Programms zu definieren. SketchPad wäre ein Beispiel für ein solches System, bei dem Benutzer geometrische Formen zeichnen und Constraints zwischen ihnen definieren können. \cite{sutherlandSketchpad}
@@ -110,7 +110,7 @@ Programming-by-example systems erlauben es dem Nutzer, ein Programm zu schreiben
 
 \subsubsection{\qt{Form-based systems}}
 In \qt{Form-based systems} schreiben die Nutzer Programme, indem sie Formulare ausfüllen. 
-Ein klassisches Beispiel für ein formular-basiertes System ist Oracle Forms, 
+Ein klassisches Beispiel für ein Formular-basiertes System ist Oracle Forms, 
 das eine GUI für Datenbankabfragen und -transaktionen bietet, indem es Benutzern ermöglicht, Formulare auszufüllen, die dann in SQL-Code umgewandelt werden. \cite{wikipediaOracleForms}
 
 \subsection{Historische Vorbilder}
@@ -240,9 +240,11 @@ SpeedTree ist eine Software zur Erstellung von 3D-Modellen von Pflanzen. Der Nut
 \br
 Im Gegensatz zu Blender und Node-RED ist SpeedTree ein sehr spezialisiertes Tool.  Außerdem ist es nicht open-source und nicht kostenlos. Auch gibt es keine Möglichkeit, eigene Nodes zu erstellen oder die Software zu erweitern.
 
+\pagebreak
+
 \section{Konzept}
 
-Die in dieser Arbeit entwickelte VPL nutzt einem node-basierten Ansatz. 
+Die in dieser Arbeit entwickelte VPL nutzt einen node-basierten Ansatz. 
 \link[node]{Nodes} sind in diesem Kontext einzelne Bausteine die ähnlich wie eine Funktion in einer textuellen Programmiersprache funktionieren.
 Das heißt, sie nehmen Argumente entgegen, verarbeiten diese und geben ein Ergebnis zurück.
 \br
@@ -274,7 +276,10 @@ Der Datenfluss ist von links nach rechts und die Verbindungen zwischen den Nodes
 
 \subsection{Anforderungen}
 
-Wie in der \hyperref[sec:Zielsetzung]{Zielsetzung} beschrieben, gibt es drei Hauptanforderungen an diese VPL; \textbf{Erweiterbarkeit}, \textbf{Performance} und \textbf{gute User-Experience}.
+Wie in der \hyperref[sec:Zielsetzung]{Zielsetzung} beschrieben, gibt es drei Hauptanforderungen an diese VPL; 
+\textbf{Performance},
+\textbf{Erweiterbarkeit}
+und \textbf{gute User-Experience}.
 
 \subsubsection{Erweiterbarkeit}
 
@@ -284,8 +289,7 @@ schnell in der Lage sein soll eigene WebAssembly-Module zu schreiben welche dann
 Um dies zu erreichen müssen die Interfaces und Abstraktionen möglichst minimal gehalten werden.
 \br
 Außerdem sollen die Komponenten, auf die ich in der \link{Architektur} noch genauer eingehen werde, in unterschiedlichen Umgebungen implementiert und ausgeführt werden können.
-Vorstellbar wäre zum Beispiel das der/die Nutzer/in den \link[node_graph]{Node-Graph} in einer Web-App bearbeitet, dieser aber in Echtzeit auf einem Server ausgeführt wird.
-
+Vorstellbar wäre zum Beispiel das der/die Nutzer/in den \link[node_graph]{Node-Graph} in einer Web-App bearbeitet, dieser aber in Echtzeit auf einem Server ausgeführt wird. 
 Dies erfordert eine möglichst lose Kopplung und die Minimierung des Datentransfers zwischen den einzelnen Komponenten.
 
 \subsubsection{Performance}
@@ -355,6 +359,7 @@ type NodeDefinition = {
   execute?: (args: Int32Array) => Int32Array;
 }
 
+// Beispiel einer Math Node
 const mathNodeType: NodeDefinition = {
   id: "max/plantarium/math",
   inputs: { 
@@ -518,7 +523,7 @@ Wenn die vorherigen Nodes als pure Funktionen modelliert wären, gäbe es für s
 Eine Lösung für dieses Problem ist die Einführung von parametrisierten Nodes. Das heißt bestimmte Nodes geben kein Ergebnis zurück, sondern eine parametrisierte Version ihrer selbst, die dann von anderen Nodes evaluiert werden kann.
 \br
 Dies hat den entscheidenden Vorteil das andere Nodes frei entscheiden können, wo und wie oft sie ihre Argumente evaluieren.
-Des Weiteren können diese Nodes wiederum eigene Argumente bei der Evaluierung übergeben.
+Außerdem kann dies implementiert, ohne die Runtime zu beeinflussen, da die Ausführung der Nodes weiterhin in einer Richtung verläuft.
 \br
 Die \topic{cylinder} Node im vorherigen Beispiel könnte zum Beispiel bei der Evaluierung der \topic{random} Node ein \topic{seed} übergeben.
 \br
@@ -590,7 +595,7 @@ WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Ma
 Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und \link[Rust]{Rust} benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert.
 \br
 WebAssembly wurde gewählt, da es erlaubt performanten Code zu schreiben der in allen gängigen Browsern ausgeführt werden kann. 
-Zudem kann man durch die Isolation WebAssembly-Module von anderen Entwickler*innen ausführen, ohne das dies ein Sicherheitsrisiko darstellt. Dies macht die Anwendung leicht erweiterbar.
+Zudem kann man durch die Isolation WebAssembly-Module von anderen Entwickler/innen ausführen, ohne das dies ein Sicherheitsrisiko darstellt. Dies macht die Anwendung leicht erweiterbar.
 \subsubsection*{WebAssembly Component Model}
 Das WebAssembly Component Model ist ein neuer Standard, der es ermöglicht das sich WebAssembly-Module untereinander instanziieren und aufrufen können. \cite{bytecodeallianceIntroductionWebAssembly} 
 Dies würde es ermöglichen den \link[runtime_executor]{Runtime-Executor} als WebAssembly-Modul zu implementieren und so die Ausführung der Nodes zu beschleunigen, da der Overhead der Kommunikation zwischen WebAssembly und Javascript vermieden wird. Allerdings gab es erst am 25. Januar 2024 die stabile Veröffentlichung dieses Standards, und zu diesem Zeitpunkt wird er von noch keinem Browser unterstützt.
@@ -618,7 +623,62 @@ Rust ist eine von Mozilla entwickelte Programmiersprache, die sich durch ihre Si
 \subsubsection{TypeScript}
 \label{sec:TypeScript}
 TypeScript ist ein Superset von Javascript, das statische Typisierung und andere Features hinzufügt. Es kompiliert zu Javascript und kann daher in allen gängigen Browsers und in der Node.js Laufzeitumgebung ausgeführt werden.
+
+\pagebreak
+
 \subsection{Design}
+
+Die Anwendung wurde so designt, dass sie möglichst einfach und intuitiv zu bedienen ist. Dafür wurde ein sehr simples zweispaltiges Layout gewählt. Auf der rechten Seite befindet sich das \link[node_interface]{Node-Interface} und auf der linken Seite die 3D-Visualisierung der entstandenen Pflanze. Zudem gibt es auf der rechten Seite eine Symbolleiste die den Zugriff auf verschiedene Untermenüs erlaubt. Diese sind aber standardmäßig ausgeblendet, um die Übersicht zu erhöhen.
+
+
+\begin{figure}[hbtp]
+  \centering
+  \includegraphics[width=0.75\textwidth]{graphics/layout.png}
+  \caption{Screenshot der Anwendung im Dark-Mode}
+  \label{fig:screenshot_nodarium}
+\end{figure}
+
+\begin{figure}[hbtp]
+  \centering
+  \includegraphics[width=0.75\textwidth]{graphics/layout_white.png}
+  \caption{Screenshot der Anwendung im Light-Mode}
+  \label{fig:screenshot_nodarium}
+\end{figure}
+
+\pagebreak
+
+\subsubsection{Farbgebung}
+
+Da es sich bei der Anwendung um ein Tool für die Entwicklung von 3D-Modellen handelt, wurde eine Farbgebung die möglichst unaufdringlich und minimalistisch ist.
+Zur Entwicklung der Farbpalette wurde ein neutrales dunkles Grau gewählt von dem aus den zwei Dunklere und drei hellere Farben abgeleitet wurden. Aus diesen 6 Farbtönen wurden dann die einzeln Farbschemas für die Anwendung abgeleitet. Außerdem wurde ein High-Contrast-Mode implementiert, der die Farben so anpasst, dass sie auch für Nutzer/innen mit Sehschwäche gut erkennbar sind.
+
+\subsubsection{Node Design}
+
+
+\begingroup
+\setlength\intextsep{4pt}
+\begin{minipage}{\linewidth}
+\begin{wrapfigure}{L}{0.48\textwidth}
+    \includegraphics[width=0.47\textwidth]{graphics/NODE_ANATOMY.pdf}
+    \caption{Anatomie einer Node}
+    \label{sec:NODE_ANATOMY}
+\end{wrapfigure}
+
+Das Design der einzelnen Nodes ist stark an Blenders Design angelehnt. Die Struktur einer Node ist in Abbildung \ref{sec:NODE_ANATOMY} dargestellt. 
+
+Ein großer limitierender Faktor beim Design der Nodes ist der vertikale Raum den eine Node einnimmt. Da bei der Entwicklung einer Node die Anzahl der Argumente schnell anwachsen kann, kann auch die vertikale Größe schnell anwachsen. 
+Um dieses Problem zu beheben habe ich den \link[node_input]{Node-Inputs} eine Einstellung hinzugefügt, die diesen Input in ein Untermenü auf der rechten Seite versteckt. 
+\end{minipage}
+\br
+\endgroup
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=1\textwidth]{graphics/node_graph.png}
+  \caption{Screenshot eines \link[node_graph]{Node-Graphen}}
+  \label{fig:node_graph_screenshot}
+\end{figure}
+
 
 \section{Implementierung}
 \subsection{UI}
@@ -637,12 +697,6 @@ TypeScript ist ein Superset von Javascript, das statische Typisierung und andere
 \label{sec:node}
 Einzelner Baustein eines \hyperref[sec:node_graph]{Node-Graphs}. Eine Node funktioniert etwa wie eine Funktion in einer textuellen Programmiersprache. Sie nimmt \hyperref[sec:node_argumente]{Node-Argumente} entgegen, verarbeitet diese und gibt ein Ergebnis zurück. 
 
-\begin{figure}[htbp]
-    \centering
-    \includegraphics[width=0.8\textwidth]{graphics/NODE_ANATOMY.pdf}
-    \caption{Anatomie einer Node}
-    \label{sec:NODE_ANATOMY}
-\end{figure}
 
 \subsection{Node-Definition}
 \label{sec:node_definition}
