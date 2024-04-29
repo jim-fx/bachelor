@@ -307,9 +307,8 @@ Hierbei spielen Performance, Konsistenz, Fehlermanagement und Feedback eine gro�
 \br
 \cmt{Hier muss definitiv noch mehr rein}
 
-\subsubsection{Nicht-Ziele}
-
-Die Webplattform als solche bietet viele Möglichkeiten Anwendungen für Nutzer/innen mit Behinderungen angenehmer zu gestalten. 
+\subsubsection{Non-Goals}
+Die Webplattform bietet viele Möglichkeiten Anwendungen für Nutzer/innen mit Behinderungen angenehmer zu gestalten. 
 Die dynamische Struktur einer VPL, sowie spezifische Details der Implementierung machen dies für diese Anwendung ein sehr großes Unterfangen. 
 Soweit möglich sollte auf Zugänglichkeit geachtet werden, diese aber umfassend zu garantieren wird nicht Teil dieser Arbeit sein.
 \br
@@ -478,7 +477,7 @@ Obwohl im Design darauf geachtet wurde die \link[node_registry]{Node-Registry} s
 \subsubsection{Runtime-Executor}
 \label{sec:runtime_executor}
 
-Der \link[runtime_executor]{Runtime-Executor} ist für die Ausführung eines \link[node_graph]{Node-Graphen} zuständig. In meiner Implementierung wird diese Ausführung in mehrere Schritte unterteilt.
+Der \link[runtime_executor]{Runtime-Executor} ist für die Ausführung eines \link[node_graph]{Node-Graphen} zuständig.
 
 \pagebreak
 
@@ -546,36 +545,12 @@ Der \qt{Recursive-Length Prefix Serialization} Algorithmus von Ethereum war ein 
 Das aktuelle Binärformat besteht darin jede Klammer in einem verschachtelten Array durch zwei 32 Bit Integer zu enkodieren. 
 Die erste Stelle gibt, an ob es sich um eine öffnende oder schließende Klammer handelt, die zweite Stelle gibt den Abstand zur nächsten Klammer an.
 
+
 \begin{figure}[htbp]
-  \begin{code}
-    \begin{minted}{typescript}
-input = [ 0, 2, 3, [ 2, [ 5 ] ] ]
-
-encoded = [
-  0, // 0 => Klammer auf
-  3, // Abstand zur nächsten Klammer
-  2,
-  3,
-  0, // 0 => Klammer auf
-  2, // Abstand zur nächsten Klammer
-  2, 
-  0, // 0 => Klammer auf
-  2, // Abstand zur nächsten Klammer
-  5,
-  1, // 1 => Klammer zu
-  1, // 1 => Abstand zur nächsten Klammer 
-  1, // 1 => Klammer zu
-  1, // 1 => Abstand zur nächsten Klammer 
-  1, // 1 => Klammer zu
-  1, // 1 => Abstand zur nächsten Klammer 
-]
-
-    \end{minted}
-  \end{code}
-
-  \caption{Beispiel einer Binär-Serialisierung}
-  \label{sec:data_nested_encoding}
-
+  \centering
+  \includegraphics[width=0.8\textwidth]{./graphics/ENCODING_SCHEME.pdf}
+  \caption{Visualisierung der Binär-Serialisierung}
+  \label{fig:encoding_scheme}
 \end{figure}
 
 Eine Limitierung dieser Implementierung ist das 32 Bit integer nur Zahlen bis maximal $2^{31}-1$ darstellen können. Dies beschränkt die Länge eines Arrays auf $2,147,483,647$ Elemente. Für diese Anwendung ist das jedoch mehr als ausreichend.
@@ -681,14 +656,56 @@ Um dieses Problem zu beheben habe ich den \link[node_input]{Node-Inputs} eine Ei
 
 
 \section{Implementierung}
-\subsection{UI}
-\subsection{Backend}
+Die Anwendung wurde in einem Mono-Repository entwickelt, das die einzelnen Komponenten als eigenständige Pakete enthält. Dies hat den Vorteil das alle Komponenten gemeinsam entwickelt, versioniert und getestet werden können. 
+\br
+Außerdem unterstützen die beiden Paket-Manager \href{https://pnpm.io/}{pnpm} und \href{https://crates.io/}{cargo} das Arbeiten mit 
+Mono-Repositories sehr gut. 
+
+\section{Nodes}
+\cmt{Validierung der node-definition durch rust macro und zod}
+
+\section{Runtime-Executor}
+\cmt{allgorithmus - recursive preprocessing}
+
+\section{Node-Interface}
+Der Fokus bei der Implementierung lag darauf das Interface so simpel und performant wie möglich zu gestalten. Hierfür wurde eine hybride Darstellung aus HTML und WebGL Elementen entwickelt. HTML Elemente bieten hierbei den Vorteil, das sie einfach zu gestalten sind und gute Interaktionsmöglichkeiten bieten. Bei einer großen Anzahl sich bewegender HTML Elemente sinkt jedoch die Performance. 
+Deswegen wird ab einer bestimmten Zoom-Stufe die Darstellung der Nodes in ein WebGL Canvas gerendert. Dies hat den Vorteil, dass die Performance bei einer großen Anzahl von Nodes konstant bleibt. 
+Zur weiteren Verbesserung der Performance werden die abgerundeten Ecken und Rahmen der einzelnen Nodes per \href{https://en.wikipedia.org/wiki/Signed_distance_function}{Signed Distance Function} gerendert.
 
 \section{Evaluation}
 \cmt{Verdammt schnell}
 
+\cmt{1.8Mio Vertices in < 500ms E2E}
+
+\cmt{durchschnittlich 40kb pro Node}
+
 \section{Fazit}
 \cmt{Joah, schnieke würd ich mal sagen}
+
+\cmt{WASM eignet sich gut}
+
+\cmt{WASM -> low level -> schnell}
+
+\cmt{WASM -> low level -> komplex}
+
+\cmt{WASM -> single file exec}
+
+\cmt{Lose Kopplung -> flexibel}
+
+\section{Ausblick}
+\cmt{Remote Hosting für Nodes}
+
+\cmt{WebAssembly Component Model -> More speed?}
+
+\cmt{Implementierung der Namespaces}
+
+\cmt{Integration der Runtime in Plugins}
+
+\cmt{Mehr Nodes für Pflanzen}
+
+\cmt{Entwicklung einer visuellen Identität}
+
+\cmt{Erweitern der Dokumentation}
 
 \pagebreak
 \section{Glossar}
@@ -714,8 +731,9 @@ Node-Argumente sind die Eingabeparameter einer Node. Ein Node-Argument kann entw
 \label{sec:node_socket}
 Node-Sockets sind die Verbindungspunkte zwischen \link[node]{Nodes}. Eine Node hat mehrere Input-Sockets und einen Output Socket.
 
-\section{Beispiel-Code}
+\pagebreak
 
+\section{Beispiel-Code}
 \subsection{Binär-Serialisierung}
 \label{sec:code_nested_encoding}
 
