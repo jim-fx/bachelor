@@ -2,15 +2,27 @@
 
 Willkommen zu meiner Bachelorarbeit :)
 
+Hier werde ich eine node-basierte visuelle Programmiersprache entwickeln die WebAssembly benutzt.
+
 Dieses Repo wird wahrscheinlich für drei Monate voller Mühe, Schweiß, Blut und Tränen stehen, aber die habe ich im Moment noch vor mir.
 
 [Latest bachelor.pdf](https://github.com/jim-fx/bachelor/releases/latest/download/bachelor.pdf)
 [Latest expose.pdf](https://github.com/jim-fx/bachelor/releases/latest/download/expose.pdf)
 
+
 ## Inhaltsangabe
 
-- [Anforderungen](#requirements)
+- [Argumentation](#argumentation)
+- [Anforderungen](#build-anforderungen)
 - [Makefile](#makefile)
+
+## Argumentation
+
+- Visuelle Programmiersprachen sind leichter/schneller zu verstehen als textueller Gegenpart (Cognitive Load Theory)
+- bestehende leicht erweiterbare visuelle Programmiersprachen benutzen Javascript ⇨ unsicher, Performance-Probleme 
+- WebAssembly eignet sich besonders gut zur Entwicklung einer neuen visuellen Programmiersprache ⇨ sicher, performant, cross-plattform
+- Entwicklung im Kontext einer App zur prozeduralen Generierung von Pflanzen, da es gut die Eigenschaften testet
+
 
 ## Build-Anforderungen
 

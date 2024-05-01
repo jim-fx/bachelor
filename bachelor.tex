@@ -30,23 +30,29 @@
 In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces (HCI's) eine entscheidende Rolle.
 Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. 
 \br
-Da Menschen Konzepte und Relationen größtenteils visuell und räumlich verarbeiten \cite{smith1975pygmalion}, bieten visuelle Programmiersprachen (VPL's) einen guten Mittelweg für programmierunerfahrene Nutzer/innen. 
-Sie vereinen die Benutzerfreundlichkeit grafischer Interfaces mit der Komplexität und Flexibilität textbasierter Programmiersprachen.
+Visuelle Programmiersprachen (VPL's) bieten hier einen interessanten Mittelweg zwischen diesen beiden Konzepten. Sie bieten programmierunerfahrenen Nutzer/innen die Möglichkeit Programme ähnlich wie in einer textuellen Programmiersprache zu entwickeln.
 \br
 Es gibt bereits eine Vielzahl von VPL's, die in unterschiedlichen Bereichen Anwendung finden. 
-Diese reichen von einfachen Tools wie \textit{Scratch} für Kinder bis zu komplexen Systemen wie \textit{Blender} für 3D-Modellierung und Animation.
+Diese reichen von einfachen Tools wie \textit{Scratch} für Kinder bis zu komplexen Systemen wie \textit{Blender} für 3D-Modellierung und Animation. Vor allem in den Bereichen der prozeduralen Generierung von 3D-Modellen (Blender, Houdini, SpeedTree), Materialien (Blender, Substance-Designer) und Animationen (Blender, Unreal-Engine) finden VPL's Anwendung.
+\br
+Das Ziel dieser Arbeit ist es eine generalisierte visuelle Programmiersprache zu entwickeln, die leicht erweiterbar und performant ist.
+Diese wird als Web-App entwickelt, da dies einen niedrigschwelligen Zugang sowie einen einfachen Verbreitungsweg bietet.
+\br
+Es gibt bereits einige VPL's die als Web-App konzipiert wurden, so z.B. \href{https://nodered.org}{Node-Red},
+\href{https://developers.google.com/blockly}{Blockly} oder \href{https://scratch.mit.edu/}{Scratch}. Diese VPL's benutzen Javascript zur Entwicklung der einzelnen Bausteine und sind sie so relativ einfach zu erweitern da Javascript ohne weitere Kompilierung im Browser ausgeführt werden kann. 
+Javascript ist \qt{garbage-collected} und dynamischen typisiert und daher oft nicht die beste Wahl für die Entwicklung von performantem Code im Browser. Diese Merkmale können die Ausführungsgeschwindigkeit beeinträchtigen, da die Garbage-Collection unvorhersehbare Verzögerungen verursachen kann und die dynamische Typisierung zusätzliche Ressourcen zur Laufzeit erfordert, um Typinformationen zu verwalten und Fehler zu vermeiden.
+Des Weiteren benötigt Javascript besondere Aufmerksamkeit, um sicherzustellen, das der Code von anderen Nutzer/innen sicher ausgeführt werden kann.
 \br
 In dieser Bachelorarbeit wird eine VPL entwickelt bei der die einzelnen Bausteine als WebAssembly-Module implementiert sind. 
 Dies ermöglicht es neue Bausteine von anderen Entwickler/innen einfach hinzuzufügen und so die Funktionalität der VPL zu erweitern.
-Hierbei garantiert WebAssembly eine hohe Performance und Sicherheit, da der Code in einer virtuellen Maschine ausgeführt wird.
+Hierbei garantiert WebAssembly eine Plattformunabhängigkeit, hohe Performance und Sicherheit, da der Code in einer virtuellen Maschine ausgeführt wird. \cite{Haas2017}
+\br
+Außerdem wird die VPL im Kontext einer Web-App entwickelt, die es Nutzer/innen ermöglicht prozedurale 3D-Modelle von Pflanzen zu erstellen. 
+Dies bietet eine ausgezeichnete Möglichkeit die Performance der VPL zu testen, da 3D-Modelle oft hohe Datenmengen haben und die Generierung dieser Modelle sehr rechenintensiv sein kann.
 
 \subsection{Problemstellung}
 
-Die Entscheidung diese VPL als Webanwendung zu entwickeln wurde aus mehreren Gründen getroffen. 
-Einerseits verfüge ich bereits über einige Erfahrung in der Entwicklung von Webanwendungen. 
-Andererseits bietet das Web Nutzer/innen einen niedrigschwelligen Zugang zur Anwendung, da sie keine zusätzliche Software installieren müssen.
-\br
-Trotz dieser Vorteile bringt die Entwicklung von Webanwendungen auch spezifische Herausforderungen mit sich.
+Die Entscheidung die VPL als Web-App zu entwickeln bringt neben den oben genannten Vorteilen auch spezifische Herausforderungen mit sich.
 So ist die Sprache in der dynamische Webanwendungen entwickelt werden, Javascript, \qt{garbage-collected} und nicht stark typisiert. 
 Dies macht es theoretisch schwieriger performante und robuste Anwendungen zu entwickeln. 
 Um die Entwicklung etwas leichter zu gestalten habe ich mich entschieden die VPL in \link[TypeScript]{TypeScript} zu entwickeln, da diese Sprache stark typisiert ist und zu JavaScript kompiliert wird.
@@ -72,15 +78,85 @@ Die \href{https://rustwasm.github.io/}{Rust and WebAssembly domain working group
 Das Ziel dieser Bachelorarbeit ist es eine visuelle Programmiersprache zu entwickeln, die \textbf{performant}, \textbf{erweiterbar} und möglichst \textbf{einfach zu bedienen} ist.
 Um diese drei Anforderungen laufend zu überprüfen wird die VPL im Kontext einer Web-App entwickelt, die den Nutzer/innen erlaubt prozedurale 3D-Modelle von Pflanzen zu erstellen.
 Dieser Anwendungsfall wurde gewählt da die hohen Datenmengen von 3D-Modellen eine gute Möglichkeit bieten die Performance der VPL zu testen.
+
+\subsubsection{Erweiterbarkeit}
+
+Hiermit ist gemeint, dass das System einfach um neue \link[node_definition]{Node-Definitionen} erweitert werden kann.
+\qt{Einfach} heißt in diesem Kontext das ein/e andere/r Programmierer/in möglichst 
+schnell in der Lage sein soll eigene WebAssembly-Module zu schreiben welche dann von der VPL geladen und ausgeführt werden können.
+Um dies zu erreichen, müssen die Interfaces und Abstraktionen möglichst minimal gehalten werden.
 \br
-Ein weiteres Ziel dieser Arbeit ist es, die Eignung von WebAssembly als Grundlage für eine solche VPL zu untersuchen. 
-Dadurch das WebAssembly plattformunabhängig ist und es sich eignet, um performante Anwendungen zu entwickeln, könnte es sich als Grundlage für eine VPL anbieten.
+Außerdem sollen die Komponenten, auf die ich in der \link{Architektur} noch genauer eingehen werde, in unterschiedlichen Umgebungen implementiert und ausgeführt werden können.
+Vorstellbar wäre zum Beispiel das der/die Nutzer/in den \link[node_graph]{Node-Graph} in einer Web-App bearbeitet, dieser aber in Echtzeit auf einem Server ausgeführt wird. 
+Dies erfordert eine möglichst lose Kopplung und die Minimierung des Datentransfers zwischen den einzelnen Komponenten.
+
+\subsubsection{Performance}
+
+Geschwindigkeit von User-Interfaces ist ein wichtiger Indikator für die User-Experience \cite{6876022}. 
+Je schneller Nutzende nach einer Änderung das Ergebnis sehen, desto schneller und effizienter können diese iterieren. 
+
+Da diese VPL als Webanwendung entwickelt wird, spielt auch die Ladezeit eine Rolle. 
+Hierbei muss darauf geachtet werden diese so kurz wie möglich zu halten.
+
+\subsubsection{User-Experience}
+
+Diese Anforderung ist deutlich schwieriger zu konkretisieren. User-Experience umfasst die gesamte Interaktion von der ersten Interaktion bis zur regelmäßigen Nutzung. In dieser Arbeit wird der Fokus darauf liegen das Erstellen und Bearbeiten von \link[node_graph]{Node-Graphen} so intuitiv und einfach wie möglich zu gestalten.
+
+\subsubsection{Non-Goals}
+Die Webplattform bietet viele Möglichkeiten Anwendungen für Nutzer/innen mit Behinderungen angenehmer zu gestalten. 
+Die dynamische Struktur einer VPL, sowie spezifische Details der Implementierung machen dies für diese Anwendung ein sehr großes Unterfangen, was im zeitlichen Rahmen dieser Arbeit nicht umsetzbar wäre. So weit wie möglich wird auf Zugänglichkeit geachtet, diese umfassend zu garantieren wird aber nicht Teil dieser Arbeit sein.
+\br
+Auch die Optimierung für mobile Endgeräte ist nicht vorgesehen, da die Art der Anwendung sich nicht für kleine Bildschirme oder Touch-Interfaces eignet.
+\br
+Hierbei ist zu erwähnen das diese Ziele nur im Kontext der Bachelorarbeit ausgeklammert werden aber für zukünftige Weiterentwicklung durchaus infrage kommen.
 
 \subsection{Forschungsfragen}
+Da die Verwendung von WebAssembly einer der größten Unterscheidungsmerkmal zu anderen VPL's ist, sind die Forschungsfragen spezifisch auf die Eignung von WebAssembly als Grundlage für eine VPL ausgerichtet. Konkret soll dies anhand der folgenden Fragen überprüft werden:
+\begin{itemize}
+  \item  Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache?  
+  \item Welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
+\end{itemize}
 
-Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache?  
+\pagebreak
+
+\subsection{Technologien}
+
+Bei der Wahl der Technologien habe ich versucht Technologien auszuwählen die zukunftssicher sind und den Anforderungen dieser Anwendung entsprechen. Dies bedeutet zum einen das diese Technologien bereits weit verbreitet sind, eine aktive Community haben und aktiv weiterentwickelt werden.
+
+\subsubsection{WebAssembly}
+WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
 \br
-Welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
+Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und \link[Rust]{Rust} benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht \qt{garbage-collected} und ist außerdem stark typisiert.
+\br
+WebAssembly wurde gewählt, da es erlaubt performanten Code zu schreiben der in allen gängigen Browsern ausgeführt werden kann. 
+Zudem kann man durch die Isolation WebAssembly-Module von anderen Entwickler/innen ausführen, ohne das dies ein Sicherheitsrisiko darstellt. Dies macht die Anwendung leicht erweiterbar.
+\subsubsection*{WebAssembly Component Model}
+Das WebAssembly Component Model ist ein neuer Standard, der es ermöglicht das sich WebAssembly-Module untereinander instanziieren und aufrufen können. \cite{bytecodeallianceIntroductionWebAssembly} 
+Dies würde es ermöglichen den \link[runtime_executor]{Runtime-Executor} als WebAssembly-Modul zu implementieren und so die Ausführung der Nodes zu beschleunigen, da der Overhead der Kommunikation zwischen WebAssembly und Javascript vermieden wird. Allerdings gab es erst am 25. Januar 2024 die stabile Veröffentlichung dieses Standards, und zu diesem Zeitpunkt wird er von noch keinem Browser unterstützt.
+
+\subsubsection{WASM-Bindgen \& WASM-Pack}
+\label{sec:WASM-Bindgen}
+
+WASM-Bindgen und WASM-Pack sind ein Rust-Bibliotheken, die die Interaktion zwischen Rust und Javascript erleichtern. Sie generieren automatisch die notwendigen Bindings, um Rust- und Javascript-Code miteinander zu verknüpfen. Außerdem helfen sie bei der Kompilierung von Rust-Code in WebAssembly-Module. 
+\cite{rustwasmIntroductionwasmbindgen}
+
+\subsubsection{Svelte}
+\label{sec:Svelte}
+
+\href{https://svelte.dev/}{Svelte} ist ein deklaratives Frontend-Framework, das sich dadurch auszeichnet auf ein virtuelles DOM zu verzichten und möglichst viel der Arbeit in der Build-Zeit zu erledigen.
+
+\subsubsection{Three.js / Threlte}
+
+Three.js ist der Industriestandard für interaktive 3D-Webanwendung. Es abstrahiert die unterliegende komplexe WebGL-Api und bietet eine Vielzahl von Funktionen und Beispielen. Threlte ist eine Wrapper-Bibliothek um Three.js die es erlaubt Szenen deklarativ zu beschreiben und das Reaktivitätsmodell von Svelte zu nutzen.
+
+\subsubsection{Rust}
+\label{sec:Rust}
+
+Rust ist eine von Mozilla entwickelte Programmiersprache, die sich durch ihre Sicherheit und Performance auszeichnet. Sie ist statisch typisiert und besitzt ein Borrow-Checker, der die Speichersicherheit garantiert. \cite{Jung_2020} Rust bietet zum einen die Möglichkeit eng mit dem Speicher zu arbeiten bietet aber auch abstrakte Konzepte wie Traits und generischen Typen und ein mächtiges Makro-System, das mit bei der Entwicklung dieser Anwendung sehr geholfen hat.
+
+\subsubsection{TypeScript}
+\label{sec:TypeScript}
+TypeScript ist ein Superset von Javascript, das statische Typisierung und andere Features hinzufügt. Es kompiliert zu Javascript und kann daher in allen gängigen Browsers und in der Node.js Laufzeitumgebung ausgeführt werden. Die Sprache wird seit 2012 aktiv von Microsoft entwickelt und hat eine große und aktive Community.
 
 \pagebreak
 
@@ -107,13 +183,14 @@ Programming-by-example Systems erlauben es dem Nutzer, ein Programm zu schreiben
 \subsubsection{\qt{Constraint-oriented Systems}}
 \qt{Constraint-oriented Systems} erlauben es dem Nutzer, Constraints zwischen den Komponenten des Programms zu definieren. SketchPad wäre ein Beispiel für ein solches System, bei dem Benutzer geometrische Formen zeichnen und Constraints zwischen ihnen definieren können. \cite{sutherlandSketchpad}
 
-
 \subsubsection{\qt{Form-based systems}}
 In \qt{Form-based systems} schreiben die Nutzer Programme, indem sie Formulare ausfüllen. 
 Ein klassisches Beispiel für ein Formular-basiertes System ist Oracle Forms, 
 das eine GUI für Datenbankabfragen und -transaktionen bietet, indem es Benutzern ermöglicht, Formulare auszufüllen, die dann in SQL-Code umgewandelt werden. \cite{wikipediaOracleForms}
 
 \subsection{Historische Vorbilder}
+
+Visuelle Programmiersprachen haben eine lange Geschichte, die bis in die 1960er Jahre zurückreicht. Im folgenden Kapitel werde ich auf einige Meilensteine dieser Geschichte eingehen und welchen sie bis heute auf HCI's und VPL's hatten.
 
 \subsubsection{SketchPad (1963)}
 \label{sec:SketchPad}
@@ -129,7 +206,7 @@ SketchPad ist ein von Ivan Sutherland entwickeltes Programm das 1963 am MIT ver�
 Es benutzte einen Lightpen als Eingabegerät und war das erste Programm, das die Interaktion mit einem Computer über eine grafische Benutzeroberfläche ermöglichte. 
 Es erlaubte den Nutzer/innen, geometrische Formen auf einem Bildschirm zu zeichnen und diese zu manipulieren.
   Dabei existierten diese Formen auf einem virtuellen \qt{Papier}, dass der Nutzer bewegen und zoomen konnte. Dieses Konzept von bewegen und Zoomen virtueller Oberflächen war revolutionär für die damalige Zeit.
-  Dies wird deutlich durch den Fakt das der Präsentator während der Präsentation von SketchPad \cite{sketchpadDemo} (10:30) keine Worte fand, um diesen Vorgang zu beschreiben.
+  Dies wird deutlich durch den Fakt das der Präsentator während der Präsentation von SketchPad \cite{sketchpadDemo} (10:30) keine Worte fand, um diesen Vorgang zu beschreiben. Das Konzept von bewegbaren und zoombaren virtuellen Oberflächen ist heute ein Standard in vielen Anwendungen und wird auch in dieser Arbeit verwendet.
 Ein weiteres Feature war die Möglichkeit, Constraints zwischen den Formen zu definieren, ähnlich wie in modernen CAD-Programmen. 
 Wenn man sich die Videodemo von SketchPad anschaut fallen viele Paradigmen auf, die wir heute als gegeben ansehen.
 Auch wenn SketchPad nicht direkt in die Definition einer VPL passt, war es ein Meilenstein der Entwicklung von grafischen HCI's. Was durch die Verleihung des Turing Awards an Ivan Sutherland 1988 bestätigt wurde.
@@ -151,7 +228,7 @@ Pygmalion ist eine visuelle Programmiersprache die um 1970 von David Canfield Sm
 Die Sprache erlangte nie eine große Verbreitung, war aber ein wichtiger Meilenstein in der Entwicklung von visuellen Programmiersprachen und HCI's.
 Pygmalion wurde in Smalltalk implementiert und war eine der ersten visuellen Programmiersprachen. Über eine grafische Oberfläche konnten die Nutzer/innen Blöcke, Icons und Verbindungen erstellen und manipulieren im damit Programme zu definieren.
   Icons waren damals eine Neuerung und wurden von den Entwicklern als \qt{eine Art von visuellen Variablen} bezeichnet. 
-  Die Sprache war eine der ersten Beispiele von \qt{Programming By Example} oder PBE.
+  Die Sprache war eine der ersten Beispiele von \qt{Programming By Example} oder PBE. Außerdem war sei eine der ersten Sprachen welche die Verbindung zwischen bestimmten Elementen durch Linien und Pfeile darstellte, was heute ein Standard in vielen VPL's ist.
 Die Nutzer/innen konnten Programme schreiben, indem sie die gewünschte Funktionalität in einem Beispiel demonstrieren. 
 In Abbildung \ref{fig:pygmalion_demo} wird auf diese Art die Fakultät einer Zahl berechnet. 
 
@@ -176,7 +253,7 @@ Canfield geht in seiner Arbeit spezifisch auf den Vergleich zu Rohren und Wasser
   Ein interessantes Detail hierbei ist, das diese \qt{Rohre} keine Richtung haben und Daten in beide Richtungen fließen können. 
 Da \textit{Cube} eine höhere Programmiersprache ist, können die Cubes auch als Argumente an andere Cubes übergeben werden. Dies ermöglicht es, komplexe Programme zu erstellen, die aus vielen einzelnen Cubes bestehen. 
 \br
-Dieses Konzept ist relevant für meine persönliche Arbeit, siehe \link[HON]{Higher Order Nodes}.
+Dieses Konzept ist relevant für meine persönliche Arbeit, siehe \link[parameter_nodes]{parametrisierte Nodes}.
 
 \end{minipage}
 \endgroup
@@ -194,24 +271,24 @@ Es wurde 2013 von IBM entwickelt und ist seit 2016 teil der OpenJS Foundation (d
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.7\textwidth]{./graphics/node-red-3_1_8.png}
-  \caption{Node Red v3.1.8}
+  \caption{Screenshot Node Red v3.1.8}
   \label{fig:node_red}
 \end{figure}
 
 Node-RED findet vor allem Anwendung in den Bereichen IoT und Home Automation, da es eine Vielzahl von Anbindungen an verschiedene Geräte und Dienste bietet. 
-Node-RED ist ein Beispiel für sogenanntes datenstromorientierte Programmierung, bei dem die Daten durch die Nodes fließen und diese verarbeiten. Das heißt es gibt keine einmalige Ausführung, sondern das System kann kontinuierlich Daten verarbeiten und auf externe Events reagieren.
+Node-RED ist ein Beispiel für sogenanntes datenstromorientierte Programmierung, bei dem die Daten durch die Nodes fließen und diese verarbeiten. Das heißt es gibt keine einmalige Ausführung, sondern das System kann kontinuierlich Daten verarbeiten und auf externe Events reagieren. Im Gegensatz zu der in dieser Arbeit entwickelten VPL ist Node-Red nicht auf WebAssembly basiert und ist nicht generalisiert.
+
 
 \pagebreak
 \subsubsection{Blender}
 Blender ist eine weitverbreitete open-source 3D Modellierungs- und Animationssoftware. Blender bietet node-basierte Interfaces zur Erstellung von Materialien, Texturen und Geometrien an. 
 \cite{blender}
-Nach ungefähr 8 Jahren persönlicher Erfahrung mit Blender im privaten und professionellen Umfeld hat diese Software meine Erfahrungen und Meinungen zu visuellen Node-Editoren maßgeblich geprägt.
 Für diese Arbeit ist Blender relevant, da es sich auch mit dem Erstellen von 3D-Modellen beschäftigt.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.7\textwidth]{./graphics/blender-shader.png}
-  \caption{Blender 3.5 Shader Editor}
+  \includegraphics[width=0.6\textwidth]{./graphics/blender-shader.png}
+  \caption{Screenshot Blender 3.5 Shader Editor}
   \label{fig:blender-shader}
 \end{figure}
 
@@ -219,13 +296,17 @@ Vor allem die User-Experience der Blender Node-Editoren ist ein großer Vorteil.
 Ähnlich wie in Node-RED ist der Datenfluss der westlichen Leserichtung angepasst, von links nach rechts. Dies ermöglicht es, den Datenfluss intuitiv zu verfolgen und zu verstehen.
 \br
 Im Gegensatz zum Shader Editor (sieht Abbildung \ref{fig:blender-shader}) bietet der Geometry Node Editor die Möglichkeit komplexere Setups zu erstellen. So gibt es zum Beispiel \qt{Repeat Zones}  die es ermöglichen eine Gruppe von Nodes arbiträr oft zu wiederholen.
+\br
+Außerdem bietet Blender umfassende Tastaturkürzel an die es erlaubt sehr schnell und effizient zu arbeiten. Auch in dieser Arbeit soll darauf geachtet werden, dass die Nutzer/innen möglichst effizient arbeiten können.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.6\textwidth]{./graphics/modeling_geometry-nodes_repeat_zone.png}
-  \caption{Blender 4.1 Repeat Zone}
+  \caption{Blender 4.1 Repeat Zone \cite{blenderRepeatZone}}
   \label{fig:blender-repeat}
 \end{figure}
+
+\pagebreak
 
 \subsubsection{SpeedTree}
 
@@ -238,7 +319,7 @@ Im Gegensatz zum Shader Editor (sieht Abbildung \ref{fig:blender-shader}) bietet
 
 SpeedTree ist eine Software zur Erstellung von 3D-Modellen von Pflanzen. Der Nutzer legt über ein node-basiertes Interface die unterschiedlichen Teile eine Pflanze fest und kann so sehr detaillierte und realistische Modelle erstellen. SpeedTree wird seit 2000 von Interactive Data Visualization Inc. entwickelt und findet vor allem Anwendung in der Spieleindustrie. \cite{speedtreeGettingstartedSpeedTree}.
 \br
-Im Gegensatz zu Blender und Node-RED ist SpeedTree ein sehr spezialisiertes Tool.  Außerdem ist es nicht open-source und nicht kostenlos. Auch gibt es keine Möglichkeit, eigene Nodes zu erstellen oder die Software zu erweitern.
+Im Gegensatz zu Blender und Node-RED ist SpeedTree ein sehr spezialisiertes Tool. Außerdem ist es nicht open-source und nicht kostenlos. Auch gibt es keine Möglichkeit, eigene Nodes zu erstellen oder die Software zu erweitern.
 
 \pagebreak
 
@@ -274,54 +355,17 @@ Der Datenfluss ist von links nach rechts und die Verbindungen zwischen den Nodes
 
 \pagebreak
 
-\subsection{Anforderungen}
-
-Wie in der \hyperref[sec:Zielsetzung]{Zielsetzung} beschrieben, gibt es drei Hauptanforderungen an diese VPL; 
-\textbf{Performance},
-\textbf{Erweiterbarkeit}
-und \textbf{gute User-Experience}.
-
-\subsubsection{Erweiterbarkeit}
-
-Hiermit ist gemeint, dass das System einfach um neue \link[node_definition]{Node-Definitionen} erweitert werden kann.
-\qt{Einfach} heißt in diesem Kontext das ein/e andere/r Programmierer/in möglichst 
-schnell in der Lage sein soll eigene WebAssembly-Module zu schreiben welche dann von der VPL geladen und ausgeführt werden können.
-Um dies zu erreichen müssen die Interfaces und Abstraktionen möglichst minimal gehalten werden.
-\br
-Außerdem sollen die Komponenten, auf die ich in der \link{Architektur} noch genauer eingehen werde, in unterschiedlichen Umgebungen implementiert und ausgeführt werden können.
-Vorstellbar wäre zum Beispiel das der/die Nutzer/in den \link[node_graph]{Node-Graph} in einer Web-App bearbeitet, dieser aber in Echtzeit auf einem Server ausgeführt wird. 
-Dies erfordert eine möglichst lose Kopplung und die Minimierung des Datentransfers zwischen den einzelnen Komponenten.
-
-\subsubsection{Performance}
-
-Geschwindigkeit von User-Interfaces ist ein wichtiger Indikator für die User-Experience \cite{6876022}. 
-Je schneller Nutzende nach einer Änderung das Ergebnis sehen, desto schneller und effizienter können diese iterieren. 
-
-Da diese VPL als Webanwendung entwickelt wird, spielt auch die Ladezeit eine Rolle. 
-Hierbei muss darauf geachtet werden diese so kurz wie möglich zu halten.
-
-\subsubsection{User-Experience}
-
-Diese Anforderung ist deutlich schwieriger zu konkretisieren. User-Experience umfasst die gesamte Interaktion von der ersten Interaktion bis zur regelmäßigen Nutzung.
-Hierbei spielen Performance, Konsistenz, Fehlermanagement und Feedback eine große Rolle.
-\br
-\cmt{Hier muss definitiv noch mehr rein}
-
-\subsubsection{Non-Goals}
-Die Webplattform bietet viele Möglichkeiten Anwendungen für Nutzer/innen mit Behinderungen angenehmer zu gestalten. 
-Die dynamische Struktur einer VPL, sowie spezifische Details der Implementierung machen dies für diese Anwendung ein sehr großes Unterfangen. 
-Soweit möglich sollte auf Zugänglichkeit geachtet werden, diese aber umfassend zu garantieren wird nicht Teil dieser Arbeit sein.
-\br
-Auch die Optimierung für mobile Endgeräte ist nicht vorgesehen, da die Art der Anwendung sich nicht für kleine Bildschirme oder Touch-Interfaces eignet.
-\br
-Hierbei ist aber zu erwähnen das diese Ziele nur im Kontext der Bachelorarbeit ausgeklammert werden, für zukünftige Weiterentwicklung aber durchaus infrage kommen.
-
-\pagebreak
 
 \subsection{Architektur}
 \label{sec:Architektur}
-
-Die Architektur besteht aus drei Hauptkomponenten. 
+Die VPL muss bestimmte funktionale Anforderungen erfüllen um nutzbar zu sein:
+\begin{itemize}
+  \item Die Nutzer/innen müssen mit ihr interagieren können.
+  \item Die VPL muss dynamisch neue Nodes laden können.
+  \item Während die Nutzer/innen mit der VPL interagieren, müssen die Nodes ausgeführt werden.
+\end{itemize}
+Aus den Anforderungen und dem Konzept ergibt sich folgende dreiteilige Architektur:
+\br
 Das \link[node_interface]{Node-Interface} ist für das visuelle Interface zuständig, hier interagieren Nutzer/innen mit dem \link[node_graph]{Node-Graph}.
 \br
 Der \link[runtime_executor]{Runtime-Executor} ist für die Ausführung der Nodes zuständig. Er nimmt einen serialisierten \link[node_graph]{Node-Graph} entgegen und gibt das Ergebnis zurück.
@@ -481,8 +525,8 @@ Der \link[runtime_executor]{Runtime-Executor} ist für die Ausführung eines \li
 
 \pagebreak
 
-\subsubsection{Higher Order Nodes / Parameter}
-\label{sec:HON}
+\subsubsection{Parametrisierte Nodes}
+\label{sec:parameter_nodes}
 In vorherigen Abschnitten wurde der Vergleich zwischen \link[node]{Nodes} und Funktionen gezogen. Dies hat den Vorteil, dass es das Konzept etwas leichter verständlich macht.
 Es gibt jedoch Situationen, in denen es sinnvoll ist, von dem Konzept einer Node als reiner Funktion abzuweichen, damit die VPL zum einen flexibler und zum anderen einfacher zu bedienen ist. Hier werde ich nun zwei Beispiele für solche Situationen vorstellen.
 \subsubsection*{Random Problem}
@@ -508,7 +552,7 @@ Ein weiterer Nachteil ist das für dieses Konzept die Ausführung der Nodes nich
 Ein weiteres Problem soll durch Abbildung \ref{fig:noise_problem} verdeutlicht werden. 
 Die hypothetische \topic{cylinder} Node generiert 3D-Modelle von Zylindern. Sie hat einen Input für den Radius, die Höhe und die Anzahl der generierten Zylinder. 
 \br
-Wenn die vorherigen Nodes als pure Funktionen modelliert wären, gäbe es für sie jeweils nur ein Ergebnis und die \topic{cylinder} Node würde 10 identische Zylinder generieren.
+Wenn die vorherigen Nodes als pure Funktionen modelliert wären, würde diese Node Ergebnis A produzieren, da die \topic{noise} Node nur einmal ausgeführt wird. Die meisten Nutzenden würden jedoch eher Ergebnis B erwarten.
 
 \begin{figure}[htbp]
   \centering
@@ -556,62 +600,14 @@ Die erste Stelle gibt, an ob es sich um eine öffnende oder schließende Klammer
 Eine Limitierung dieser Implementierung ist das 32 Bit integer nur Zahlen bis maximal $2^{31}-1$ darstellen können. Dies beschränkt die Länge eines Arrays auf $2,147,483,647$ Elemente. Für diese Anwendung ist das jedoch mehr als ausreichend.
 
 \subsubsection*{O-Notation}
-Die O-Notation der \link[code_nested_encoding]{Beispiel-Implementierung} ist $O(n)$, wobei $n$ die Anzahl der Elemente in der Serialisierung ist. Während der Serialisierung der einzelnen \link[node]{Nodes} muss aber nicht der gesamte Array deserialisiert und serialisiert werden. Hier können wir den serialisierten Input in einzelne Argumente \link[code_nested_splitting]{aufteilen} und diese am Ende wieder \link[code_nested_joining]{zusammenfügen}. Dies hat den Vorteil das die Serialisierung und Deserialisierung von einzelnen Argumenten $O(1)$ ist.
-
-\subsection{Technologien}
-
-Bei der Wahl der Technologien habe ich versucht Technologien auszuwählen die zukunftssicher sind und den Anforderungen dieser Anwendung entsprechen. Dies bedeutet zum einen das diese Technologien bereits weit verbreitet sind, eine aktive Community haben und aktiv weiterentwickelt werden.
+Die O-Notation der \link[code_nested_encoding]{Beispiel-Implementierung} ist $O(n)$, wobei $n$ die Anzahl der Elemente in der Serialisierung ist. Tatsächlich können wir aber während der Laufzeit oft einen einfacheren Algorithmus benutzen, da die meisten parametrisierten Nodes nicht tief in die Verschachtelung gehen, sondern nur die obersten Elemente extrahieren und nachher wieder zusammenfügen. 
 \br
-Ein weiterer Faktor war meine eigene Erfahrung und die Erfahrung die ich mir durch die Entwicklung dieser Anwendung aneignen wollte. So habe ich bereits viel Erfahrung mit TypeScript und Svelte, jedoch nicht mit Rust und WebAssembly.
+Beispielsweise nimmt eine \topic{math} Node, ihre Operation (addieren, subtrahieren...) und zwei Zahlen entgegen und fügt diesen Argumenten nur einen Integer zur Identifizierung hinzu. Dafür können wir Algorithmen benutzen der nur die obersten Elemente \link[code_nested_splitting]{extrahieren} und wieder \link[code_nested_joining]{zusammenfügen}.  Diese Algorithmen haben eine O-Notation von $O(1)$.
 
-\subsubsection{WebAssembly}
-WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
-\br
-Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und \link[Rust]{Rust} benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht garbage-collected und ist außerdem stark typisiert.
-\br
-WebAssembly wurde gewählt, da es erlaubt performanten Code zu schreiben der in allen gängigen Browsern ausgeführt werden kann. 
-Zudem kann man durch die Isolation WebAssembly-Module von anderen Entwickler/innen ausführen, ohne das dies ein Sicherheitsrisiko darstellt. Dies macht die Anwendung leicht erweiterbar.
-\subsubsection*{WebAssembly Component Model}
-Das WebAssembly Component Model ist ein neuer Standard, der es ermöglicht das sich WebAssembly-Module untereinander instanziieren und aufrufen können. \cite{bytecodeallianceIntroductionWebAssembly} 
-Dies würde es ermöglichen den \link[runtime_executor]{Runtime-Executor} als WebAssembly-Modul zu implementieren und so die Ausführung der Nodes zu beschleunigen, da der Overhead der Kommunikation zwischen WebAssembly und Javascript vermieden wird. Allerdings gab es erst am 25. Januar 2024 die stabile Veröffentlichung dieses Standards, und zu diesem Zeitpunkt wird er von noch keinem Browser unterstützt.
-
-\subsubsection{WASM-Bindgen \& WASM-Pack}
-\label{sec:WASM-Bindgen}
-
-WASM-Bindgen und WASM-Pack sind ein Rust-Bibliotheken, die die Interaktion zwischen Rust und Javascript erleichtern. Sie generieren automatisch die notwendigen Bindings, um Rust- und Javascript-Code miteinander zu verknüpfen. Außerdem helfen sie bei der Kompilierung von Rust-Code in WebAssembly-Module. 
-\cite{rustwasmIntroductionwasmbindgen}
-
-\subsubsection{Svelte}
-\label{sec:Svelte}
-
-\href{https://svelte.dev/}{Svelte} ist ein deklaratives Frontend-Framework, das sich dadurch auszeichnet auf ein virtuelles DOM zu verzichten und möglichst viel der Arbeit in der Build-Zeit zu erledigen.
-
-\subsubsection{Three.js / Threlte}
-
-Three.js ist der Industriestandard für interaktive 3D-Webanwendung. Es abstrahiert die unterliegende komplexe WebGL-Api und bietet eine Vielzahl von Funktionen und Beispielen. Threlte ist eine Wrapper-Bibliothek um Three.js die es erlaubt Szenen deklarativ zu beschreiben und das Reaktivitätsmodell von Svelte zu nutzen.
-
-\subsubsection{Rust}
-\label{sec:Rust}
-
-Rust ist eine von Mozilla entwickelte Programmiersprache, die sich durch ihre Sicherheit und Performance auszeichnet. Sie ist statisch typisiert und besitzt ein Borrow-Checker, der die Speichersicherheit garantiert. \cite{Jung_2020} Rust bietet zum einen die Möglichkeit eng mit dem Speicher zu arbeiten bietet aber auch abstrakte Konzepte wie Traits und generischen Typen und ein mächtiges Makro-System, das mit bei der Entwicklung dieser Anwendung sehr geholfen hat.
-
-\subsubsection{TypeScript}
-\label{sec:TypeScript}
-TypeScript ist ein Superset von Javascript, das statische Typisierung und andere Features hinzufügt. Es kompiliert zu Javascript und kann daher in allen gängigen Browsers und in der Node.js Laufzeitumgebung ausgeführt werden.
-
-\pagebreak
 
 \subsection{Design}
 
 Die Anwendung wurde so designt, dass sie möglichst einfach und intuitiv zu bedienen ist. Dafür wurde ein sehr simples zweispaltiges Layout gewählt. Auf der rechten Seite befindet sich das \link[node_interface]{Node-Interface} und auf der linken Seite die 3D-Visualisierung der entstandenen Pflanze. Zudem gibt es auf der rechten Seite eine Symbolleiste die den Zugriff auf verschiedene Untermenüs erlaubt. Diese sind aber standardmäßig ausgeblendet, um die Übersicht zu erhöhen.
-
-
-\begin{figure}[hbtp]
-  \centering
-  \includegraphics[width=0.75\textwidth]{graphics/layout.png}
-  \caption{Screenshot der Anwendung im Dark-Mode}
-  \label{fig:screenshot_nodarium}
-\end{figure}
 
 \begin{figure}[hbtp]
   \centering
@@ -649,7 +645,7 @@ Um dieses Problem zu beheben habe ich den \link[node_input]{Node-Inputs} eine Ei
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics[width=1\textwidth]{graphics/node_graph.png}
+  \includegraphics[width=1\textwidth]{graphics/node_graph.jpg}
   \caption{Screenshot eines \link[node_graph]{Node-Graphen}}
   \label{fig:node_graph_screenshot}
 \end{figure}
@@ -661,13 +657,13 @@ Die Anwendung wurde in einem Mono-Repository entwickelt, das die einzelnen Kompo
 Außerdem unterstützen die beiden Paket-Manager \href{https://pnpm.io/}{pnpm} und \href{https://crates.io/}{cargo} das Arbeiten mit 
 Mono-Repositories sehr gut. 
 
-\section{Nodes}
+\subsection{Nodes}
 \cmt{Validierung der node-definition durch rust macro und zod}
 
-\section{Runtime-Executor}
+\subsection{Runtime-Executor}
 \cmt{allgorithmus - recursive preprocessing}
 
-\section{Node-Interface}
+\subsection{Node-Interface}
 Der Fokus bei der Implementierung lag darauf das Interface so simpel und performant wie möglich zu gestalten. Hierfür wurde eine hybride Darstellung aus HTML und WebGL Elementen entwickelt. HTML Elemente bieten hierbei den Vorteil, das sie einfach zu gestalten sind und gute Interaktionsmöglichkeiten bieten. Bei einer großen Anzahl sich bewegender HTML Elemente sinkt jedoch die Performance. 
 Deswegen wird ab einer bestimmten Zoom-Stufe die Darstellung der Nodes in ein WebGL Canvas gerendert. Dies hat den Vorteil, dass die Performance bei einer großen Anzahl von Nodes konstant bleibt. 
 Zur weiteren Verbesserung der Performance werden die abgerundeten Ecken und Rahmen der einzelnen Nodes per \href{https://en.wikipedia.org/wiki/Signed_distance_function}{Signed Distance Function} gerendert.
@@ -776,7 +772,7 @@ export function encodeNestedArray(array: SparseArray): number[] {
     \end{minted}
   \end{code}
 
-  \caption{Beispiel-Code Binär-Serialisierung (Typescript)}
+  \caption{Beispiel-Code Binär-Serialisierung (TypeScript)}
   \label{sec:data_nested_encoding}
 
 \end{figure}
