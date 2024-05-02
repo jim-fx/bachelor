@@ -45,10 +45,12 @@ Des Weiteren benötigt Javascript besondere Aufmerksamkeit, um sicherzustellen, 
 \br
 In dieser Bachelorarbeit wird eine VPL entwickelt bei der die einzelnen Bausteine als WebAssembly-Module implementiert sind. 
 Dies ermöglicht es neue Bausteine von anderen Entwickler/innen einfach hinzuzufügen und so die Funktionalität der VPL zu erweitern.
-Hierbei garantiert WebAssembly eine Plattformunabhängigkeit, hohe Performance und Sicherheit, da der Code in einer virtuellen Maschine ausgeführt wird. \cite{Haas2017}
+Hierbei garantiert WebAssembly  Plattformunabhängigkeit, hohe Performance und Sicherheit. \cite{Haas2017}
 \br
 Außerdem wird die VPL im Kontext einer Web-App entwickelt, die es Nutzer/innen ermöglicht prozedurale 3D-Modelle von Pflanzen zu erstellen. 
 Dies bietet eine ausgezeichnete Möglichkeit die Performance der VPL zu testen, da 3D-Modelle oft hohe Datenmengen haben und die Generierung dieser Modelle sehr rechenintensiv sein kann.
+
+\pagebreak
 
 \subsection{Problemstellung}
 
@@ -113,7 +115,7 @@ Auch die Optimierung für mobile Endgeräte ist nicht vorgesehen, da die Art der
 Hierbei ist zu erwähnen das diese Ziele nur im Kontext der Bachelorarbeit ausgeklammert werden aber für zukünftige Weiterentwicklung durchaus infrage kommen.
 
 \subsection{Forschungsfragen}
-Da die Verwendung von WebAssembly einer der größten Unterscheidungsmerkmal zu anderen VPL's ist, sind die Forschungsfragen spezifisch auf die Eignung von WebAssembly als Grundlage für eine VPL ausgerichtet. Konkret soll dies anhand der folgenden Fragen überprüft werden:
+Da die Verwendung von WebAssembly eines der größten Unterscheidungsmerkmale zu anderen VPL's ist, sind die Forschungsfragen spezifisch auf die Eignung von WebAssembly als Grundlage für eine VPL ausgerichtet. Konkret soll dies anhand der folgenden Fragen überprüft werden:
 \begin{itemize}
   \item  Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache?  
   \item Welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
@@ -261,7 +263,7 @@ Dieses Konzept ist relevant für meine persönliche Arbeit, siehe \link[paramete
 \endgroup
 \pagebreak
 
-\subsection{Node-basierte visuelle Programmiersprachen}
+\subsection{Moderne node-basierte visuelle Programmiersprachen}
 In meiner Recherche nach modernen VPL's habe ich mich spezifisch auf node-basierte VPL's konzentriert die entweder durch ihre Popularität oder ihre Spezifizierung relevant für diese Arbeit sind.
 
 \subsubsection{Node-RED}
@@ -360,13 +362,8 @@ Der Datenfluss ist von links nach rechts und die Verbindungen zwischen den Nodes
 
 \subsection{Architektur}
 \label{sec:Architektur}
-Die VPL muss bestimmte funktionale Anforderungen erfüllen um nutzbar zu sein:
-\begin{itemize}
-  \item Die Nutzer/innen müssen mit ihr interagieren können.
-  \item Die VPL muss dynamisch neue Nodes laden können.
-  \item Während die Nutzer/innen mit der VPL interagieren, müssen die Nodes ausgeführt werden.
-\end{itemize}
-Aus den Anforderungen und dem Konzept ergibt sich folgende dreiteilige Architektur:
+Um die VPL nach den drei Anforderungen \hyperref[sec:Zielsetzung]{Zielsetzung} zu entwickeln, muss die Architektur so gestaltet sein, dass sie einfach erweiterbar, performant und einfach zu bedienen ist.
+Aus diesen Anforderungen und dem Konzept ergibt sich folgende dreiteilige Architektur:
 \br
 Das \link[node_interface]{Node-Interface} ist für das visuelle Interface zuständig, hier interagieren Nutzer/innen mit dem \link[node_graph]{Node-Graph}.
 \br
@@ -608,7 +605,7 @@ Beispielsweise nimmt eine \topic{math} Node, ihre Operation (addieren, subtrahie
 
 \subsection{Design}
 
-Die Anwendung wurde so designt, dass sie möglichst einfach und intuitiv zu bedienen ist. Dafür wurde ein sehr simples zweispaltiges Layout gewählt. Auf der rechten Seite befindet sich das \link[node_interface]{Node-Interface} und auf der linken Seite die 3D-Visualisierung der entstandenen Pflanze. Zudem gibt es auf der rechten Seite eine Symbolleiste die den Zugriff auf verschiedene Untermenüs erlaubt. Diese sind aber standardmäßig ausgeblendet, um die Übersicht zu erhöhen.
+Die Anwendung wurde so designt, dass sie möglichst einfach und intuitiv zu bedienen ist. Dafür wurde ein simples zweispaltiges Layout gewählt. Auf der rechten Seite befindet sich das \link[node_interface]{Node-Interface} und auf der linken Seite die 3D-Visualisierung der entstandenen Pflanze. Zudem gibt es auf der rechten Seite eine Symbolleiste die den Zugriff auf verschiedene Untermenüs erlaubt. Diese sind aber standardmäßig ausgeblendet, um die Übersicht zu erhöhen.
 
 \begin{figure}[hbtp]
   \centering
@@ -714,9 +711,79 @@ test\_c          & 316.73ms \stdev{62.54}    & 65.46ms \stdev{15.65} & 67.62ms \
 
 Die Ergebnisse zeigen das auch bei einer großen Anzahl von Nodes und einer hohen Anzahl an Polygonen die Dauer einer Aktualisierung unter 500ms bleibt. 
 
+\pagebreak
+
 \subsubsection{Erweiterbarkeit}
-\cmt{Neue Nodes können einfach hinzugefügt werden}
-\cmt{Macros + Dokumentation}
+
+Wie schnell kann eine neue Node entwickelt, kompiliert und geladen werden? Um dies zu testen wurde eine neue Node entwickelt die einen Zylinder generiert. 
+\br
+Erst werden die nötigen Voraussetzungen Rust und wasm-pack installiert.
+
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{bash}
+$ curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+$ cargo install wasm-pack
+    \end{minted}
+  \end{code}
+\end{figure}
+
+Dann wird ein bereits bestehendes Template für eine Node kopiert und die Implementierung angepasst. 
+
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{bash}
+$ git clone --depth=1 https://github.com/jim-fx/nodarium_template new-node
+$ cd new-node
+    \end{minted}
+  \end{code}
+\end{figure}
+
+
+Nun legt man die Node-Definition an, dafür wird die Date \topic{src/definition.json} angepasst. Hier ist die Definition für die Zylinder-Node:
+
+
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{json}
+{
+  "id": "my-name/my-namespace/zylinder-node",
+  "outputs": [
+    "geometry"
+  ],
+  "inputs": {
+    "height": {
+      "type": "float",
+      "value": 2,
+    },
+    "radius": {
+      "type": "float",
+      "value": 0.4
+    }
+  }
+}
+    \end{minted}
+  \end{code}
+\end{figure}
+
+Nun wird die Implementierung in der Datei \topic{src/lib.rs} angepasst. Der \link[code_cylinder_node]{Beispielcode} legt deutlich das wenig Boilerplate-Code benötigt wird. Ein Großteil der Implementierung lag darin den Code zu schreiben der die Zylinder-Geometrie generiert.  Außerdem kann das gesamte Rust-Ökosystem genutzt werden, so zum Beispiel \href{https://docs.rs/glam/latest/glam}{glam}, eine Bibliothek für Vektoren und Matrizen.
+
+\pagebreak
+
+Nun wird die Node mit dem folgenden Befehl kompiliert:
+
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{bash}
+$ wasm-pack build --release
+    \end{minted}
+  \end{code}
+\end{figure}
+
+Die kompilierte Node liegt unter \topic{pkg/new\_nodarium\_node.wasm}. Bei diesem Beispiel ist sie etwa 28 KB groß. Zum Laden der Node wird diese per drag\-and\-drop in die Anwendung geladen. 
+\br
+Alles in allem hat die Entwicklung und das Laden der Node etwa 30 Minuten gedauert. Die meiste Zeit wurde für die Implementierung der Zylinder-Geometrie benötigt. 
+Durch die Validierung der Node-Definition durch das prozedurale \topic{include\_definition\_file} Rust-Macro und die vielen Hilfsfunktionen die in der \topic{nodarium} Bibliothek enthalten sind, ist es sehr einfach eine neue Node zu implementieren.
 
 \subsubsection{Usability}
 \cmt{Intuitiv}
@@ -725,19 +792,33 @@ Die Ergebnisse zeigen das auch bei einer großen Anzahl von Nodes und einer hohe
 
 \subsection{Forschungsfragen}
 
+Die beiden Forschungsfragen waren:
+
+\begin{itemize}
+  \item Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache?  
+  \item Welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
+\end{itemize}
+
+\subsubsection{WebAssembly als Grundlage}
+Die Implementierung der Anwendung hat gezeigt, dass die Vorteile die WebAssembly bietet die \link[HON]{Komplexität der Implementierung}, die durch die Nachteile entstehen weit überwiegen.
+Des Weiteren existiert diese Komplexität nur in der Implementierung und die Endnutzer/innen der Anwendung profitieren nur von den Vorteilen.
+
+\subsubsection{Vor- und Nachteile von WebAssembly}
+\textbf{Realisierbarkeit} beschreibt wie einfach es ist die Anwendung zu implementieren. Hier entsteht durch die Low-Level-Natur von WebAssembly eine gewisse Komplexität. 
+Da WebAssembly allerdings keine neue Technologie ist, existieren bereits viele Tools und Bibliotheken die viele dieser Probleme lösen.
+\br
+\textbf{Funktionalität} beschreibt welchen Einfluss die Nutzung von WebAssembly, auf die Umsetzung der Anforderung der Anwendung hat. Hierbei wird deutlich, dass die Nutzung von WebAssembly bei der Optimierung der \textbf{Performance} hilft, da es erlaubt die unterliegen Hardware-Ressource besser zu nutzen.
+\br
+\textbf{Flexibilität} beschreibt wie einfach es ist die Anwendung zu erweitern. Auch hier ist WebAssembly eine gute Wahl, da unterschiedliche Sprachen zu WebAssembly kompilieren können und so Entwickler/innen die Wahl haben, welche Sprache sie nutzen wollen. Auch die Eigenschaft das WebAssembly Module self-contained sind und keine Annahmen über die Umgebung machen, erhöht die Flexibilität.
+
+
 \section{Fazit}
+Die Implementierung dieser Anwendung hat mehrere hundert Stunden Entwicklungszeit benötigt. Deswegen existiert ein gewisser Sunk-Cost-Bias, der es etwas schwieriger macht, die Anwendung objektiv zu bewerten. 
+Anhand der Analysen der vorher definierten Anforderung und der Evaluation der Forschungsfragen lässt sich jedoch sagen, dass die Anwendung die meisten Anforderungen erfüllt und die Forschungsfragen beantwortet ist.
+\br
+WebAssembly eignet sich trotz der Komplexität gut als Grundlage für die Implementierung einer node-basierten visuellen Programmiersprache. Die Vorteile die WebAssembly bietet, wie die Performance, die Flexibilität und die Robustheit, überwiegen die Nachteile, wie die Komplexität und die schwierigen Debugging-Möglichkeiten. Durch das Einbetten der Node-Definition in die WebAssembly Datei ist das Verteilen und Laden einzelner Nodes sehr einfach.
 
-\cmt{Joah, schnieke würd ich mal sagen}
 
-\cmt{WASM eignet sich gut}
-
-\cmt{WASM -> low level -> schnell}
-
-\cmt{WASM -> low level -> komplex}
-
-\cmt{WASM -> single file exec}
-
-\cmt{Lose Kopplung -> flexibel}
 
 \section{Ausblick}
 Bei der Entwicklung der Anwendung entstanden eine Reihe von Ideen und Konzepten die in der aktuellen Version noch nicht umgesetzt wurden, da 
@@ -940,6 +1021,61 @@ pub fn concat_args(data: Vec<&[i32]>) -> Vec<i32> {
   \end{code}
 
   \caption{Beispiel-Code Binär-Joining (Rust)}
+
+\end{figure}
+
+\pagebreak
+
+\subsection{Zylinder Node}
+\label{sec:code_cylinder_node}
+\begin{figure}[htbp]
+  \fontsize{9}{11}
+  \begin{code}
+    \begin{minted}{rust}
+use glam::Vec2;
+use nodarium_macros::include_definition_file;
+use nodarium_utils::{
+    geometry::{create_geometry_data, wrap_geometry_data},
+};
+use wasm_bindgen::prelude::*;
+
+include_definition_file!("src/definition.json");
+
+#[wasm_bindgen]
+pub fn execute(input: &[i32]) -> Vec<i32> {
+    let arguments = split_args(input);
+
+    let height = evaluate_float(arguments[0]);
+    let radius = evaluate_float(arguments[1]);
+
+    let mut geometry_data = create_geometry_data(16, 16);
+
+    let geometry = wrap_geometry_data(&mut geometry_data);
+
+    for i in 0..8 {
+        let x = radius * (2.0 * std::f32::consts::PI * i as f32 / 8.0).cos();
+        let y = radius * (2.0 * std::f32::consts::PI * i as f32 / 8.0).sin();
+
+        let vec = Vec2::new(x, y).normalize();
+
+        // ... implementierung der cylinder node
+
+    }
+
+    // nun werden die daten in das serialisierte Binärformat umgewandelt
+    let mut output: Vec<i32> = Vec::with_capacity(geometry_data.len() + 4);
+    output.push(0);
+    output.push(1);
+    output.extend_from_slice(&geometry_data);
+    output.push(1);
+    output.push(1);
+
+    output
+}
+    \end{minted}
+  \end{code}
+
+  \caption{Beispiel-Code Zylinder Node (Rust)}
 
 \end{figure}
 
