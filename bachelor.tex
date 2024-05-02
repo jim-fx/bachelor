@@ -667,20 +667,18 @@ Mono-Repositories sehr gut.
 \subsection{Node-Interface}
 Der Fokus bei der Implementierung lag darauf das Interface so simpel und performant wie möglich zu gestalten. Hierfür wurde eine hybride Darstellung aus HTML und WebGL Elementen entwickelt. HTML Elemente bieten hierbei den Vorteil, das sie einfach zu gestalten sind und gute Interaktionsmöglichkeiten bieten. Bei einer großen Anzahl sich bewegender HTML Elemente sinkt jedoch die Performance. 
 Deswegen wird ab einer bestimmten Zoom-Stufe die Darstellung der Nodes in ein WebGL Canvas gerendert. Dies hat den Vorteil, dass die Performance bei einer großen Anzahl von Nodes konstant bleibt. 
-Zur weiteren Verbesserung der Performance werden die abgerundeten Ecken und Rahmen der einzelnen Nodes per \href{https://en.wikipedia.org/wiki/Signed_distance_function}{Signed Distance Function} gerendert.
+Zur weiteren Verbesserung der Performance werden die abgerundeten Ecken und Rahmen der einzelnen Nodes per \href{https://en.wikipedia.org/wiki/Signed_distance_function}{Signed Distance Function} gerendert. So wird die Anzahl der Polygone reduziert. Auch die Verbindungen zwischen den Nodes werden als WebGL Element gerendert.
 
 \pagebreak
 
 
 \section{Evaluation}
 
-
 \subsection{Anforderungen}
-
 
 \subsubsection{Performance}
 
-Die Performance wurde anhand drei Benchmarks auf drei Geräten jeweils in Chrome (v124) und Firefox (v125). Die drei Benchmarks waren:
+Die Performance wurde anhand drei Benchmarks auf drei Geräten jeweils in Chrome (v124) und Firefox (v125) getestet. Die drei Benchmarks waren:
 
 \begin{itemize}
   \item test\_a: 6 Nodes generieren 2,1 Millionen Polygone
@@ -688,9 +686,10 @@ Die Performance wurde anhand drei Benchmarks auf drei Geräten jeweils in Chrome
   \item test\_c: 228 Nodes generieren 1 Million Polygone
 \end{itemize}
 
-Die einzelnen Benchmarks wurden End-to-End gemessen, das heißt die Zeit die benötigt wird, um den \link[node_graph]{Node-Graphen} auszuführen, die Polygone in der Szene anzuzeigen und die Szene zu rendern.
+Die drei Geräte waren ein Smartphone (Google Pixel 4a 2020, 8 GB RAM, Snapdragon 730G), ein Laptop (Razer Blade Stealth 2016, 16 GB RAM, i7-7500U) und eine Workstation (Intel I7-6700K, 16 GB RAM, Nvidia GTX1060). 
 \br
-Die drei Geräte waren ein Smartphone (Google Pixel 4a 2020, 8GB RAM, Snapdragon 730G), ein Laptop (Razer Blade Stealth 2016, 16GB RAM, i7-7500U) und eine Workstation (Intel I7-6700K, 16GB RAM, Nvidia GTX1060). Dargestellt wird die Durchschnittsdauer von 500 Durchläufen und die Standardabweichung.
+Die einzelnen Benchmarks wurden End-to-End gemessen, das heißt die Zeit die benötigt wird, um den \link[node_graph]{Node-Graphen} auszuführen, die Polygone in der Szene zu aktualisieren und die Szene zu rendern.
+Dargestellt wird die Durchschnittsdauer von 500 Durchläufen und die Standardabweichung.
 
 \begin{table}[htbp]
 \begin{tabular}{|l|l|l|l|}
@@ -713,6 +712,8 @@ test\_c          & 316.73ms \stdev{62.54}    & 65.46ms \stdev{15.65} & 67.62ms \
 \end{tabular}
 \end{table}
 
+Die Ergebnisse zeigen das auch bei einer großen Anzahl von Nodes und einer hohen Anzahl an Polygonen die Dauer einer Aktualisierung unter 500ms bleibt. 
+
 \subsubsection{Erweiterbarkeit}
 \cmt{Neue Nodes können einfach hinzugefügt werden}
 \cmt{Macros + Dokumentation}
@@ -725,6 +726,7 @@ test\_c          & 316.73ms \stdev{62.54}    & 65.46ms \stdev{15.65} & 67.62ms \
 \subsection{Forschungsfragen}
 
 \section{Fazit}
+
 \cmt{Joah, schnieke würd ich mal sagen}
 
 \cmt{WASM eignet sich gut}
@@ -738,19 +740,32 @@ test\_c          & 316.73ms \stdev{62.54}    & 65.46ms \stdev{15.65} & 67.62ms \
 \cmt{Lose Kopplung -> flexibel}
 
 \section{Ausblick}
-\cmt{Remote Hosting für Nodes}
+Bei der Entwicklung der Anwendung entstanden eine Reihe von Ideen und Konzepten die in der aktuellen Version noch nicht umgesetzt wurden, da 
+der zeitliche Rahmen der Arbeit begrenzt war und die bestehende Anwendung schon viel Aufwand benötigte.
 
-\cmt{WebAssembly Component Model -> More speed?}
+\subsection*{Hosted Node Registry}
+Aus Gründen der Einfachheit und der Performance wurde die Node-Registry als Teil der Anwendung implementiert. Da aber eines der Ziele der Anwendung die Erweiterbarkeit ist, wäre es sinnvoll die Node-Registry als eigenständigen Service zu implementieren. Die Aufwendung wurde bereits so implementiert, dass dies ohne Änderung an bestehenden Komponenten möglich ist.
+\br
+Dies ist aber ein recht komplexes Unterfangen, da es nicht nur die Implementierung eines Servers, sondern auch die Implementierung von Autorisierung, Authentifizierung und Versionierung erfordert.
 
-\cmt{Implementierung der Namespaces}
+\subsection*{WebAssembly Component Model}
+Wenn das WebAssembly Component Model in Browsern verfügbar wird, könnte man den \link[runtime_executor]{Runtime-Executor} als einzelnen WebAssembly Component implementieren. Dieser könnte nun \link[node]{Nodes} als WebAssembly Module laden und ausführen so könnte sich der Overhead vermeiden der durch die Kommunikation zwischen Javascript und WebAssembly entsteht.
 
-\cmt{Integration der Runtime in Plugins}
+\subsection*{Implementation der Namespaces}
+Zu diesem Zeitpunkt kommen alle Nodes in der Anwendung aus dem Namespace \topic{max/plantarium}. In der Zukunft könnten mehrere Namespaces implementiert werden, die verschiedene Implementierungen für die gleichen Nodes enthalten. Die Validation dafür wurde noch nicht implementiert und erfordert noch kleinere Änderungen.
 
-\cmt{Mehr Nodes für Pflanzen}
+\subsection*{Plugins}
+Eine spannende Möglichkeit ist die Implementierung der Runtime als Plugins in anderen Programmen, zum Beispiel Blender. Dies würde es ermöglichen in der Web-App Pflanzen zu definieren und anhand dieser Definitionen in Blender 3D Pflanzen zu generieren. Dies erfordert die neben der Implementierung eines Plugins die Implementierung eines Backends, das die Projekte speichert, damit das Plugin darauf zugreifen kann.
 
-\cmt{Entwicklung einer visuellen Identität}
+\subsection*{Weitere Nodes}
+Im aktuellen Stadium ist die Anwendung zur Generierung von Pflanzen mehr eine Demonstration der Möglichkeiten als ein vollwertiges Tool. Es fehlen noch viele Nodes die für eine vollständige Pflanze benötigt werden. So fehlt die Möglichkeit Blätter zu generieren, die Pflanze zu texturieren, Wind zu simulieren, brechen der Pflanze zu simulieren und viele weitere Nodes.
 
-\cmt{Erweitern der Dokumentation}
+\subsection*{Entwicklung einer visuellen Identität}
+Die Anwendung wurde entwickelt, um durch andere Nutzer/innen erweitert zu werden. 
+Um diese Nutzer/innen zu erreichen, macht es Sinn eine kohärente visuelle Identität zu entwickeln.
+
+\subsection*{Erweitern der Dokumentation}
+Für Entwickler ist gute Dokumentation ein sehr wichtiger Punkt, wenn es darum geht, ob sie eine Anwendung nutzen oder nicht. 
 
 \pagebreak
 \section{Glossar}
