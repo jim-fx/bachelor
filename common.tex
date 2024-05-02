@@ -14,6 +14,7 @@
 \usepackage[ngerman]{babel} 
 \usepackage{inconsolata}
 \usepackage{bookmark}
+\usepackage{booktabs}
 \usepackage{wrapfig} 
 \usepackage{lipsum}
 \usepackage[autolang=other, backend=biber]{biblatex}
@@ -30,6 +31,8 @@
 }
 
 \renewcommand*\familydefault{\ttdefault} %% Only if the base font of the document is to be typewriter style
+
+\newcommand{\stdev}[1]{\textit{\textcolor{gray}{#1$\sigma$}}}
 
 \newcommand{\topic}[1]{\tcbox[on line,arc=4pt,colframe=white,boxrule=0pt,boxsep=0pt,left=4pt,right=4pt,top=3pt,bottom=2pt,colback=gray!30]{#1}}
 

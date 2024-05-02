@@ -79,6 +79,8 @@ Das Ziel dieser Bachelorarbeit ist es eine visuelle Programmiersprache zu entwic
 Um diese drei Anforderungen laufend zu überprüfen wird die VPL im Kontext einer Web-App entwickelt, die den Nutzer/innen erlaubt prozedurale 3D-Modelle von Pflanzen zu erstellen.
 Dieser Anwendungsfall wurde gewählt da die hohen Datenmengen von 3D-Modellen eine gute Möglichkeit bieten die Performance der VPL zu testen.
 
+\subsection{Anforderungen}
+
 \subsubsection{Erweiterbarkeit}
 
 Hiermit ist gemeint, dass das System einfach um neue \link[node_definition]{Node-Definitionen} erweitert werden kann.
@@ -190,9 +192,9 @@ das eine GUI für Datenbankabfragen und -transaktionen bietet, indem es Benutzer
 
 \subsection{Historische Vorbilder}
 
-Visuelle Programmiersprachen haben eine lange Geschichte, die bis in die 1960er Jahre zurückreicht. Im folgenden Kapitel werde ich auf einige Meilensteine dieser Geschichte eingehen und welchen sie bis heute auf HCI's und VPL's hatten.
+Visuelle Programmiersprachen haben eine lange Geschichte, die bis in die 1960er Jahre zurückreicht. Im folgenden Kapitel werde ich auf einige Meilensteine dieser Geschichte eingehen, welchen Einfluss sie bis heute auf HCI's und VPL's haben und wie sie für diese Arbeit relevant sind.
 
-\subsubsection{SketchPad (1963)}
+\subsubsection{SketchPad (1962)}
 \label{sec:SketchPad}
 \begingroup
 \setlength\intextsep{4pt}
@@ -589,7 +591,6 @@ Der \qt{Recursive-Length Prefix Serialization} Algorithmus von Ethereum war ein 
 Das aktuelle Binärformat besteht darin jede Klammer in einem verschachtelten Array durch zwei 32 Bit Integer zu enkodieren. 
 Die erste Stelle gibt, an ob es sich um eine öffnende oder schließende Klammer handelt, die zweite Stelle gibt den Abstand zur nächsten Klammer an.
 
-
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.8\textwidth]{./graphics/ENCODING_SCHEME.pdf}
@@ -611,7 +612,7 @@ Die Anwendung wurde so designt, dass sie möglichst einfach und intuitiv zu bedi
 
 \begin{figure}[hbtp]
   \centering
-  \includegraphics[width=0.75\textwidth]{graphics/layout_white.png}
+  \includegraphics[width=1\textwidth]{graphics/layout_light.pdf}
   \caption{Screenshot der Anwendung im Light-Mode}
   \label{fig:screenshot_nodarium}
 \end{figure}
@@ -668,12 +669,60 @@ Der Fokus bei der Implementierung lag darauf das Interface so simpel und perform
 Deswegen wird ab einer bestimmten Zoom-Stufe die Darstellung der Nodes in ein WebGL Canvas gerendert. Dies hat den Vorteil, dass die Performance bei einer großen Anzahl von Nodes konstant bleibt. 
 Zur weiteren Verbesserung der Performance werden die abgerundeten Ecken und Rahmen der einzelnen Nodes per \href{https://en.wikipedia.org/wiki/Signed_distance_function}{Signed Distance Function} gerendert.
 
+\pagebreak
+
+
 \section{Evaluation}
-\cmt{Verdammt schnell}
 
-\cmt{1.8Mio Vertices in < 500ms E2E}
 
-\cmt{durchschnittlich 40kb pro Node}
+\subsection{Anforderungen}
+
+
+\subsubsection{Performance}
+
+Die Performance wurde anhand drei Benchmarks auf drei Geräten jeweils in Chrome (v124) und Firefox (v125). Die drei Benchmarks waren:
+
+\begin{itemize}
+  \item test\_a: 6 Nodes generieren 2,1 Millionen Polygone
+  \item test\_b: 228 Nodes generieren 127 Tsd. Polygone
+  \item test\_c: 228 Nodes generieren 1 Million Polygone
+\end{itemize}
+
+Die einzelnen Benchmarks wurden End-to-End gemessen, das heißt die Zeit die benötigt wird, um den \link[node_graph]{Node-Graphen} auszuführen, die Polygone in der Szene anzuzeigen und die Szene zu rendern.
+\br
+Die drei Geräte waren ein Smartphone (Google Pixel 4a 2020, 8GB RAM, Snapdragon 730G), ein Laptop (Razer Blade Stealth 2016, 16GB RAM, i7-7500U) und eine Workstation (Intel I7-6700K, 16GB RAM, Nvidia GTX1060). Dargestellt wird die Durchschnittsdauer von 500 Durchläufen und die Standardabweichung.
+
+\begin{table}[htbp]
+\begin{tabular}{|l|l|l|l|}
+\hline
+Firefox      & Smartphone                 & Laptop                 & Workstation                 \\ \hline
+test\_a      & 208.34ms \stdev{31.51}     & 111ms \stdev{20.76}    & 105.75ms \stdev{12.33}      \\ \hline
+test\_b      & 42.07ms \stdev{11.24}      & 22.66ms \stdev{5.63}   & 20.12ms \stdev{3.79}        \\ \hline
+test\_c      & 168.66ms \stdev{54.74}     & 67.58ms \stdev{40.03}  & 65.33ms \stdev{13.63}       \\ \hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[htbp]
+\begin{tabular}{|l|l|l|l|}
+\hline
+Chrome           & Smartphone                & Laptop                & Workstation                \\ \hline
+test\_a          & 347.02ms  \stdev{30.6}    & 127.97ms \stdev{7.28} & 136.92ms \stdev{3.28}      \\ \hline
+test\_b          & 77.19ms \stdev{31.75}     & 21.1ms  \stdev{6.01}  & 18.12ms \stdev{3.74}       \\ \hline
+test\_c          & 316.73ms \stdev{62.54}    & 65.46ms \stdev{15.65} & 67.62ms \stdev{23.03}      \\ \hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Erweiterbarkeit}
+\cmt{Neue Nodes können einfach hinzugefügt werden}
+\cmt{Macros + Dokumentation}
+
+\subsubsection{Usability}
+\cmt{Intuitiv}
+\cmt{Viele Tastaturkürzel}
+\cmt{Drag and Drop}
+
+\subsection{Forschungsfragen}
 
 \section{Fazit}
 \cmt{Joah, schnieke würd ich mal sagen}

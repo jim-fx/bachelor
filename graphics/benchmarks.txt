@@ -1,0 +1,86 @@
+maxblade - chrome - lotta faces
+
+147.61 / 7.82 // worker
+127.97 / 7.28
+
+maxblade - chrome - lotta nodes
+
+34.8 / 11.24 // worker
+21.1 / 6.01
+
+maxblade - chrome - lotta nodes, lotta faces
+
+114.03 / 18.67 // worker
+65.46 / 15.65
+
+maxblade - firefox - lotta faces
+
+178.94 / 10.82 // worker
+111 / 20.76
+
+maxblade - firefox - lotta nodes
+
+36.9 / 9.3 // worker
+22.66 / 5.63
+
+maxblade - firefox - lotta nodes, lotta faces
+
+114.22 / 26.03 // worker
+67.58 / 40.03
+
+
+maxmachine - firefox - lotta faces
+
+207.45 / 18.29 // worker
+105.75 / 12.33
+
+maxmachine - firefox - lotta nodes
+
+32.98 / 8.98 // worker
+20.12 / 3.79
+
+maxmachine - firefox - lotta faces, lotta nodes
+
+117.5 / 31.73 // worker
+65.33 / 13.63
+
+maxmachine - chrome - lotta faces
+
+191.55 / 6.87 // worker
+136.92 / 3.28
+
+maxmachine - chrome - lotta nodes
+
+25.88 / 4.92 // worker
+18.12 / 3.74
+
+maxmachine - chrome - lotta nodes lotta faces
+
+105.2 / 22.55 // worker
+67.62 / 23.03
+
+
+maxpix - chrome - lotta faces
+
+347.02 / 30.6
+
+maxpix - chrome - lotta nodes
+
+77.19 / 31.75
+
+maxpix - chrome - lotta nodes lotta faces
+
+316.73 / 62.54
+
+
+maxpix - firefox - lotta faces
+
+208.34 / 31.51
+
+maxpix - firefox - lotta nodes
+
+42.07 / 11.24
+
+maxpix - firefox - lotta nodes lotta faces
+
+168.66 / 54.74
