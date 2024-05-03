@@ -27,19 +27,19 @@
 \section{Einleitung}
 
 \subsection{Hintergrund}
-In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces (HCI's) eine entscheidende Rolle.
+In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces (HCIs) eine entscheidende Rolle.
 Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. 
 \br
-Visuelle Programmiersprachen (VPL's) sind ein interessanter Mittelweg zwischen diesen beiden Konzepten. Sie bieten Nutzer/innen die Möglichkeit, Programme ähnlich wie in einer textuellen Programmiersprache zu entwickeln, ohne sich mit der komplexen Syntax einer eben solchen auseinander zu setzen.
+Visuelle Programmiersprachen (VPLs) sind ein interessanter Mittelweg zwischen diesen beiden Konzepten. Sie bieten Nutzer/innen die Möglichkeit, Programme ähnlich wie in einer textuellen Programmiersprache zu entwickeln, ohne sich mit der komplexen Syntax einer eben solchen auseinander zu setzen.
 \br
-Es gibt bereits eine Vielzahl von VPL's, die in unterschiedlichen Bereichen Anwendung finden.
-Diese reichen von einfachen Tools wie \href{https://scratch.mit.edu/}{Scratch} für Kinder bis hin zu professionellen Low-Code Tools wie \href{https://nodered.org/}{Node-RED}. Auch in Mediensoftware wie \href{https://www.sidefx.com/products/houdini/}{Houdini}, \href{https://www.blackmagicdesign.com/de/products/davinciresolve/}{DaVinci Resolve} oder \href{https://www.blender.org/}{Blender} finden VPL's Anwendung.
+Es gibt bereits eine Vielzahl von VPLs, die in unterschiedlichen Bereichen Anwendung finden.
+Diese reichen von einfachen Tools wie \href{https://scratch.mit.edu/}{Scratch} für Kinder bis hin zu professionellen Low-Code Tools wie \href{https://nodered.org/}{Node-RED}. Auch in Mediensoftware wie \href{https://www.sidefx.com/products/houdini/}{Houdini}, \href{https://www.blackmagicdesign.com/de/products/davinciresolve/}{DaVinci Resolve} oder \href{https://www.blender.org/}{Blender} finden VPLs Anwendung.
 \br
 Das Ziel dieser Arbeit ist es eine generalisierte visuelle Programmiersprache zu entwickeln, die leicht erweiterbar und performant ist.
 Diese wird als Web-App entwickelt, da dies einen niedrigschwelligen Zugang sowie einen einfachen Verbreitungsweg bietet.
 \br
-Es existieren schon einige VPL's, die als Web-App konzipiert wurden, so z.B. \href{https://nodered.org}{Node-Red},
-\href{https://developers.google.com/blockly}{Blockly} oder \href{https://scratch.mit.edu/}{Scratch}. Diese VPL's benutzen Javascript zur Entwicklung der einzelnen Bausteine und sind sie so relativ einfach zu erweitern, da Javascript ohne weitere Kompilierung im Browser ausgeführt werden kann. 
+Es existieren schon einige VPLs, die als Web-App konzipiert wurden, so z.B. \href{https://nodered.org}{Node-Red},
+\href{https://developers.google.com/blockly}{Blockly} oder \href{https://scratch.mit.edu/}{Scratch}. Diese VPLs benutzen Javascript zur Entwicklung der einzelnen Bausteine und sind sie so relativ einfach zu erweitern, da Javascript ohne weitere Kompilierung im Browser ausgeführt werden kann. 
 Allerdings Javascript ist \qt{garbage-collected} und dynamischen typisiert und daher nicht die beste Wahl für die Entwicklung von performantem Code im Browser. Des Weiteren benötigt Javascript besondere Aufmerksamkeit, um sicherzustellen, dass der Code von anderen Nutzer/innen sicher ausgeführt werden kann. 
 \br
 In dieser Bachelorarbeit wird eine VPL entwickelt, bei der die einzelnen Bausteine als WebAssembly-Module implementiert sind. 
@@ -106,7 +106,7 @@ Auch die Optimierung für mobile Endgeräte ist nicht vorgesehen, da die Art der
 Hierbei ist zu erwähnen, dass diese Ziele nur im Kontext der Bachelorarbeit ausgeklammert worden sind, aber für zukünftige Weiterentwicklung durchaus infrage kommen.
 
 \subsection{Forschungsfragen}
-Da die Verwendung von WebAssembly eines der größten Unterscheidungsmerkmale zu anderen VPL's ist, sind die Forschungsfragen spezifisch auf die Eignung von WebAssembly als Grundlage für eine VPL ausgerichtet. Konkret soll dies anhand der folgenden Fragen überprüft werden:
+Da die Verwendung von WebAssembly eines der größten Unterscheidungsmerkmale zu anderen VPLs ist, sind die Forschungsfragen spezifisch auf die Eignung von WebAssembly als Grundlage für eine VPL ausgerichtet. Konkret soll dies anhand der folgenden Fragen überprüft werden:
 \begin{itemize}
   \item Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache?  
   \item Welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
@@ -168,7 +168,7 @@ Auch wenn textuelle Sprache auf einer zweidimensionalen Oberfläche dargestellt 
 
 \subsection{Klassifikation von visuellen Programmiersprachen}
 
-Nach Burnett\&Mayer können VPL's in 5 verschiedenen Klassen eingeteilt werden \cite{BURNETT1994287}. Diese einzelnen Klassen schließen sich nicht gegenseitig aus und können auch in Kombination verwendet werden.
+Nach Burnett\&Mayer können VPLs in 5 verschiedenen Klassen eingeteilt werden \cite{BURNETT1994287}. Diese einzelnen Klassen schließen sich nicht gegenseitig aus und können auch in Kombination verwendet werden.
 
 \subsubsection{\qt{Purely visual languages}}
 \qt{Purely visual languages} haben keine textuelle Repräsentation und sind ausschließlich visuell. Ein Beispiel hierfür ist Scratch, das es Nutzern ermöglicht, durch das Zusammensetzen von Blöcken Programme zu erstellen, ohne eine einzige Zeile Code zu schreiben. \cite{mitScratchAbout}
@@ -190,7 +190,7 @@ das eine GUI für Datenbankabfragen und -transaktionen bietet, indem es Benutzer
 
 \subsection{Historische Vorbilder}
 
-Visuelle Programmiersprachen haben eine lange Geschichte, die bis in die 1960er Jahre zurückreicht. Im folgenden Kapitel werde ich auf einige Meilensteine dieser Geschichte eingehen, welchen Einfluss sie bis heute auf HCI's und VPL's haben und wie sie für diese Arbeit relevant sind.
+Visuelle Programmiersprachen haben eine lange Geschichte, die bis in die 1960er Jahre zurückreicht. Im folgenden Kapitel werde ich auf einige Meilensteine dieser Geschichte eingehen, welchen Einfluss sie bis heute auf HCIs und VPLs haben und wie sie für diese Arbeit relevant sind.
 
 \subsubsection{SketchPad (1962)}
 \label{sec:SketchPad}
@@ -209,7 +209,7 @@ Es erlaubte den Nutzer/innen, geometrische Formen auf einem Bildschirm zu zeichn
   Dies wird deutlich durch den Fakt, dass der Präsentator während der Präsentation von SketchPad \cite{sketchpadDemo} (10:30) keine Worte fand, um diesen Vorgang zu beschreiben. Das Konzept von bewegbaren und zoombaren virtuellen Oberflächen ist heute ein Standard in vielen Anwendungen und wird auch in dieser Arbeit verwendet.
 Ein weiteres Feature war die Möglichkeit, Constraints zwischen den Formen zu definieren, ähnlich wie in modernen CAD-Programmen. 
 Wenn man sich die Videodemo von SketchPad anschaut, fallen viele Paradigmen auf, die wir heute als gegeben ansehen.
-Auch wenn SketchPad nicht direkt in die Definition einer VPL passt, war es ein Meilenstein der Entwicklung von grafischen HCI's. Was durch die Verleihung des Turing Awards an Ivan Sutherland 1988 bestätigt wurde.
+Auch wenn SketchPad nicht direkt in die Definition einer VPL passt, war es ein Meilenstein der Entwicklung von grafischen HCIs. Was durch die Verleihung des Turing Awards an Ivan Sutherland 1988 bestätigt wurde.
 \end{minipage}
 \endgroup
 
@@ -225,10 +225,10 @@ Auch wenn SketchPad nicht direkt in die Definition einer VPL passt, war es ein M
 \end{wrapfigure}
 
 Pygmalion ist eine visuelle Programmiersprache, die um 1970 von David Canfield Smith im Rahmen seiner Doktorarbeit entwickelt wurde. Inspiriert wurde sie von der mythischen Figur des Bildhauers Pygmalion, der seine Skulpturen zum Leben erwecken konnte.
-Die Sprache erlangte nie eine große Verbreitung, war aber ein wichtiger Meilenstein in der Entwicklung von visuellen Programmiersprachen und HCI's.
+Die Sprache erlangte nie eine große Verbreitung, war aber ein wichtiger Meilenstein in der Entwicklung von visuellen Programmiersprachen und HCIs.
 Pygmalion wurde in Smalltalk implementiert und war eine der ersten visuellen Programmiersprachen. Über eine grafische Oberfläche konnten die Nutzer/innen Blöcke, Icons und Verbindungen erstellen und manipulieren im damit Programme zu definieren.
   Icons waren damals eine Neuerung und wurden von den Entwicklern als \qt{eine Art von visuellen Variablen} bezeichnet. 
-  Die Sprache war eine der ersten Beispiele von \qt{Programming By Example} oder PBE. Außerdem war sei eine der ersten Sprachen, welche die Verbindung zwischen bestimmten Elementen durch Linien und Pfeile darstellte, was heute ein Standard in vielen VPL's ist.
+  Die Sprache war eine der ersten Beispiele von \qt{Programming By Example} oder PBE. Außerdem war sei eine der ersten Sprachen, welche die Verbindung zwischen bestimmten Elementen durch Linien und Pfeile darstellte, was heute ein Standard in vielen VPLs ist.
 Die Nutzer/innen konnten Programme schreiben, indem sie die gewünschte Funktionalität in einem Beispiel demonstrieren. 
 In Abbildung \ref{fig:pygmalion_demo} wird auf diese Art die Fakultät einer Zahl berechnet. 
 
@@ -260,7 +260,7 @@ Dieses Konzept ist relevant für meine persönliche Arbeit, siehe \link[paramete
 \pagebreak
 
 \subsection{Moderne node-basierte visuelle Programmiersprachen}
-Die Recherche nach modernen VPL's konzentriert sich spezifisch auf node-basierte VPL's, die entweder durch ihre Popularität oder ihre Spezifizierung relevant für diese Arbeit sind.
+Die Recherche nach modernen VPLs konzentriert sich spezifisch auf node-basierte VPLs, die entweder durch ihre Popularität oder ihre Spezifizierung relevant für diese Arbeit sind.
 
 \subsubsection{Node-RED}
 
