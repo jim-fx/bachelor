@@ -2,7 +2,7 @@
 
 \input{common}
 
-\title{WebAssembly-basierte visuelle Programmiersprache \br \small Bachelorarbeit}
+\title{Entwicklung einer performanten WebAssembly-basierten visuellen Programmiersprache \br \small Bachelorarbeit}
 \author{Max Richter}
 
 \begin{document}
@@ -30,36 +30,29 @@
 In unserer heutigen digitalisierten Welt spielen Human-Computer Interfaces (HCI's) eine entscheidende Rolle.
 Hierbei gibt es eine weite Spanne von Komplexität, von einfach zu bedienenden grafischen Benutzeroberflächen bis zu komplexen Programmiersprachen. 
 \br
-Visuelle Programmiersprachen (VPL's) bieten hier einen interessanten Mittelweg zwischen diesen beiden Konzepten. Sie bieten programmierunerfahrenen Nutzer/innen die Möglichkeit Programme ähnlich wie in einer textuellen Programmiersprache zu entwickeln.
+Visuelle Programmiersprachen (VPL's) sind ein interessanter Mittelweg zwischen diesen beiden Konzepten. Sie bieten Nutzer/innen die Möglichkeit Programme ähnlich wie in einer textuellen Programmiersprache zu entwickeln, ohne sich mit der komplexen Syntax einer eben solchen auseinander zu setzen.
 \br
-Es gibt bereits eine Vielzahl von VPL's, die in unterschiedlichen Bereichen Anwendung finden. 
-Diese reichen von einfachen Tools wie \textit{Scratch} für Kinder bis zu komplexen Systemen wie \textit{Blender} für 3D-Modellierung und Animation. Vor allem in den Bereichen der prozeduralen Generierung von 3D-Modellen (Blender, Houdini, SpeedTree), Materialien (Blender, Substance-Designer) und Animationen (Blender, Unreal-Engine) finden VPL's Anwendung.
+Es gibt bereits eine Vielzahl von VPL's, die in unterschiedlichen Bereichen Anwendung finden.
+Diese reichen von einfachen Tools wie \href{https://scratch.mit.edu/}{Scratch} für Kinder bis hin zu professionellen Low-Code Tools wie \href{https://nodered.org/}{Node-RED}. Auch in Mediensoftware wie \href{https://www.sidefx.com/products/houdini/}{Houdini}, \href{https://www.blackmagicdesign.com/de/products/davinciresolve/}{DaVinci Resolve} oder \href{https://www.blender.org/}{Blender} finden VPL's Anwendung.
 \br
 Das Ziel dieser Arbeit ist es eine generalisierte visuelle Programmiersprache zu entwickeln, die leicht erweiterbar und performant ist.
 Diese wird als Web-App entwickelt, da dies einen niedrigschwelligen Zugang sowie einen einfachen Verbreitungsweg bietet.
 \br
 Es gibt bereits einige VPL's die als Web-App konzipiert wurden, so z.B. \href{https://nodered.org}{Node-Red},
 \href{https://developers.google.com/blockly}{Blockly} oder \href{https://scratch.mit.edu/}{Scratch}. Diese VPL's benutzen Javascript zur Entwicklung der einzelnen Bausteine und sind sie so relativ einfach zu erweitern da Javascript ohne weitere Kompilierung im Browser ausgeführt werden kann. 
-Javascript ist \qt{garbage-collected} und dynamischen typisiert und daher oft nicht die beste Wahl für die Entwicklung von performantem Code im Browser. Diese Merkmale können die Ausführungsgeschwindigkeit beeinträchtigen, da die Garbage-Collection unvorhersehbare Verzögerungen verursachen kann und die dynamische Typisierung zusätzliche Ressourcen zur Laufzeit erfordert, um Typinformationen zu verwalten und Fehler zu vermeiden.
-Des Weiteren benötigt Javascript besondere Aufmerksamkeit, um sicherzustellen, das der Code von anderen Nutzer/innen sicher ausgeführt werden kann.
+Allerdings Javascript ist \qt{garbage-collected} und dynamischen typisiert und daher nicht die beste Wahl für die Entwicklung von performantem Code im Browser. Des Weiteren benötigt Javascript besondere Aufmerksamkeit, um sicherzustellen, das der Code von anderen Nutzer/innen sicher ausgeführt werden kann. 
 \br
 In dieser Bachelorarbeit wird eine VPL entwickelt bei der die einzelnen Bausteine als WebAssembly-Module implementiert sind. 
-Dies ermöglicht es neue Bausteine von anderen Entwickler/innen einfach hinzuzufügen und so die Funktionalität der VPL zu erweitern.
-Hierbei garantiert WebAssembly  Plattformunabhängigkeit, hohe Performance und Sicherheit. \cite{Haas2017}
+WebAssembly ist eine statisch typisierte, performante und sichere Alternative zu Javascript, die im Durchschnitt 2-4 mal schneller ist. \cite{electronics11193217} \cite{Haas2017} Die Sicherheit von WebAssembly ermöglicht es neue Bausteine von anderen Entwickler/innen hinzuzufügen und so die Funktionalität der VPL zu erweitern, ohne Sicherheitsrisiken einzugehen. Durch die Plattformunabhängigkeit von WebAssembly kann die VPL auch auf anderen Plattformen wie z.B. Servern oder Desktop-Anwendungen ausgeführt werden, ohne Änderungen an den einzelnen Bausteinen vorzunehmen.
 \br
-Außerdem wird die VPL im Kontext einer Web-App entwickelt, die es Nutzer/innen ermöglicht prozedurale 3D-Modelle von Pflanzen zu erstellen. 
-Dies bietet eine ausgezeichnete Möglichkeit die Performance der VPL zu testen, da 3D-Modelle oft hohe Datenmengen haben und die Generierung dieser Modelle sehr rechenintensiv sein kann.
+Um die Performance und Nutzerfreundlichkeit dieser VPL konstant zu überprüfen wird diese im Kontext einer Web-App entwickelt, die es Nutzer/innen ermöglicht prozedurale 3D-Modelle von Pflanzen zu erstellen. 
+Da 3D-Modelle oft hohe Datenmengen haben und die Generierung dieser Modelle sehr rechenintensiv sein kann ist dies ein guter Anwendungsfall, um die Performance der VPL zu testen.
 
 \pagebreak
 
 \subsection{Problemstellung}
 
-Die Entscheidung die VPL als Web-App zu entwickeln bringt neben den oben genannten Vorteilen auch spezifische Herausforderungen mit sich.
-So ist die Sprache in der dynamische Webanwendungen entwickelt werden, Javascript, \qt{garbage-collected} und nicht stark typisiert. 
-Dies macht es theoretisch schwieriger performante und robuste Anwendungen zu entwickeln. 
-Um die Entwicklung etwas leichter zu gestalten habe ich mich entschieden die VPL in \link[TypeScript]{TypeScript} zu entwickeln, da diese Sprache stark typisiert ist und zu JavaScript kompiliert wird.
-\br
-Weitere Herausforderungen entstehen durch die Nutzung von WebAssembly. 
+Durch die Nutzung von WebAssembly entstehen einige Herausforderungen. 
 WebAssembly führt Code in einer virtuellen Maschine aus, die nicht direkt Zugang auf den Speicher oder Variablen der Host-Umgebung (den Browser) hat.
 Innerhalb dieser virtuellen Maschine wird der Code nahe der nativen Geschwindigkeit ausgeführt, was zu einer hohen Performance führt. 
 Die Herausforderung besteht darin das die Kommunikation zwischen der Host-Umgebung und dieser virtuellen Maschine relativ langsam ist und so zu einem Engpass führen kann.
@@ -74,14 +67,12 @@ Ich entschied mich für die Programmiersprache \link[Rust]{Rust}, da sie eine st
 Zusätzlich bietet \link[Rust]{Rust} eine gute Integration mit WebAssembly und ermöglicht es, Rust-Code direkt in WebAssembly zu kompilieren. 
 Die \href{https://rustwasm.github.io/}{Rust and WebAssembly domain working group} bietet viele Tools und Bibliotheken an, die die Entwicklung von WebAssembly-Anwendungen in \link[Rust]{Rust} erleichtern.
 
-\subsection{Zielsetzung} 
-\label{sec:Zielsetzung}
+\subsection{Anforderungen} 
+\label{sec:Anforderungen}
 
 Das Ziel dieser Bachelorarbeit ist es eine visuelle Programmiersprache zu entwickeln, die \textbf{performant}, \textbf{erweiterbar} und möglichst \textbf{einfach zu bedienen} ist.
 Um diese drei Anforderungen laufend zu überprüfen wird die VPL im Kontext einer Web-App entwickelt, die den Nutzer/innen erlaubt prozedurale 3D-Modelle von Pflanzen zu erstellen.
 Dieser Anwendungsfall wurde gewählt da die hohen Datenmengen von 3D-Modellen eine gute Möglichkeit bieten die Performance der VPL zu testen.
-
-\subsection{Anforderungen}
 
 \subsubsection{Erweiterbarkeit}
 
@@ -112,12 +103,12 @@ Die dynamische Struktur einer VPL, sowie spezifische Details der Implementierung
 \br
 Auch die Optimierung für mobile Endgeräte ist nicht vorgesehen, da die Art der Anwendung sich nicht für kleine Bildschirme oder Touch-Interfaces eignet.
 \br
-Hierbei ist zu erwähnen das diese Ziele nur im Kontext der Bachelorarbeit ausgeklammert werden aber für zukünftige Weiterentwicklung durchaus infrage kommen.
+Hierbei ist zu erwähnen das diese Ziele nur im Kontext der Bachelorarbeit ausgeklammert worden sind, aber für zukünftige Weiterentwicklung durchaus infrage kommen.
 
 \subsection{Forschungsfragen}
 Da die Verwendung von WebAssembly eines der größten Unterscheidungsmerkmale zu anderen VPL's ist, sind die Forschungsfragen spezifisch auf die Eignung von WebAssembly als Grundlage für eine VPL ausgerichtet. Konkret soll dies anhand der folgenden Fragen überprüft werden:
 \begin{itemize}
-  \item  Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache?  
+  \item Inwieweit eignet sich WebAssembly als Grundlage für eine node-basierte visuelle Programmiersprache?  
   \item Welche Auswirkungen haben die spezifischen Vor- und Nachteile von WebAssembly auf die Realisierbarkeit, Funktionalität, Nutzerfreundlichkeit, Performance, Flexibilität und Robustheit einer solchen Programmiersprache?
 \end{itemize}
 
@@ -160,6 +151,10 @@ Rust ist eine von Mozilla entwickelte Programmiersprache, die sich durch ihre Si
 
 \subsubsection{TypeScript}
 \label{sec:TypeScript}
+Die Entscheidung die VPL als Web-App zu entwickeln bringt neben den genannten Vorteilen auch spezifische Herausforderungen mit sich.
+So ist die Sprache in der dynamische Webanwendungen entwickelt werden, Javascript, \qt{garbage-collected} und nicht stark typisiert. 
+Dies macht es theoretisch schwieriger robuste Anwendungen zu entwickeln. 
+Um die Entwicklung etwas leichter zu gestalten wurde die VPL in TypeScript zu entwickeln.
 TypeScript ist ein Superset von Javascript, das statische Typisierung und andere Features hinzufügt. Es kompiliert zu Javascript und kann daher in allen gängigen Browsers und in der Node.js Laufzeitumgebung ausgeführt werden. Die Sprache wird seit 2012 aktiv von Microsoft entwickelt und hat eine große und aktive Community.
 
 \pagebreak
@@ -264,7 +259,7 @@ Dieses Konzept ist relevant für meine persönliche Arbeit, siehe \link[paramete
 \pagebreak
 
 \subsection{Moderne node-basierte visuelle Programmiersprachen}
-In meiner Recherche nach modernen VPL's habe ich mich spezifisch auf node-basierte VPL's konzentriert die entweder durch ihre Popularität oder ihre Spezifizierung relevant für diese Arbeit sind.
+Die Recherche nach modernen VPL's konzentriert sich spezifisch auf node-basierte VPL's die entweder durch ihre Popularität oder ihre Spezifizierung relevant für diese Arbeit sind.
 
 \subsubsection{Node-RED}
 
@@ -328,6 +323,7 @@ Im Gegensatz zu Blender und Node-RED ist SpeedTree ein sehr spezialisiertes Tool
 \pagebreak
 
 \section{Konzept}
+\label{sec:Konzept}
 
 Die in dieser Arbeit entwickelte VPL nutzt einen node-basierten Ansatz. 
 \link[node]{Nodes} sind in diesem Kontext einzelne Bausteine die ähnlich wie eine Funktion in einer textuellen Programmiersprache funktionieren.
@@ -362,20 +358,20 @@ Der Datenfluss ist von links nach rechts und die Verbindungen zwischen den Nodes
 
 \subsection{Architektur}
 \label{sec:Architektur}
-Um die VPL nach den drei Anforderungen \hyperref[sec:Zielsetzung]{Zielsetzung} zu entwickeln, muss die Architektur so gestaltet sein, dass sie einfach erweiterbar, performant und einfach zu bedienen ist.
-Aus diesen Anforderungen und dem Konzept ergibt sich folgende dreiteilige Architektur:
+Aus den drei \link{Anforderungen}, \textbf{performant}, \textbf{erweiterbar} und \textbf{einfach zu benutzen} zu sein und dem \link{Konzept} ergibt sich folgende dreiteilige Architektur:
 \br
-Das \link[node_interface]{Node-Interface} ist für das visuelle Interface zuständig, hier interagieren Nutzer/innen mit dem \link[node_graph]{Node-Graph}.
+Das \textbf{\link[node_interface]{Node-Interface}} ist für das visuelle Interface zuständig, hier interagieren Nutzer/innen mit dem \link[node_graph]{Node-Graph}.
 \br
-Der \link[runtime_executor]{Runtime-Executor} ist für die Ausführung der Nodes zuständig. Er nimmt einen serialisierten \link[node_graph]{Node-Graph} entgegen und gibt das Ergebnis zurück.
+Der \textbf{\link[runtime_executor]{Runtime-Executor}} ist für die Ausführung der Nodes zuständig. Er nimmt einen serialisierten \link[node_graph]{Node-Graph} entgegen und gibt das Ergebnis zurück.
 \br
-Die \link[node_registry]{Node-Registry} ist für das Verwalten der \link[node_definition]{Node-Definitionen} zuständig. Die beiden anderen Komponenten laden aus ihr die einzelnen WebAssembly-Binärdateien der Nodes.
+Die \textbf{\link[node_registry]{Node-Registry}} ist für das Verwalten der \link[node_definition]{Node-Definitionen} zuständig. Die beiden anderen Komponenten laden aus ihr die einzelnen WebAssembly-Binärdateien der Nodes.
 \br
+Das System wurde in diese drei Komponenten unterteilt, da sich so der Datentransfer zwischen den einzelnen Komponenten minimieren lässt, die Komponenten lose gekoppelt sind und dadurch einfacher ersetzt oder erweitert werden können.
 In Abbildung \ref{fig:overview_sequence} ist in einem Sequenzdiagramm dargestellt wie die drei Komponenten zusammenarbeiten.
 
 \begin{figure}[hbtp]
     \centering
-    \includegraphics[width=1\textwidth]{graphics/OVERVIEW_SEQUENCE.pdf}
+    \includegraphics[width=0.85\textwidth]{graphics/OVERVIEW_SEQUENCE.pdf}
     \caption{Sequenzdiagramm der Architektur}
     \label{fig:overview_sequence}
 \end{figure}
@@ -499,9 +495,10 @@ Die Verbindungen sind jeweils ein Tupel aus der \topic{id} der \link[node]{Node}
 \pagebreak
 
 \subsubsection{Node-Interface}
-Abbildung \ref{fig:overview_sequence}
 \label{sec:node_interface}
-\cmt{Visuelles Interface für den Node-Graph}
+
+Das Node-Interface ist die Benutzeroberfläche des Systems. Hier können die Nutzer/innen \link[node]{Nodes} erstellen, verbinden und löschen. 
+Wichtig ist, dass das Interface so einfach und intuitiv wie möglich ist, um die Nutzer/innen nicht zu überfordern. Gleichzeitig soll es aber auch genug Funktionen bieten, um komplexe Programme zu erstellen. Auch soll es viele Tastaturkürzel und andere Funktionen geben, um die Nutzer/innen möglichst effizient arbeiten zu lassen.
 
 \subsubsection{Node-Registry}
 \label{sec:node_registry}
@@ -511,18 +508,37 @@ Die \link[node_registry]{Node-Registry} ist für das Verwalten der \link[node_de
 Damit diese \link[node_registry]{Node-Registry} erweiterbar ist wurde ein eigenes ID-Schema für die \link[node_definition]{Node-Definitionen} entworfen. Dies besteht aus einer \topic{user-id} einem \topic{namespace} und der \topic{node-id}. 
 Ein Beispiel aus der Entwicklung wäre \topic{max/plantarium/branch}.
 \br
-Die \topic{user-id} ist die ID des/der Entwicklers/Entwicklerin und dient dazu, die Nodes zu gruppieren. Der Namespace gruppiert Nodes die zusammen funktionieren. So kann das System der \link[HON]{Higher-Order Nodes} nur für Nodes in dem \topic{plantarium} Namespace implementiert werden und andere Namespaces können andere Implementierungen haben.
+Die \topic{user-id} ist die ID des/der Entwicklers/Entwicklerin und dient dazu, die Nodes zu gruppieren. Der Namespace gruppiert Nodes die zusammen funktionieren. So kann das System der \link[parameter_nodes]{parametrisierten Nodes} nur für Nodes in dem \topic{plantarium} Namespace implementiert werden und andere Namespaces können andere Implementierungen haben.
 \br
 Die \topic{node-id} muss individuell innerhalb eines \topic{namespace} sein. 
 \subsubsection*{Non-Goals}
 Obwohl im Design darauf geachtet wurde die \link[node_registry]{Node-Registry} so erweiterbar wie möglich zu machen, wurde darauf verzichtet Funktionen die eine \qt{echte} Registry haben sollte zu implementieren. So gibt es keine Ansätze zur Versionierung, auch auf Authentifizierung und Autorisierung wurde verzichtet.
+
+\pagebreak
 
 \subsubsection{Runtime-Executor}
 \label{sec:runtime_executor}
 
 Der \link[runtime_executor]{Runtime-Executor} ist für die Ausführung eines \link[node_graph]{Node-Graphen} zuständig.
 
-\pagebreak
+\begin{figure}[htbp]
+  \begin{code}
+    \begin{minted}{typescript}
+export interface RuntimeExecutor {
+  /**
+  * Execute the given graph
+  * @param graph - The graph to execute
+  * @returns The result of the execution
+  */
+  execute: (graph: Graph, settings: Record<string, unknown>) => Promise<Int32Array>;
+}
+    \end{minted}
+  \end{code}
+  \caption{Interface des \link[runtime_executor]{Runtime-Executor} (TypeScript)}
+  \label{fig:runtime_executor}
+\end{figure}
+
+Aus Abbildung \ref{fig:runtime_executor} soll ersichtlich werden das diese Klasse ein denkbar simples Interface hat. 
 
 \subsubsection{Parametrisierte Nodes}
 \label{sec:parameter_nodes}
@@ -571,18 +587,15 @@ Die \topic{cylinder} Node im vorherigen Beispiel könnte zum Beispiel bei der Ev
 \br
 Eine Herausforderung in der Implementierung dieser Lösung besteht darin das jedes Argument nun entweder ein direkter Wert, der von den Nutzern über das \link[node_interface]{Node-Interface} festgelegt wird, oder ein Teil das gesamten \link[node_graph]{Node-Graphen} sein kann.
 \br
-Da der \link[runtime_executor]{Runtime-Executor} aus Gründen der Erweiterbarkeit möglichst wenig spezifische Informationen über einzelne Nodes brauchen soll,
-habe ich mich dazu entschieden das die einzelnen Nodes sich selber serialisieren und diese Serialisierung als Ergebnis zurückgeben.
-\br
 Die erste Implementierung bestand darin das die Nodes ein serialisiertes JSON-Objekt zurückgeben. Dies hatte den Vorteil, dass einzelne Argumente zu Debugging-Zwecken menschenlesbar und die Serialisierung relativ einfach war. Die Performance war jedoch nicht optimal, da die Serialisierung und Deserialisierung relativ aufwendig ist. Des Weiteren hatte jede Node jetzt eine Abhängigkeit zu \href{ https://serde.rs/ }{Serde} (Der Standardbibliothek für Serialisierung in Rust), was die Dateigröße der WebAssembly-Module deutlich vergrößerte.
 \br
 Die aktuelle Version benutzt eine eigene Binär-Serialisierung. Diese ist schneller und die Dateigröße der WebAssembly-Module ist kleiner. Der Nachteil ist das die Serialisierung nicht mehr menschenlesbar und die Implementierung komplexer ist. 
-\\
+\br
 Die Grundidee ist es Nodes als ein Array aus 32Bit Integer darzustellen, die erste Stelle des Arrays enkodiert den Typ der Node, die darauffolgenden Stellen sind die Argumente. Die einzelnen Argumente sind entweder eine Zahl oder die enkodierte Version einer anderen Node.
 Gleitzahlen sind 32 Bit nach dem IEEE-754 Standard und können dank der gleichen Größe ohne weiter Anpassungen im Array gespeichert werden. 
 \br
 Da WebAssembly, sowie auch Rust keine verschachtelten Arrays unterstützen, muss dieser Array in einen linearen Array umgewandelt werden. 
-Der \qt{Recursive-Length Prefix Serialization} Algorithmus von Ethereum war ein guter Ansatz, ist jedoch nicht für die Anforderungen dieser Anwendung optimiert, da er für Strings ausgelegt ist. 
+Bei meiner Recherche nach existierend Algorithmen zu diesem Problem bin ich auf auf den \qt{Recursive-Length Prefix Serialization} (RLP) Algorithmus von Ethereum gestoßen. Dieser Algorithmus war ein guter Ansatz, ist jedoch nicht für die Anforderungen dieser Anwendung optimiert, da er nur Arrays unterstützt die entweder Nummern oder Arrays enthalten und keine gemischte Version. Außerdem ist er für das Enkodieren von Strings optimiert.
 \cite{wood2024ethereum}
 \br
 Das aktuelle Binärformat besteht darin jede Klammer in einem verschachtelten Array durch zwei 32 Bit Integer zu enkodieren. 
@@ -602,6 +615,7 @@ Die O-Notation der \link[code_nested_encoding]{Beispiel-Implementierung} ist $O(
 \br
 Beispielsweise nimmt eine \topic{math} Node, ihre Operation (addieren, subtrahieren...) und zwei Zahlen entgegen und fügt diesen Argumenten nur einen Integer zur Identifizierung hinzu. Dafür können wir Algorithmen benutzen der nur die obersten Elemente \link[code_nested_splitting]{extrahieren} und wieder \link[code_nested_joining]{zusammenfügen}.  Diese Algorithmen haben eine O-Notation von $O(1)$.
 
+\pagebreak
 
 \subsection{Design}
 
@@ -613,8 +627,6 @@ Die Anwendung wurde so designt, dass sie möglichst einfach und intuitiv zu bedi
   \caption{Screenshot der Anwendung im Light-Mode}
   \label{fig:screenshot_nodarium}
 \end{figure}
-
-\pagebreak
 
 \subsubsection{Farbgebung}
 
@@ -654,12 +666,38 @@ Die Anwendung wurde in einem Mono-Repository entwickelt, das die einzelnen Kompo
 \br
 Außerdem unterstützen die beiden Paket-Manager \href{https://pnpm.io/}{pnpm} und \href{https://crates.io/}{cargo} das Arbeiten mit 
 Mono-Repositories sehr gut. 
+\br
+Des Weiteren wurde nach dem Prinzip des Interface-Driven-Development vorgegangen, dass heißt die Interfaces der einzelnen Komponenten wurde vor ihrer Implementierung festgelegt. Dies hilft dabei die Interfaces so minimal wie möglich zu halten.
 
 \subsection{Nodes}
-\cmt{Validierung der node-definition durch rust macro und zod}
+Die Nodes wurden als Cargo-Pakete entwickelt. Jede Node ist ein eigenes Rust-Projekt und wird als WebAssembly-Modul kompiliert.
+\br
+Jede Node hat zwei öffentliche Funktionen, \topic{execute} und \topic{get\_definition}. Die \topic{execute} Funktion nimmt einen Array aus 32 Bit Integer entgegen und gibt ein Array aus 32 Bit Integer zurück. 
+\br
+Die \topic{get\_definition} Funktion gibt die \link[node_definition]{Node-Definition} der Node zurück. 
+Diese \link[node_definition]{Node-Definition} wird in einer JSON Datei definiert die dann über ein prozedurales Rust-Macro geladen, validiert und in die WebAssembly-Datei eingebettet wird. Dies stellt sicher, dass eine Node nur erfolgreich kompiliert werden kann, wenn die \link[node_definition]{Node-Definition} valide ist.
 
 \subsection{Runtime-Executor}
-\cmt{allgorithmus - recursive preprocessing}
+Der Runtime-Executor wurde als Typescript Klasse mit einer \topic{execute} Funktion implementiert. Diese \topic{execute} Funktion nimmt ein \link[node_graph]{Node-Graph} entgegen und gibt ein Array aus 32 Bit Integer zurück. Die Funktion ist grob in ... Schritte eingeteilt:
+
+\begin{enumerate}
+  \item Finde eine Node mit dem Typ \topic{output}
+  \item Finde rekursiv alle Nodes die mit dieser Node verbunden sind
+  \item Sortiere diese Nodes nach ihrer Entfernung zur \topic{output} Node, von der am weitesten entfernten zur am nächsten entfernten
+  \item Führe die Nodes in dieser Reihenfolge aus
+\end{enumerate}
+
+Das Ausführen der einzelnen Nodes läuft etwa wie folgt ab:
+
+\begin{enumerate}
+  \item Für jeden Input der Node:
+  \begin{enumerate}
+      \item Wenn der Input mit einer anderen Node verbunden ist nutze diesen
+      \item Wenn nicht, nutze den Wert der über das \link[node_interface]{Node-Interface} festgelegt wurde
+  \end{enumerate}
+  \item Enkodiere die Argumente der Node mit der \link[code_nested_encoding]{Binär-Serialisierung}
+  \item Führe die \topic{execute} Funktion der Node mit den Argumenten aus
+\end{enumerate}
 
 \subsection{Node-Interface}
 Der Fokus bei der Implementierung lag darauf das Interface so simpel und performant wie möglich zu gestalten. Hierfür wurde eine hybride Darstellung aus HTML und WebGL Elementen entwickelt. HTML Elemente bieten hierbei den Vorteil, das sie einfach zu gestalten sind und gute Interaktionsmöglichkeiten bieten. Bei einer großen Anzahl sich bewegender HTML Elemente sinkt jedoch die Performance. 
@@ -766,7 +804,7 @@ Nun legt man die Node-Definition an, dafür wird die Date \topic{src/definition.
   \end{code}
 \end{figure}
 
-Nun wird die Implementierung in der Datei \topic{src/lib.rs} angepasst. Der \link[code_cylinder_node]{Beispielcode} legt deutlich das wenig Boilerplate-Code benötigt wird. Ein Großteil der Implementierung lag darin den Code zu schreiben der die Zylinder-Geometrie generiert.  Außerdem kann das gesamte Rust-Ökosystem genutzt werden, so zum Beispiel \href{https://docs.rs/glam/latest/glam}{glam}, eine Bibliothek für Vektoren und Matrizen.
+Nun wird die Implementierung in der Datei \topic{src/lib.rs} angepasst. Der \link[code_cylinder_node]{Beispiel-Code} legt deutlich das wenig Boilerplate-Code benötigt wird. Ein Großteil der Implementierung lag darin den Code zu schreiben der die Zylinder-Geometrie generiert.  Außerdem kann das gesamte Rust-Ökosystem genutzt werden, so zum Beispiel \href{https://docs.rs/glam/latest/glam}{glam}, eine Bibliothek für Vektoren und Matrizen.
 
 \pagebreak
 
@@ -786,9 +824,8 @@ Alles in allem hat die Entwicklung und das Laden der Node etwa 30 Minuten gedaue
 Durch die Validierung der Node-Definition durch das prozedurale \topic{include\_definition\_file} Rust-Macro und die vielen Hilfsfunktionen die in der \topic{nodarium} Bibliothek enthalten sind, ist es sehr einfach eine neue Node zu implementieren.
 
 \subsubsection{Usability}
-\cmt{Intuitiv}
-\cmt{Viele Tastaturkürzel}
-\cmt{Drag and Drop}
+
+Durch das einheitliche Design und der Implementierung vielen Hilfsfunktionen, wie etwa einer Tastaturkürzelübersicht, einem Hilfsmodus, einem High-Contrast-Modus und vielen anderen Funktionen ist die Anwendung sehr einfach und intuitiv zu bedienen. 
 
 \subsection{Forschungsfragen}
 
@@ -1033,44 +1070,44 @@ pub fn concat_args(data: Vec<&[i32]>) -> Vec<i32> {
   \begin{code}
     \begin{minted}{rust}
 use glam::Vec2;
-use nodarium_macros::include_definition_file;
-use nodarium_utils::{
-    geometry::{create_geometry_data, wrap_geometry_data},
-};
 use wasm_bindgen::prelude::*;
 
-include_definition_file!("src/definition.json");
+nodarium_macros::include_definition_file!("src/definition.json");
 
 #[wasm_bindgen]
 pub fn execute(input: &[i32]) -> Vec<i32> {
-    let arguments = split_args(input);
-
-    let height = evaluate_float(arguments[0]);
-    let radius = evaluate_float(arguments[1]);
-
-    let mut geometry_data = create_geometry_data(16, 16);
-
-    let geometry = wrap_geometry_data(&mut geometry_data);
+    let arguments = nodarium_utils::split_args(input);
+    let height = nodarium_utils::evaluate_float(arguments[0]);
+    let radius = nodarium_utils::evaluate_float(arguments[1]);
+    let mut geometry_data = nodarium_utils::geometry::create_geometry_data(16, 16);
+    let geometry = nodarium_utils::geometry::wrap_geometry_data(&mut geometry_data);
 
     for i in 0..8 {
         let x = radius * (2.0 * std::f32::consts::PI * i as f32 / 8.0).cos();
         let y = radius * (2.0 * std::f32::consts::PI * i as f32 / 8.0).sin();
-
         let vec = Vec2::new(x, y).normalize();
 
-        // ... implementierung der cylinder node
-
+        geometry.positions[i * 3 + 0] = x;                // Untere Punkte des Cylinders
+        geometry.positions[i * 3 + 1] = 0.0;
+        geometry.positions[i * 3 + 2] = y;
+        geometry.normals[i * 3 + 0] = vec[0];
+        geometry.normals[i * 3 + 1] = 0.0;
+        geometry.normals[i * 3 + 2] = vec[1];
+        geometry.positions[24 + i * 3 + 0] = x;           // Obere Punkte des Cylinders
+        geometry.positions[24 + i * 3 + 1] = height;
+        geometry.positions[24 + i * 3 + 2] = y;
+        geometry.normals[24 + i * 3 + 0] = vec[0];
+        geometry.normals[24 + i * 3 + 1] = 0.0;
+        geometry.normals[24 + i * 3 + 2] = vec[1];
+        geometry.faces[i * 6 + 0] = (i + 8) as i32;       // Festlegen der Polygone
+        geometry.faces[i * 6 + 1] = (i as i32 + 1) % 8;
+        geometry.faces[i * 6 + 2] = (i) as i32;
+        geometry.faces[i * 6 + 3] = 8 + (i % 8) as i32;
+        geometry.faces[i * 6 + 4] = 8 + (i as i32 + 1) % 8;
+        geometry.faces[i * 6 + 5] = (i as i32 + 1) % 8;
     }
 
-    // nun werden die daten in das serialisierte Binärformat umgewandelt
-    let mut output: Vec<i32> = Vec::with_capacity(geometry_data.len() + 4);
-    output.push(0);
-    output.push(1);
-    output.extend_from_slice(&geometry_data);
-    output.push(1);
-    output.push(1);
-
-    output
+    nodarium_utils::concat_arg_vecs(vec![geometry_data]) // Enkodieren des Ergebnisses
 }
     \end{minted}
   \end{code}
