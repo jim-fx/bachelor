@@ -35,15 +35,15 @@ Visuelle Programmiersprachen (VPLs) sind ein interessanter Mittelweg zwischen di
 Es gibt bereits eine Vielzahl von VPLs, die in unterschiedlichen Bereichen Anwendung finden.
 Diese reichen von einfachen Tools wie \href{https://scratch.mit.edu/}{Scratch} für Kinder bis hin zu professionellen Low-Code Tools wie \href{https://nodered.org/}{Node-RED}. Auch in Mediensoftware wie \href{https://www.sidefx.com/products/houdini/}{Houdini}, \href{https://www.blackmagicdesign.com/de/products/davinciresolve/}{DaVinci Resolve} oder \href{https://www.blender.org/}{Blender} finden VPLs Anwendung.
 \br
-Das Ziel dieser Arbeit ist es eine generalisierte visuelle Programmiersprache zu entwickeln, die leicht erweiterbar und performant ist.
+Das Ziel dieser Arbeit ist es, eine generalisierte visuelle Programmiersprache zu entwickeln, die leicht erweiterbar und performant ist.
 Diese wird als Web-App entwickelt, da dies einen niedrigschwelligen Zugang sowie einen einfachen Verbreitungsweg bietet.
 \br
 Es existieren schon einige VPLs, die als Web-App konzipiert wurden, so z.B. \href{https://nodered.org}{Node-Red},
-\href{https://developers.google.com/blockly}{Blockly} oder \href{https://scratch.mit.edu/}{Scratch}. Diese VPLs benutzen Javascript zur Entwicklung der einzelnen Bausteine und sind sie so relativ einfach zu erweitern, da Javascript ohne weitere Kompilierung im Browser ausgeführt werden kann. 
-Allerdings Javascript ist \qt{garbage-collected} und dynamischen typisiert und daher nicht die beste Wahl für die Entwicklung von performantem Code im Browser. Des Weiteren benötigt Javascript besondere Aufmerksamkeit, um sicherzustellen, dass der Code von anderen Nutzer/innen sicher ausgeführt werden kann. 
+\href{https://developers.google.com/blockly}{Blockly} oder \href{https://scratch.mit.edu/}{Scratch}. Diese VPLs benutzen Javascript zur Entwicklung der einzelnen Bausteine und sind so relativ einfach zu erweitern, da Javascript ohne weitere Kompilierung im Browser ausgeführt werden kann. 
+Allerdings ist Javascript \qt{garbage-collected} und dynamisch typisiert und daher nicht die beste Wahl für die Entwicklung von performantem Code im Browser. Des Weiteren benötigt Javascript besondere Aufmerksamkeit, um sicherzustellen, dass der Code von anderen Nutzer/innen sicher ausgeführt werden kann. 
 \br
 In dieser Bachelorarbeit wird eine VPL entwickelt, bei der die einzelnen Bausteine als WebAssembly-Module implementiert sind. 
-WebAssembly ist eine statisch typisierte, performante und sichere Alternative zu Javascript, die im Durchschnitt 2-4 mal schneller ist. \cite{electronics11193217} \cite{Haas2017} Die Sicherheit von WebAssembly ermöglicht es neue Bausteine von anderen Entwickler/innen hinzuzufügen und so die Funktionalität der VPL zu erweitern, ohne Sicherheitsrisiken einzugehen. Durch die Plattformunabhängigkeit von WebAssembly kann die VPL auch auf anderen Plattformen wie z.B. Servern oder Desktop-Anwendungen ausgeführt werden, ohne Änderungen an den einzelnen Bausteinen vorzunehmen.
+WebAssembly ist eine statisch typisierte, performante und sichere Alternative zu Javascript, die im Durchschnitt 2-4 mal schneller ist. \cite{electronics11193217} \cite{Haas2017} Die Sicherheit von WebAssembly ermöglicht es, neue Bausteine von anderen Entwickler/innen hinzuzufügen und so die Funktionalität der VPL zu erweitern, ohne Sicherheitsrisiken einzugehen. Durch die Plattformunabhängigkeit von WebAssembly kann die VPL auch auf anderen Plattformen wie z.B. Servern oder Desktop-Anwendungen ausgeführt werden, ohne Änderungen an den einzelnen Bausteinen vorzunehmen.
 \br
 Um die Performance und Nutzerfreundlichkeit dieser VPL konstant zu überprüfen, wird diese im Kontext einer Web-App entwickelt, die es Nutzer/innen ermöglicht, prozedurale 3D-Modelle von Pflanzen zu erstellen. 
 Da 3D-Modelle oft hohe Datenmengen haben und die Generierung dieser Modelle sehr rechenintensiv sein kann, ist dies ein guter Anwendungsfall, um die Performance der VPL zu testen.
@@ -53,14 +53,14 @@ Da 3D-Modelle oft hohe Datenmengen haben und die Generierung dieser Modelle sehr
 \subsection{Problemstellung}
 
 Durch die Nutzung von WebAssembly entstehen einige Herausforderungen. 
-WebAssembly führt Code in einer virtuellen Maschine aus, die nicht direkt Zugang auf den Speicher oder Variablen der Host-Umgebung (den Browser) hat.
+WebAssembly führt Code in einer virtuellen Maschine aus, die nicht direkt Zugang auf den Speicher oder die Variablen der Host-Umgebung (den Browser) hat.
 Innerhalb dieser virtuellen Maschine wird der Code nahe der nativen Geschwindigkeit ausgeführt, was zu einer hohen Performance führt. 
 Die Herausforderung besteht darin, dass die Kommunikation zwischen der Host-Umgebung und dieser virtuellen Maschine relativ langsam ist und so zu einem Engpass führen kann.
 \br
 Außerdem erlaubt WebAssembly nur sehr wenige numerische Datentypen; 32 und 64 Bit Integer sowie 32 und 64 Bit Floats nach dem IEEE 754 Standard. 
 Größere und komplexe Datentypen müssen serialisiert werden, um sie an WebAssembly zu übergeben. 
 Um komplexere Werte wieder an die Host-Umgebung zu übergeben, muss diese direkt auf den Speicher der virtuellen Maschine zugreifen.
-Zum Glück gibt es Bibliotheken wie \link[WASM-Bindgen]{WASM-Bindgen}, die diese Kommunikation abstrahieren und vereinfachen.
+Bibliotheken wie \link[WASM-Bindgen]{WASM-Bindgen} abstrahieren und vereinfachen diese Kommunikation.
 \br
 Da WebAssembly ein binäres Format ist, wird es selten direkt geschrieben und meistens als Kompilierungsziel für komplexere Programmiersprachen benutzt.
 Ich entschied mich für die Programmiersprache \link[Rust]{Rust}, da sie eine starke Typisierung, Performance und Speichersicherheit bietet \cite{bugden2022rust}.
@@ -70,9 +70,7 @@ Die \href{https://rustwasm.github.io/}{Rust and WebAssembly domain working group
 \subsection{Anforderungen} 
 \label{sec:Anforderungen}
 
-Das Ziel dieser Bachelorarbeit ist es eine visuelle Programmiersprache zu entwickeln, die \textbf{performant}, \textbf{erweiterbar} und möglichst \textbf{einfach zu bedienen} ist.
-Um diese drei Anforderungen laufend zu überprüfen, wird die VPL im Kontext einer Web-App entwickelt, die den Nutzer/innen erlaubt, prozedurale 3D-Modelle von Pflanzen zu erstellen.
-Dieser Anwendungsfall wurde gewählt, da die hohen Datenmengen von 3D-Modellen eine gute Möglichkeit bieten, die Performance der VPL zu testen.
+Das Ziel dieser Bachelorarbeit ist die Entwicklung einer visuellen Programmiersprache, die \textbf{performant}, \textbf{erweiterbar} und möglichst \textbf{einfach zu bedienen} ist.
 
 \subsubsection{Erweiterbarkeit}
 
@@ -98,8 +96,7 @@ Hierbei muss darauf geachtet werden, diese so kurz wie möglich zu halten.
 Die User-Experience ist ein wichtiger Teil jeder Anwendung, im Vergleich zu den anderen Anforderungen im Kontext dieser Arbeit aber nicht vorrangig. User-Experience umfasst die gesamte Interaktion von der ersten Interaktion bis zur regelmäßigen Nutzung. In dieser Arbeit wird der Fokus darauf liegen, das Erstellen und Bearbeiten von \link[node_graph]{Node-Graphen} so intuitiv und einfach wie möglich zu gestalten.
 
 \subsubsection{Non-Goals}
-Die Webplattform bietet viele Möglichkeiten, Anwendungen für Nutzer/innen mit Behinderungen angenehmer zu gestalten. 
-Die dynamische Struktur einer VPL, sowie spezifische Details der Implementierung machen dies für diese Anwendung ein sehr großes Unterfangen, was im zeitlichen Rahmen dieser Arbeit nicht umsetzbar wäre. So weit wie möglich wird auf Zugänglichkeit geachtet, diese umfassend zu garantieren wird aber nicht Teil dieser Arbeit sein.
+Die Webplattform bietet viele Möglichkeiten, Anwendungen für Nutzer/innen mit Behinderungen angenehmer zu gestalten. Die dynamische Struktur einer VPL, sowie spezifische Details der Implementierung machen die behindertengerechte Gestaltung sehr aufwendig, was den zeitlichen Rahmen dieser Arbeit sprengen würde. So weit wie möglich wird auf Zugänglichkeit geachtet, diese umfassend zu garantieren wird aber nicht Teil dieser Arbeit sein.
 \br
 Auch die Optimierung für mobile Endgeräte ist nicht vorgesehen, da die Art der Anwendung sich nicht für kleine Bildschirme oder Touch-Interfaces eignet.
 \br
@@ -116,19 +113,19 @@ Da die Verwendung von WebAssembly eines der größten Unterscheidungsmerkmale zu
 
 \subsection{Technologien}
 
-Bei der Wahl der Technologien habe ich versucht, Technologien auszuwählen, die zukunftssicher sind und den Anforderungen dieser Anwendung entsprechen. Dies bedeutet zum einen, dass diese Technologien bereits weit verbreitet sind, eine aktive Community haben und aktiv weiterentwickelt werden.
+Bei der Wahl der Technologien habe ich versucht, Technologien auszuwählen, die zukunftssicher sind und den Anforderungen dieser Anwendung entsprechen. Dies bedeutet, dass diese Technologien bereits weit verbreitet sind, eine aktive Community haben und aktiv weiterentwickelt werden.
 
 \subsubsection{WebAssembly}
-WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly Working Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
+WebAssembly (WASM) ist ein Bytecode-Format für eine Stack-basierte virtuelle Maschine. Es wurde von der WebAssembly-Working-Group des World Wide Web Consortium (W3C) entwickelt und ist seit 2017 ein offizieller Web-Standard \cite{Haas2017}. 
 \br
-Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und \link[Rust]{Rust} benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht \qt{garbage-collected} und ist außerdem stark typisiert.
+Es wird hauptsächlich als Kompilierungsziel für kompilierte Programmiersprachen wie C, C++ und \link[Rust]{Rust} benutzt, um diese in Webanwendungen zu integrieren. Im Gegensatz zu Javascript ist WebAssembly nicht \qt{garbage-collected} und zudem stark typisiert.
 \br
-WebAssembly wurde gewählt, da es erlaubt performanten Code zu schreiben, der in allen gängigen Browsern ausgeführt werden kann. 
+WebAssembly wurde gewählt, da es erlaubt, performanten Code zu schreiben, der in allen gängigen Browsern ausgeführt werden kann. 
 Zudem kann man durch die Isolation WebAssembly-Module von anderen Entwickler/innen ausführen, ohne dass dies ein Sicherheitsrisiko darstellt. Dies macht die Anwendung leicht erweiterbar.
 
 \subsubsection*{WebAssembly Component Model}
-Das WebAssembly Component Model ist ein neuer Standard, der es ermöglicht, dass sich WebAssembly-Module untereinander instanziieren und aufrufen können. \cite{bytecodeallianceIntroductionWebAssembly} 
-Dies würde es ermöglichen, den \link[runtime_executor]{Runtime-Executor} als WebAssembly-Modul zu implementieren und so die Ausführung der Nodes zu beschleunigen, da der Overhead der Kommunikation zwischen WebAssembly und Javascript vermieden wird. Allerdings gab es erst am 25. Januar 2024 die stabile Veröffentlichung dieses Standards, und zu diesem Zeitpunkt wird er von noch keinem Browser unterstützt.
+Das WebAssembly-Component-Model ist ein neuer Standard, der es ermöglicht, dass sich WebAssembly-Module untereinander instanziieren und aufrufen können. \cite{bytecodeallianceIntroductionWebAssembly} 
+Dadurch wäre es möglich den \link[runtime_executor]{Runtime-Executor} als WebAssembly-Modul zu implementieren und so die Ausführung der Nodes zu beschleunigen, da der Overhead der Kommunikation zwischen WebAssembly und Javascript vermieden wird. Allerdings gab es erst am 25. Januar 2024 die stabile Veröffentlichung dieses Standards und zu jetzigem Zeitpunkt wird er von noch keinem Browser unterstützt.
 
 \subsubsection{WASM-Bindgen \& WASM-Pack}
 \label{sec:WASM-Bindgen}
@@ -139,11 +136,11 @@ WASM-Bindgen und WASM-Pack sind Rust-Bibliotheken, die die Interaktion zwischen 
 \subsubsection{Svelte}
 \label{sec:Svelte}
 
-\href{https://svelte.dev/}{Svelte} ist ein deklaratives Frontend-Framework, das sich dadurch auszeichnet, auf ein virtuelles DOM zu verzichten und möglichst viel der Arbeit in der Build-Zeit zu erledigen.
+\href{https://svelte.dev/}{Svelte} ist ein deklaratives Frontend-Framework, das sich dadurch auszeichnet, auf ein virtuelles DOM zu verzichten und einen hohen Anteil der Prozessarbeit in der Build-Zeit auszuführen.
 
 \subsubsection{Three.js / Threlte}
 
-Three.js ist der Industriestandard für interaktive 3D-Webanwendung. Es abstrahiert die unterliegende komplexe WebGL-Api und bietet eine Vielzahl von Funktionen und Beispielen. Threlte ist eine Wrapper-Bibliothek um Three.js, die es erlaubt Szenen deklarativ zu beschreiben und das Reaktivitätsmodell von Svelte zu nutzen.
+Three.js ist der Industriestandard in der Umsetzung von interaktive 2D-Webanwendungen. Es abstrahiert die unterliegende komplexe WebGL-API und bietet eine Vielzahl von Funktionen und Beispielen. Threlte ist eine Wrapper-Bibliothek um Three.js, die es erlaubt Szenen deklarativ zu beschreiben und das Reaktivitätsmodell von Svelte zu nutzen.
 
 \subsubsection{Rust}
 \label{sec:Rust}
