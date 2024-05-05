@@ -160,34 +160,34 @@ TypeScript ist ein Superset von Javascript, das statische Typisierung und andere
 \section{Theoretischer Rahmen}
 
 \subsection{Definition von visuellen Programmiersprachen}
-Eine visuelle Programmiersprache stellt die Komponenten und Verbindungen eines Programms in mehr als einer Dimension dar. Oft ist diese Dimension eine zweidimensionale Fläche auf der die einzelnen Funktionen oder Komponenten eines Systems visuell dargestellt werden. 
+Eine visuelle Programmiersprache stellt die Komponenten und Verbindungen eines Programms in mehr als einer Dimension dar. Oft ist diese Dimension eine zweidimensionale Fläche, auf der die einzelnen Funktionen oder Komponenten eines Systems visuell dargestellt werden. 
 Auch wenn textuelle Sprache auf einer zweidimensionalen Oberfläche dargestellt wird, so ist sie meist aus Sicht des Interpreters oder Compilers ein eindimensionaler Stream aus Tokens. \cite{Myers}
 
 \subsection{Klassifikation von visuellen Programmiersprachen}
 
-Nach Burnett\&Mayer können VPLs in 5 verschiedenen Klassen eingeteilt werden \cite{BURNETT1994287}. Diese einzelnen Klassen schließen sich nicht gegenseitig aus und können auch in Kombination verwendet werden.
+Nach Burnett \& Mayer können VPLs in 5 verschiedene Klassen eingeteilt werden \cite{BURNETT1994287}. Diese einzelnen Klassen schließen sich nicht gegenseitig aus und können auch in Kombination verwendet werden.
 
 \subsubsection{\qt{Purely visual languages}}
 \qt{Purely visual languages} haben keine textuelle Repräsentation und sind ausschließlich visuell. Ein Beispiel hierfür ist Scratch, das es Nutzern ermöglicht, durch das Zusammensetzen von Blöcken Programme zu erstellen, ohne eine einzige Zeile Code zu schreiben. \cite{mitScratchAbout}
 
-\subsubsection{\qt{Hybrid text and visual Systems}}
+\subsubsection{\qt{Hybrid text and visual systems}}
 \qt{Hybrid text and visual systems} haben eine textuelle Repräsentation, die parallel zur visuellen Repräsentation existiert. 
-Ein Beispiel hierfür ist Microsofts \qt{Visual Programming Language}, das Teil von Microsoft Robotics Developer Studio ist und eine hybride Umgebung bietet, in der Nutzer sowohl Code schreiben als auch visuelle Elemente nutzen können. \cite{microsoftIntroduction}
+Ein Beispiel hierfür ist Microsofts \qt{Visual Programming Language}, die Teil von Microsoft Robotics Developer Studio ist und eine hybride Umgebung bietet, in der Nutzer sowohl Code schreiben als auch visuelle Elemente nutzen können. \cite{microsoftIntroduction}
 
-\subsubsection{\qt{Programming-by-example Systems}}
-Programming-by-example Systems erlauben es dem Nutzer, ein Programm zu schreiben, indem er die gewünschte Funktionalität in einem Beispiel demonstriert. Etoys, basierend auf Squeak, ist ein Beispiel für ein solches System, bei dem Benutzer durch das Demonstrieren von Aktionen Objekte programmieren können. \cite{squeakSqueakSmalltalk}
+\subsubsection{\qt{Programming-by-example systems}}
+\qt{Programming-by-example systems} erlauben es den Nutzer/innen, ein Programm zu schreiben, indem sie die gewünschte Funktionalität in einem Beispiel demonstrieren. Etoys, basierend auf Squeak, ist ein Beispiel für ein solches System, bei dem Benutzer durch das Demonstrieren von Aktionen Objekte programmieren können. \cite{squeakSqueakSmalltalk}
 
-\subsubsection{\qt{Constraint-oriented Systems}}
-\qt{Constraint-oriented Systems} erlauben es dem Nutzer, Constraints zwischen den Komponenten des Programms zu definieren. SketchPad wäre ein Beispiel für ein solches System, bei dem Benutzer geometrische Formen zeichnen und Constraints zwischen ihnen definieren können. \cite{sutherlandSketchpad}
+\subsubsection{\qt{Constraint-oriented systems}}
+\qt{Constraint-oriented systems} erlauben es den Nutzer/innen, Constraints zwischen den Komponenten des Programms zu definieren. SketchPad wäre ein Beispiel für ein solches System, bei dem Benutzer geometrische Formen zeichnen und Constraints zwischen ihnen definieren können. \cite{sutherlandSketchpad}
 
 \subsubsection{\qt{Form-based systems}}
-In \qt{Form-based systems} schreiben die Nutzer Programme, indem sie Formulare ausfüllen. 
+In \qt{Form-based systems} schreiben die Nutzer/innen Programme, indem sie Formulare ausfüllen. 
 Ein klassisches Beispiel für ein Formular-basiertes System ist Oracle Forms, 
 das eine GUI für Datenbankabfragen und -transaktionen bietet, indem es Benutzern ermöglicht, Formulare auszufüllen, die dann in SQL-Code umgewandelt werden. \cite{wikipediaOracleForms}
 
 \subsection{Historische Vorbilder}
 
-Visuelle Programmiersprachen haben eine lange Geschichte, die bis in die 1960er Jahre zurückreicht. Im folgenden Kapitel werde ich auf einige Meilensteine dieser Geschichte eingehen, welchen Einfluss sie bis heute auf HCIs und VPLs haben und wie sie für diese Arbeit relevant sind.
+Visuelle Programmiersprachen haben eine lange Geschichte, die bis in die 1960er Jahre zurückreicht. Im folgenden Kapitel werde ich auf einige Meilensteine dieser Geschichte eingehen, beschreiben welchen Einfluss sie bis heute auf HCIs und VPLs haben und in welcher Weise sie für diese Arbeit relevant sind.
 
 \subsubsection{SketchPad (1962)}
 \label{sec:SketchPad}
@@ -200,10 +200,10 @@ Visuelle Programmiersprachen haben eine lange Geschichte, die bis in die 1960er 
   \caption{SketchPad \cite{sutherlandSketchpad}}
 \end{wrapfigure}
 SketchPad ist ein von Ivan Sutherland entwickeltes Programm, das 1963 am MIT veröffentlicht wurde. 
-Es benutzte einen Lightpen als Eingabegerät und war das erste Programm, das die Interaktion mit einem Computer über eine grafische Benutzeroberfläche ermöglichte. 
+Es benutzt einen Lightpen als Eingabegerät und war das erste Programm, das die Interaktion mit einem Computer über eine grafische Benutzeroberfläche ermöglichte. 
 Es erlaubte den Nutzer/innen, geometrische Formen auf einem Bildschirm zu zeichnen und diese zu manipulieren.
   Dabei existierten diese Formen auf einem virtuellen \qt{Papier}, das der Nutzer bewegen und zoomen konnte. Dieses Konzept von Bewegen und Zoomen virtueller Oberflächen war revolutionär für die damalige Zeit.
-  Dies wird deutlich durch den Fakt, dass der Präsentator während der Präsentation von SketchPad \cite{sketchpadDemo} (10:30) keine Worte fand, um diesen Vorgang zu beschreiben. Das Konzept von bewegbaren und zoombaren virtuellen Oberflächen ist heute ein Standard in vielen Anwendungen und wird auch in dieser Arbeit verwendet.
+  Dies wird deutlich durch den Fakt, dass der Präsentator während der Präsentation von SketchPad \cite{sketchpadDemo} (10:30) keine Worte fand, diesen Vorgang zu beschreiben. Das Konzept von bewegbaren und zoombaren virtuellen Oberflächen ist heute Standard in vielen Anwendungen und wird auch ihm Rahmen dieser Arbeit verwendet.
 Ein weiteres Feature war die Möglichkeit, Constraints zwischen den Formen zu definieren, ähnlich wie in modernen CAD-Programmen. 
 Wenn man sich die Videodemo von SketchPad anschaut, fallen viele Paradigmen auf, die wir heute als gegeben ansehen.
 Auch wenn SketchPad nicht direkt in die Definition einer VPL passt, war es ein Meilenstein der Entwicklung von grafischen HCIs. Was durch die Verleihung des Turing Awards an Ivan Sutherland 1988 bestätigt wurde.
@@ -221,13 +221,13 @@ Auch wenn SketchPad nicht direkt in die Definition einer VPL passt, war es ein M
   \label{fig:pygmalion_demo}
 \end{wrapfigure}
 
-Pygmalion ist eine visuelle Programmiersprache, die um 1970 von David Canfield Smith im Rahmen seiner Doktorarbeit entwickelt wurde. Inspiriert wurde sie von der mythischen Figur des Bildhauers Pygmalion, der seine Skulpturen zum Leben erwecken konnte.
+Pygmalion ist eine visuelle Programmiersprache, die um 1970 von David Canfield Smith im Rahmen seiner Doktorarbeit entwickelt wurde. Inspiriert wurde sie vom antiken Bildhauer Pygmalion der seine Skulpturen, dem Mythos nach, zum Leben erwecken konnte.
 Die Sprache erlangte nie eine große Verbreitung, war aber ein wichtiger Meilenstein in der Entwicklung von visuellen Programmiersprachen und HCIs.
-Pygmalion wurde in Smalltalk implementiert und war eine der ersten visuellen Programmiersprachen. Über eine grafische Oberfläche konnten die Nutzer/innen Blöcke, Icons und Verbindungen erstellen und manipulieren im damit Programme zu definieren.
+Pygmalion wurde in Smalltalk implementiert und war eine der ersten visuellen Programmiersprachen. Über eine grafische Oberfläche konnten die Nutzer/innen Blöcke, Icons und Verbindungen erstellen sowie manipulieren, um somit Programme zu definieren.
   Icons waren damals eine Neuerung und wurden von den Entwicklern als \qt{eine Art von visuellen Variablen} bezeichnet. 
-  Die Sprache war eine der ersten Beispiele von \qt{Programming By Example} oder PBE. Außerdem war sei eine der ersten Sprachen, welche die Verbindung zwischen bestimmten Elementen durch Linien und Pfeile darstellte, was heute ein Standard in vielen VPLs ist.
+  Die Sprache war eine der ersten Beispiele von \qt{Programming By Example} (PBE). Außerdem war sie eine der ersten Sprachen, welche die Verbindung zwischen bestimmten Elementen durch Linien und Pfeile darstellte, was heute ein Standard in vielen VPLs ist.
 Die Nutzer/innen konnten Programme schreiben, indem sie die gewünschte Funktionalität in einem Beispiel demonstrieren. 
-In Abbildung \ref{fig:pygmalion_demo} wird auf diese Art die Fakultät einer Zahl berechnet. 
+In Abbildung \ref{fig:pygmalion_demo} wird auf diese Art und Weise die Fakultät einer Zahl berechnet. 
 
 \end{minipage}
 \endgroup
@@ -245,8 +245,8 @@ In Abbildung \ref{fig:pygmalion_demo} wird auf diese Art die Fakultät einer Zah
   \label{fig:cube_demo}
 \end{wrapfigure}
   \qt{Cube ist eine dreidimensionale, visuelle, statisch typisierte Programmiersprache höherer Ordnung, die für den Einsatz in einer auf virtueller Realität basierenden Programmierumgebung entwickelt wurde.}  \cite{najork1996programming}
-In \textit{Cube} werden einzelne Funktionen als, wie der Name schon verrät, Würfel dargestellt. Die Nutzer/innen können dann diese Cubes miteinander verbinden, um Programme zu erstellen.
-Canfield geht in seiner Arbeit spezifisch auf den Vergleich zu Rohren und Wasserfluss ein. Somit bedient sich \textit{Cube} einer für Menschen relativ intuitiven Darstellung von Wasserfluss durch Rohre, um den Datenfluss innerhalb des Programms darzustellen.
+In \textit{Cube} werden einzelne Funktionen als, wie der Name schon verrät, Würfel dargestellt. Die Nutzer/innen können diese Cubes miteinander verbinden, um Programme zu erstellen.
+  Canfield geht in seiner Arbeit spezifisch auf den Vergleich zu Rohren und Wasserfluss ein. Somit bedient sich \textit{Cube} einer für Menschen relativ intuitiven Darstellung von Wasserfluss durch Rohre, um den Datenfluss innerhalb des Programms darzustellen. Auch dieses Konzept ist relevant für die spezifische Art von visueller Programmiersprache, die in dieser Arbeit entwickelt wird.
   Ein interessantes Detail hierbei ist, dass diese \qt{Rohre} keine Richtung haben und Daten in beide Richtungen fließen können. 
 Da \textit{Cube} eine höhere Programmiersprache ist, können die Cubes auch als Argumente an andere Cubes übergeben werden. Dies ermöglicht es, komplexe Programme zu erstellen, die aus vielen einzelnen Cubes bestehen. 
 \br
@@ -273,14 +273,14 @@ Es wurde 2013 von IBM entwickelt und ist seit 2016 Teil der OpenJS Foundation (d
 \end{figure}
 
 Node-RED findet vor allem Anwendung in den Bereichen IoT und Home Automation, da es eine Vielzahl von Anbindungen an verschiedene Geräte und Dienste bietet. 
-Node-RED ist ein Beispiel für sogenanntes datenstromorientierte Programmierung, bei dem die Daten durch die Nodes fließen und diese verarbeiten. Das heißt, es gibt keine einmalige Ausführung, sondern das System kann kontinuierlich Daten verarbeiten und auf externe Events reagieren. Im Gegensatz zu der in dieser Arbeit entwickelten VPL ist Node-Red nicht auf WebAssembly basiert und ist nicht generalisiert.
+Node-RED ist ein Beispiel für sogenannte datenstromorientierte Programmierung, bei der die Daten durch die Nodes fließen und diese verarbeiten. Das heißt, es gibt keine einmalige Ausführung, sondern das System kann kontinuierlich Daten verarbeiten und auf externe Events reagieren. Im Gegensatz zu der in dieser Arbeit entwickelten VPL ist Node-RED nicht auf WebAssembly basiert und ist nicht generalisiert.
 
 
 \pagebreak
 \subsubsection{Blender}
-Blender ist eine weitverbreitete open-source 3D Modellierungs- und Animationssoftware. Die Software bietet node-basierte Interfaces zur Erstellung von Materialien, Texturen und Geometrien an. 
+Blender ist eine weitverbreitete Open Source 3D Modellierungs- und Animationssoftware. Die Software bietet node-basierte Interfaces zur Erstellung von Materialien, Texturen und Geometrien. 
 \cite{blender}
-Für diese Arbeit ist Blender relevant, da es sich auch mit dem Erstellen von 3D-Modellen beschäftigt.
+Für diese Arbeit ist Blender relevant, da die Applikation auch das Erstellen von 3D-Modellen ermöglicht.
 
 \begin{figure}[htbp]
   \centering
@@ -292,9 +292,9 @@ Für diese Arbeit ist Blender relevant, da es sich auch mit dem Erstellen von 3D
 Vor allem die User-Experience der Blender Node-Editoren ist ein großer Vorteil. So bietet Blender für die meisten oft benötigten Funktionen Shortcuts an, die es ermöglichen, schnell und effizient zu arbeiten.
 Ähnlich wie in Node-RED ist der Datenfluss der westlichen Leserichtung angepasst, von links nach rechts. Dies ermöglicht es, den Datenfluss intuitiv zu verfolgen und zu verstehen.
 \br
-Im Gegensatz zum Shader Editor (sieht Abbildung \ref{fig:blender-shader}) bietet der Geometry Node Editor die Möglichkeit komplexere Setups zu erstellen. So gibt es zum Beispiel \qt{Repeat Zones}, die es ermöglichen, eine Gruppe von Nodes arbiträr oft zu wiederholen.
+Im Gegensatz zum Shader Editor (siehe Abbildung \ref{fig:blender-shader}) bietet der Geometry Node Editor die Möglichkeit komplexere Setups zu erstellen. So gibt es zum Beispiel \qt{Repeat Zones}, die es ermöglichen, eine Gruppe von Nodes arbiträr oft zu wiederholen.
 \br
-Außerdem bietet Blender umfassende Tastaturkürzel an, die es erlauben, sehr schnell und effizient zu arbeiten. Auch in dieser Arbeit soll darauf geachtet werden, dass die Nutzer/innen möglichst effizient arbeiten können.
+Außerdem bietet Blender umfassende Tastaturkürzel an, die es erlauben, sehr schnell und effizient zu arbeiten. In dieser Arbeit soll auch darauf geachtet werden, dass die Nutzer/innen möglichst effizient arbeiten können.
 
 \begin{figure}[htbp]
   \centering
@@ -314,9 +314,9 @@ Außerdem bietet Blender umfassende Tastaturkürzel an, die es erlauben, sehr sc
   \label{fig:blender-repeat}
 \end{figure}
 
-SpeedTree ist eine Software zur Erstellung von 3D-Modellen von Pflanzen. Der Nutzer legt über ein node-basiertes Interface die unterschiedlichen Teile eine Pflanze fest und kann so sehr detaillierte und realistische Modelle erstellen. SpeedTree wird seit 2000 von Interactive Data Visualization Inc. entwickelt und findet vor allem Anwendung in der Spieleindustrie. \cite{speedtreeGettingstartedSpeedTree}.
+SpeedTree ist eine Software zur Erstellung von 3D-Modellen von Pflanzen. Die Nutzer/innen legen über ein node-basiertes Interface die unterschiedlichen Teile eine Pflanze fest und können so sehr detaillierte und realistische Modelle erstellen. SpeedTree wird seit 2000 von Interactive Data Visualization Inc. entwickelt und findet vor allem Anwendung in der Spieleindustrie. \cite{speedtreeGettingstartedSpeedTree}.
 \br
-Im Gegensatz zu Blender und Node-RED ist SpeedTree ein sehr spezialisiertes Tool. Außerdem ist es nicht open-source und nicht kostenlos. Auch gibt es keine Möglichkeit, eigene Nodes zu erstellen oder die Software zu erweitern.
+Im Gegensatz zu Blender und Node-RED ist SpeedTree ein sehr spezialisiertes Tool. Außerdem ist es nicht Open Source und nicht kostenlos. Auch gibt es keine Möglichkeit, eigene Nodes zu erstellen oder die Software zu erweitern.
 
 \pagebreak
 
@@ -328,17 +328,17 @@ Die in dieser Arbeit entwickelte VPL nutzt einen node-basierten Ansatz.
 Das heißt, sie nehmen Argumente entgegen, verarbeiten diese und geben ein Ergebnis zurück.
 \br
 Die einzelnen Argumente können entweder direkt über das Interface einer \link[node]{Node} definiert werden oder in dem der/die Nutzer/in das Ergebnis einer anderen \link[node]{Node} mit diesem Argument verknüpft.
-Bei der visuellen Gestaltung lehnt sich die VPL sehr an die verschiedenen Node-Editoren in Blender an.
+Bei der visuellen Gestaltung lehnt sich die VPL an die verschiedenen Node-Editoren in Blender an.
 \br
 Die einzelnen \link[node]{Nodes} sind hierbei jeweils Instanzen eines WebAssembly-Moduls. 
 Dies erlaubt es, das System um neue Node-Definitionen zu erweitern, indem man eine einzelne WebAssembly Dateien lädt.
 Woher diese Dateien kommen ist dabei egal, sie können von der Festplatte, einem Server oder aus dem lokalen Speicher geladen werden.
 \br
-Die Verbindungen mehrerer \link[node]{Nodes} stellt einen \link[node_graph]{Node-Graph} dar. 
-Dieser \link[node_graph]{Node-Graph} kann als JSON-Objekt serialisiert und deserialisiert werden und so gespeichert und geladen werden.
+Die Verbindungen mehrerer \link[node]{Nodes} stellen einen \link[node_graph]{Node-Graph} dar. 
+Dieser \link[node_graph]{Node-Graph} kann als JSON-Objekt serialisiert und deserialisiert und so gespeichert und geladen werden.
 \br
 In Abbildung \ref{sec:PURE_GRAPH} ist ein Beispiel für einen \link[node_graph]{Node-Graph} dargestellt. 
-Der Datenfluss ist von links nach rechts und die Verbindungen zwischen den Nodes sind gerichtet.
+Der Datenfluss ist von links nach rechts und die Verbindungen zwischen den Nodes sind gerichtet. In Anlehnung an \link[cube]{Cube} und an die westliche Leserichtung soll so der Datenfluss intuitiv verfolgt werden können.
 
 
 \begin{figure}[htbp]
@@ -356,7 +356,7 @@ Der Datenfluss ist von links nach rechts und die Verbindungen zwischen den Nodes
 
 \subsection{Architektur}
 \label{sec:Architektur}
-Aus den drei \link{Anforderungen}, \textbf{performant}, \textbf{erweiterbar} und \textbf{einfach zu benutzen} zu sein und dem \link{Konzept} ergibt sich folgende dreiteilige Architektur:
+Aus den drei \link{Anforderungen}, \textbf{performant}, \textbf{erweiterbar} und \textbf{einfach zu benutzen} sowie dem \link{Konzept} ergibt sich folgende dreiteilige Architektur:
 \br
 Das \textbf{\link[node_interface]{Node-Interface}} ist für das visuelle Interface zuständig, hier interagieren Nutzer/innen mit dem \link[node_graph]{Node-Graph}.
 \br
@@ -379,7 +379,7 @@ In Abbildung \ref{fig:overview_sequence} ist in einem Sequenzdiagramm dargestell
 \subsubsection{Datentypen}
 
 Die Datentypen wurden möglichst minimal gehalten. Dies dient zum einen dem Ziel, das gesamte System so einfach und verständlich wie möglich zu halten, und zum
-anderen macht es die Serialisierung und Deserialisierung der Daten schneller.
+anderen beschleunigt es die Serialisierung, Deserialisierung und den Transfer der Daten.
 \br
 Die drei Hauptdatentypen sind  \link[data_node_type]{Node-Definition}, \hyperref[fig:data_node]{Node},  und \hyperref[fig:data_node_graph]{Node-Graph}. 
 
@@ -416,7 +416,7 @@ const mathNodeType: NodeDefinition = {
 
 \end{figure}
 
-Die Node-Definition besteht aus einer \topic{id}, \topic{inputs}, \topic{outputs} und einer \topic{execute} Funktion. Die \topic{inputs} einer \link[node]{Node} können unterschiedliche \topic{type} Werte haben, beispielsweise:
+Die Node-Definition besteht aus einer \topic{id}, \topic{inputs}, \topic{outputs} und einer \topic{execute}-Funktion. Die \topic{inputs} einer \link[node]{Node} können unterschiedliche \topic{type} Werte haben, beispielsweise:
 
 \begin{itemize}
   \setlength\itemsep{0.0em}
@@ -428,11 +428,11 @@ Die Node-Definition besteht aus einer \topic{id}, \topic{inputs}, \topic{outputs
 \end{itemize}
 
 Über diese \topic{inputs} wird festgelegt, welche Argumente eine \link[node]{Node} entgegennimmt.
-Im \link[node_interface]{Node-Interface} werden diese dann als Eingabefelder dargestellt. Außerdem legen diese Inputs fest,  welche \link[node]{Nodes} mit dieser \link[node]{Node} verbunden werden können. 
+Im \link[node_interface]{Node-Interface} werden diese als Eingabefelder dargestellt. Außerdem legen diese Inputs fest,  welche \link[node]{Nodes} mit dieser \link[node]{Node} verbunden werden können. 
 \br
-Ein weiteres Attribut eines \topic{inputs} ist \topic{setting}. So können die Nutzer Argumente festlegen die global für den ganzen \link[node_graph]{Node-Graph} gelten und nicht direkt von einer \link[node]{Node} abhängen. Ein Beispiel aus der Entwicklung wäre hier die \topic{resolution}. Diese legt fest wie viele Vertices eine \link[node]{Node} für ein 3D-Modell generieren soll. Das \link[node_interface]{Node-Interface} konstruiert aus allen \topic{settings} ein globales Einstellungsmenü.
+Ein weiteres Attribut eines \topic{inputs} ist \topic{setting}. So können die Nutzer Argumente festlegen, die global für den ganzen \link[node_graph]{Node-Graph} gelten und nicht direkt von einer \link[node]{Node} abhängen. Ein Beispiel aus der Entwicklung wäre hier die \topic{resolution}. Diese legt fest, wie viele Vertices eine \link[node]{Node} für ein 3D-Modell generieren soll. Das \link[node_interface]{Node-Interface} konstruiert aus allen \topic{settings} ein globales Einstellungsmenü.
 \br
-Außerdem gibt es bestimmte Input-Typen mit besonderer Funktion. So kann eine \link[node]{Node} zum Beispiel einen Input mit \topic{\{"type":\\"\\seed"\}} festlegen, und diesem wird bei der Ausführung durch den \link[runtime_executor]{Runtime-Executor} ein zufälliger Wert zugewiesen.
+Außerdem gibt es bestimmte Input-Typen mit besonderer Funktion. So kann eine \link[node]{Node} zum Beispiel einen Input mit \topic{\{"type":\\"\\seed"\}} festlegen. Diesem wird bei der Ausführung durch den \link[runtime_executor]{Runtime-Executor} ein zufälliger Wert zugewiesen.
 \br
 Einige andere Attribute wurden ausgeklammert, um die Lesbarkeit zu erhöhen. So kann ein \topic{input} noch ein \topic{label}, ein \topic{default} und eine \topic{description} haben.
 
@@ -464,7 +464,7 @@ const exampleNode: Node = {
 \end{figure}
 
 Eine \link[node]{Node} ist eine Instanz einer \link[node_definition]{Node-Definition}. Die Datenstruktur besteht aus einer \topic{id}, einem \topic{type}, optionalen \topic{props} und einer \topic{position}. 
-Dieser Datentype findet vorallem Anwendung im \link[node_interface]{Node-Interface}, während der Laufzeit und der Serialisierung und Deserialisierung.
+Dieser Datentype findet vor allem im \link[node_interface]{Node-Interface} Anwendung – während der Laufzeit und der Serialisierung und Deserialisierung.
 \br
 Die \topic{id} ist inkrementell und dient zur eindeutigen Identifikation der Node. Der \topic{type} verbindet eine \link[node]{Node} mit einer \link[node_definition]{Node-Definition}.
 Die \topic{props} sind die Argumente, die an die \topic{execute} Funktion der \link[node_definition]{Node-Definition} übergeben werden.
@@ -503,15 +503,15 @@ Wichtig ist, dass das Interface so einfach und intuitiv wie möglich ist, um die
 
 Die \link[node_registry]{Node-Registry} ist für das Verwalten der \link[node_definition]{Node-Definitionen} zuständig. Konzeptuell funktioniert sie ähnlich wie die Package-Manager der gängigen Programmiersprachen, z.B. \href{https://www.npmjs.com/}{npm} oder \href{https://crates.io/}{crates.io}.
 \br
-Damit diese \link[node_registry]{Node-Registry} erweiterbar ist, wurde ein eigenes ID-Schema für die \link[node_definition]{Node-Definitionen} entworfen. Dies besteht aus einer \topic{user-id} einem \topic{namespace} und der \topic{node-id}. 
+Damit diese \link[node_registry]{Node-Registry} erweiterbar ist, wurde ein eigenes ID-Schema für die \link[node_definition]{Node-Definitionen} entworfen. Dies besteht aus einer \topic{user-id}, einem \topic{namespace} und der \topic{node-id}. 
 Ein Beispiel aus der Entwicklung wäre \topic{max/plantarium/branch}.
 \br
 Die \topic{user-id} ist die ID des/der Entwicklers/Entwicklerin und dient dazu, die Nodes zu gruppieren. Der Namespace gruppiert Nodes, die zusammen funktionieren. So kann das System der \link[parameter_nodes]{parametrisierten Nodes} nur für Nodes in dem \topic{plantarium} Namespace implementiert werden und andere Namespaces können andere Implementierungen haben.
 \br
-Die \topic{node-id} muss individuell innerhalb eines \topic{namespace} sein. 
+Die \topic{node-id} muss individuell innerhalb eines \topic{namespaces} sein. 
 
 \subsubsection*{Non-Goals}
-Obwohl im Design darauf geachtet wurde, die \link[node_registry]{Node-Registry} so erweiterbar wie möglich zu machen, wurde darauf verzichtet Funktionen, die eine \qt{echte} Registry haben sollte, zu implementieren. So gibt es keine Ansätze zur Versionierung, auch auf Authentifizierung und Autorisierung wurde verzichtet.
+Obwohl im Design darauf geachtet wurde, die \link[node_registry]{Node-Registry} so erweiterbar wie möglich zu machen, wurde darauf verzichtet Funktionen, die eine \qt{echte} Registry benötigt, zu implementieren. So gibt es keine Ansätze zur Versionierung, auch auf Authentifizierung und Autorisierung wurde verzichtet.
 
 \pagebreak
 
@@ -537,20 +537,21 @@ export interface RuntimeExecutor {
   \label{fig:runtime_executor}
 \end{figure}
 
-Aus Abbildung \ref{fig:runtime_executor} soll ersichtlich werden das diese Klasse ein denkbar simples Interface hat. 
+Aus Abbildung \ref{fig:runtime_executor} soll ersichtlich werden, das diese Klasse ein denkbar simples Interface hat. 
 
 \subsubsection{Parametrisierte Nodes}
 \label{sec:parameter_nodes}
 In vorherigen Abschnitten wurde der Vergleich zwischen \link[node]{Nodes} und Funktionen gezogen. Dies hat den Vorteil, dass es das Konzept etwas leichter verständlich macht.
-Es gibt jedoch Situationen, in denen es sinnvoll ist, von dem Konzept einer Node als reiner Funktion abzuweichen, damit die VPL zum einen flexibler und zum anderen einfacher zu bedienen ist. Hier werde ich nun zwei Beispiele für solche Situationen vorstellen.
-\subsubsection*{Random Problem}
-In Abbildung \ref{fig:random_problem} ist ein beispielhafter Aufbau eines \link[node_graph]{Node-Graphen} dargestellt. Wären die \topic{random} Nodes als reine Funktion implementiert, würde sie nur einmal ausgeführt und die beiden \topic{math/add} Nodes würden das gleiche Ergebnis produzieren. Dies wäre für die meisten Nutzenden ein überaschendes Ergebnis.
+Es gibt jedoch Situationen, in denen es sinnvoll ist, von dem Konzept einer Node als reiner Funktion abzuweichen, damit die VPL flexibler und intuitiver ist. Die folgenden Abschnitte werden diese Situationen erläutern und eine Lösung vorstellen.
+
+\subsubsection*{Random-Problem}
+In Abbildung \ref{fig:random_problem} ist ein beispielhafter Aufbau eines \link[node_graph]{Node-Graphen} dargestellt. Wären die \topic{random} Nodes als reine Funktion implementiert, würde sie nur einmal ausgeführt und die beiden \topic{math/add} Nodes würden das gleiche Ergebnis produzieren. Dies wäre für die meisten Nutzenden ein überraschendes Ergebnis.
 \br
 Eine mögliche Lösung wäre, die \topic{random} Node für jede ihrer ausgehenden Verbindungen separat auszuführen. 
 Dies könnte jedoch zur unnötigen Mehrfachausführung von Nodes führen, die dies nicht erfordern.
-Außerdem erschwert dies das Caching von Node-Ergebnissen, da nicht nur die Node-Parameter, sondern auch die Anzahl der ausgehenden Verbindungen das Ergebnis beeinflussen würden.
+Außerdem würde das Caching von Node-Ergebnissen erschwert, da nicht nur die Node-Parameter, sondern auch die Anzahl der ausgehenden Verbindungen das Ergebnis beeinflussen würden.
 \br
-Ein weiterer Nachteil ist, das für dieses Konzept die Ausführung der Nodes nicht mehr nur in eine Richtung verläuft. Das könnte zu konzeptioneller Verwirrung und Komplexität führen.
+Ein weiterer Nachteil ist, dass für dieses Konzept die Ausführung der Nodes nicht mehr nur in eine Richtung verläuft. Das könnte zu konzeptioneller Verwirrung und ungewollter Komplexität führen.
 \br
 \begin{figure}[htbp]
   \centering
@@ -561,7 +562,7 @@ Ein weiterer Nachteil ist, das für dieses Konzept die Ausführung der Nodes nic
 
 \pagebreak
 
-\subsubsection*{Noise Problem}
+\subsubsection*{Noise-Problem}
 
 Ein weiteres Problem soll durch Abbildung \ref{fig:noise_problem} verdeutlicht werden. 
 Die hypothetische \topic{cylinder} Node generiert 3D-Modelle von Zylindern. Sie hat einen Input für den Radius, die Höhe und die Anzahl der generierten Zylinder. 
@@ -584,20 +585,20 @@ Außerdem kann dies implementiert, ohne die Runtime zu beeinflussen, da die Ausf
 \br
 Die \topic{cylinder} Node im vorherigen Beispiel könnte zum Beispiel bei der Evaluierung der \topic{random} Node ein \topic{seed} übergeben.
 \br
-Eine Herausforderung in der Implementierung dieser Lösung besteht darin, dass jedes Argument nun entweder ein direkter Wert, der von den Nutzern über das \link[node_interface]{Node-Interface} festgelegt wird, oder ein Teil das gesamten \link[node_graph]{Node-Graphen} sein kann.
+Eine Herausforderung in der Implementierung dieser Lösung besteht darin, dass jedes Argument nun entweder ein direkter Wert, der von den Nutzern über das \link[node_interface]{Node-Interface} festgelegt wird, oder ein Teil des gesamten \link[node_graph]{Node-Graphen} sein kann.
 \br
 Die erste Implementierung bestand darin, dass die Nodes ein serialisiertes JSON-Objekt zurückgeben. Dies hatte den Vorteil, dass einzelne Argumente zu Debugging-Zwecken menschenlesbar und die Serialisierung relativ einfach war. Die Performance war jedoch nicht optimal, da die Serialisierung und Deserialisierung relativ aufwendig ist. Des Weiteren hatte jede Node jetzt eine Abhängigkeit zu \href{ https://serde.rs/ }{Serde} (Der Standardbibliothek für Serialisierung in Rust), was die Dateigröße der WebAssembly-Module deutlich vergrößerte.
 \br
 Die aktuelle Version benutzt eine eigene Binär-Serialisierung. Diese ist schneller und die Dateigröße der WebAssembly-Module ist kleiner. Der Nachteil ist, dass die Serialisierung nicht mehr menschenlesbar und die Implementierung komplexer ist. 
 \br
-Die Grundidee ist es Nodes als ein Array aus 32Bit Integer darzustellen, die erste Stelle des Arrays enkodiert den Typ der Node, die darauffolgenden Stellen sind die Argumente. Die einzelnen Argumente sind entweder eine Zahl oder die enkodierte Version einer anderen Node.
-Gleitzahlen sind 32 Bit nach dem IEEE-754 Standard und können dank der gleichen Größe ohne weiter Anpassungen im Array gespeichert werden. 
+Die Grundidee ist es, Nodes als ein Array aus 32-Bit-Integer darzustellen. Die erste Stelle des Arrays enkodiert den Typ der Node, die darauffolgenden Stellen sind die Argumente. Die einzelnen Argumente sind entweder eine Zahl oder die enkodierte Version einer anderen Node.
+Gleitzahlen sind 32-Bit nach dem IEEE-754 Standard und können dank der gleichen Größe ohne weitere Anpassungen im Array gespeichert werden. 
 \br
 Da WebAssembly, sowie auch Rust keine verschachtelten Arrays unterstützen, muss dieser Array in einen linearen Array umgewandelt werden. 
-Bei meiner Recherche nach existierend Algorithmen zu diesem Problem bin ich auf den \qt{Recursive-Length Prefix Serialization} (RLP) Algorithmus von Ethereum gestoßen. Dieser Algorithmus war ein guter Ansatz, ist jedoch nicht für die Anforderungen dieser Anwendung optimiert, da er nur Arrays unterstützt, die entweder Nummern oder Arrays enthalten und keine gemischte Version. Außerdem ist er für das Enkodieren von Strings optimiert.
+Bei meiner Recherche nach existierenden Algorithmen zu diesem Problem, bin ich auf den \qt{Recursive-Length Prefix Serialization} (RLP)-Algorithmus von Ethereum gestoßen. Dieser Algorithmus war ein guter Ansatz, ist jedoch nicht für die Anforderungen dieser Anwendung optimiert, da er nur Arrays unterstützt, die entweder Nummern oder Arrays enthalten und keine gemischte Version. Außerdem ist er für das Enkodieren von Strings optimiert.
 \cite{wood2024ethereum}
 \br
-Das aktuelle Binärformat besteht darin, jede Klammer in einem verschachtelten Array durch zwei 32 Bit Integer zu enkodieren. 
+Das aktuelle Binärformat besteht darin, jede Klammer in einem verschachtelten Array durch zwei 32-Bit-Integer zu enkodieren. 
 Die erste Stelle gibt an, ob es sich um eine öffnende oder schließende Klammer handelt, die zweite Stelle gibt den Abstand zur nächsten Klammer an.
 
 \begin{figure}[htbp]
@@ -607,18 +608,18 @@ Die erste Stelle gibt an, ob es sich um eine öffnende oder schließende Klammer
   \label{fig:encoding_scheme}
 \end{figure}
 
-Eine Limitierung dieser Implementierung ist das 32 Bit integer nur Zahlen bis maximal $2^{31}-1$ darstellen können. Dies beschränkt die Länge eines Arrays auf $2,147,483,647$ Elemente. Für diese Anwendung ist das jedoch mehr als ausreichend.
+Eine Limitierung dieser Implementierung ist, dass signierte 32-Bit-Integer nur Zahlen bis maximal $2^{31}-1$ darstellen können. Dies beschränkt die Länge eines Arrays auf $2,147,483,647$ Elemente. Für diese Anwendung ist das jedoch mehr als ausreichend.
 
 \subsubsection*{O-Notation}
 Die O-Notation der \link[code_nested_encoding]{Beispiel-Implementierung} ist $O(n)$, wobei $n$ die Anzahl der Elemente in der Serialisierung ist. Tatsächlich können wir aber während der Laufzeit oft einen einfacheren Algorithmus benutzen, da die meisten parametrisierten Nodes nicht tief in die Verschachtelung gehen, sondern nur die obersten Elemente extrahieren und nachher wieder zusammenfügen. 
 \br
-Beispielsweise nimmt eine \topic{math} Node, ihre Operation (addieren, subtrahieren...) und zwei Zahlen entgegen und fügt diesen Argumenten nur einen Integer zur Identifizierung hinzu. Dafür können wir Algorithmen benutzen, der nur die obersten Elemente \link[code_nested_splitting]{extrahieren} und wieder \link[code_nested_joining]{zusammenfügen}.  Diese Algorithmen haben eine O-Notation von $O(1)$.
+Beispielsweise nimmt eine \topic{math} Node, ihre Operation (addieren, subtrahieren...) und zwei Zahlen entgegen und fügt diesen Argumenten nur einen Integer zur Identifizierung des Node-Typen hinzu. Dafür können wir Algorithmen benutzen, die nur die obersten Elemente \link[code_nested_splitting]{extrahieren} und wieder \link[code_nested_joining]{zusammenfügen}.  Diese Algorithmen haben eine O-Notation von $O(1)$.
 
 \pagebreak
 
 \subsection{Design}
 
-Die Anwendung wurde so designt, dass sie möglichst einfach und intuitiv zu bedienen ist. Dafür wurde ein simples, zweispaltiges Layout gewählt. Auf der rechten Seite befindet sich das \link[node_interface]{Node-Interface} und auf der linken Seite die 3D-Visualisierung der entstandenen Pflanze. Zudem gibt es auf der rechten Seite eine Symbolleiste, die den Zugriff auf verschiedene Untermenüs erlaubt. Diese sind aber standardmäßig ausgeblendet, um die Übersicht zu erhöhen.
+Die Anwendung wurde so designt, dass sie möglichst einfach und intuitiv zu bedienen ist. Dafür wurde ein simples, zweispaltiges Layout gewählt. Auf der rechten Seite befindet sich das \link[node_interface]{Node-Interface} und auf der linken Seite die 3D-Visualisierung der entstandenen Pflanze. Zudem gibt es auf der rechten Seite eine Symbolleiste, die den Zugriff auf verschiedene Untermenüs erlaubt. Diese sind standardmäßig ausgeblendet, um die Übersicht zu erhöhen.
 
 \begin{figure}[hbtp]
   \centering
@@ -630,9 +631,9 @@ Die Anwendung wurde so designt, dass sie möglichst einfach und intuitiv zu bedi
 \subsubsection{Farbgebung}
 
 Da es sich bei der Anwendung um ein Tool für die Entwicklung von 3D-Modellen handelt, wurde eine  möglichst unaufdringliche und minimalistische Farbgebung entworfen.
-Zur Entwicklung der Farbpalette wurde ein neutrales dunkles Grau gewählt, von dem aus den zwei dunklere und drei hellere Farben abgeleitet wurden. Aus diesen 6 Farbtönen wurden dann die einzeln Farbschemas für die Anwendung abgeleitet. Außerdem wurde ein High-Contrast-Mode implementiert, der die Farben so anpasst, dass sie auch für Nutzer/innen mit Sehschwäche gut erkennbar sind.
+Zur Entwicklung der Farbpalette wurde ein neutrales dunkles Grau gewählt, aus dem zwei dunklere und drei hellere Farben abgeleitet wurden. Aus diesen 6 Farbtönen wurden dann die einzelnen Farbschemata für die Anwendung abgeleitet. Außerdem wurde ein High-Contrast-Mode implementiert, der die Farben so anpasst, dass sie auch für Nutzer/innen mit Sehschwäche gut erkennbar sind.
 
-\subsubsection{Node Design}
+\subsubsection{Node-Design}
 
 
 \begingroup
@@ -644,9 +645,9 @@ Zur Entwicklung der Farbpalette wurde ein neutrales dunkles Grau gewählt, von d
     \label{sec:NODE_ANATOMY}
 \end{wrapfigure}
 
-Das Design der einzelnen Nodes ist stark an Blenders Design angelehnt. Die Struktur einer Node ist in Abbildung \ref{sec:NODE_ANATOMY} dargestellt. 
+Das Design der einzelnen Nodes ist stark an das Blender-Design angelehnt. Die Struktur einer Node ist in Abbildung \ref{sec:NODE_ANATOMY} dargestellt. 
 
-Ein großer limitierender Faktor beim Design der Nodes ist der vertikale Raum, den eine Node einnimmt. Da bei der Entwicklung einer Node die Anzahl der Argumente schnell anwachsen kann, kann auch die vertikale Größe schnell anwachsen. 
+Ein deutlich limitierender Faktor beim Design der Nodes ist der vertikale Raum, den eine Node einnimmt. Da bei der Entwicklung einer Node die Anzahl der Argumente schnell anwachsen kann, kann auch die vertikale Größe schnell anwachsen. 
 Um dieses Problem zu beheben, wurde den \link[node_input]{Node-Inputs} eine Einstellung hinzugefügt, die diesen Input in ein Untermenü auf der rechten Seite versteckt. 
 \end{minipage}
 \br
@@ -661,28 +662,28 @@ Um dieses Problem zu beheben, wurde den \link[node_input]{Node-Inputs} eine Eins
 
 
 \section{Implementierung}
-Die Anwendung wurde in einem Mono-Repository entwickelt, das die einzelnen Komponenten als eigenständige Pakete enthält. Dies hat den Vorteil, dass alle Komponenten gemeinsam entwickelt, versioniert und getestet werden können. 
+Die Anwendung wurde in einem Mono-Repository entwickelt, das die einzelnen Komponenten als eigenständige Pakete enthält. Dies hat den Vorteil, dass alle Komponenten gemeinsam entwickelt, versioniert und getestet werden können. \cite{GithubRepo}
 \br
 Außerdem unterstützen die beiden Paket-Manager \href{https://pnpm.io/}{pnpm} und \href{https://crates.io/}{cargo} das Arbeiten mit 
 Mono-Repositories sehr gut. 
 \br
-Des Weiteren wurde nach dem Prinzip des Interface-Driven-Development vorgegangen, das heißt die Interfaces der einzelnen Komponenten wurde vor ihrer Implementierung festgelegt. Dies hilft dabei, die Interfaces so minimal wie möglich zu halten.
+Des Weiteren wurde nach dem Prinzip des Interface-Driven-Development vorgegangen, das heißt die Interfaces der einzelnen Komponenten wurde vor ihrer Implementierung festgelegt. Das hilft, die Interfaces so minimal wie möglich zu halten und so auch die Kopplung zwischen den Komponenten zu minimieren.
 
 \subsection{Nodes}
 Die Nodes wurden als Cargo-Pakete entwickelt. Jede Node ist ein eigenes Rust-Projekt und wird als WebAssembly-Modul kompiliert.
 \br
-Jede Node hat zwei öffentliche Funktionen, \topic{execute} und \topic{get\_definition}. Die \topic{execute} Funktion nimmt einen Array aus 32 Bit Integer entgegen und gibt ein Array aus 32 Bit Integer zurück. 
+Jede Node hat zwei öffentliche Funktionen, \topic{execute} und \topic{get\_definition}. Die \topic{execute} Funktion nimmt einen Array aus 32-Bit-Integer entgegen und gibt ein Array aus 32-Bit-Integer zurück. 
 \br
 Die \topic{get\_definition} Funktion gibt die \link[node_definition]{Node-Definition} der Node zurück. 
-Diese \link[node_definition]{Node-Definition} wird in einer JSON Datei definiert, die dann über ein prozedurales Rust-Macro geladen, validiert und in die WebAssembly-Datei eingebettet wird. Dies stellt sicher, dass eine Node nur erfolgreich kompiliert werden kann, wenn die \link[node_definition]{Node-Definition} valide ist.
+Diese \link[node_definition]{Node-Definition} wird in einer JSON-Datei definiert, die dann über ein prozedurales Rust-Macro geladen, validiert und in die WebAssembly-Datei eingebettet wird. Dies stellt sicher, dass eine Node nur erfolgreich kompiliert werden kann, wenn die \link[node_definition]{Node-Definition} valide ist.
 
 \subsection{Runtime-Executor}
-Der Runtime-Executor wurde als TypeScript Klasse mit einer \topic{execute} Funktion implementiert. Diese \topic{execute} Funktion nimmt ein \link[node_graph]{Node-Graph} entgegen und gibt ein Array aus 32 Bit Integer zurück. Die Funktion ist grob in ... Schritte eingeteilt:
+Der Runtime-Executor wurde als TypeScript Klasse mit einer \topic{execute} Funktion implementiert. Diese \topic{execute} Funktion nimmt ein \link[node_graph]{Node-Graph} entgegen und gibt ein Array aus 32-Bit-Integer zurück. Die Funktion ist grob in folgende Schritte eingeteilt:
 
 \begin{enumerate}
   \item Finde eine Node mit dem Typ \topic{output}
   \item Finde rekursiv alle Nodes, die mit dieser Node verbunden sind
-  \item Sortiere diese Nodes nach ihrer Entfernung zur \topic{output} Node, von der am weitesten entfernten zur am nächsten entfernten
+  \item Sortiere diese Nodes nach ihrer Entfernung zur \topic{output}-Node, von der am weitesten entfernten zur am nächsten entfernten
   \item Führe die Nodes in dieser Reihenfolge aus
 \end{enumerate}
 
@@ -691,39 +692,39 @@ Das Ausführen der einzelnen Nodes läuft etwa wie folgt ab:
 \begin{enumerate}
   \item Für jeden Input der Node:
   \begin{enumerate}
-      \item Wenn der Input mit einer anderen Node verbunden ist, nutze diesen
+      \item Wenn der Input mit einer anderen Node verbunden ist, nutze das Ergebnis dieser Node
       \item Wenn nicht, nutze den Wert, der über das \link[node_interface]{Node-Interface} festgelegt wurde
   \end{enumerate}
   \item Enkodiere die Argumente der Node mit der \link[code_nested_encoding]{Binär-Serialisierung}
-  \item Führe die \topic{execute} Funktion der Node mit den Argumenten aus
+  \item Führe die \topic{execute}-Funktion der Node mit den Argumenten aus
 \end{enumerate}
 
 \subsection{Node-Interface}
-Der Fokus bei der Implementierung lag darauf, das Interface so simpel und performant wie möglich zu gestalten. Hierfür wurde eine hybride Darstellung aus HTML und WebGL Elementen entwickelt. HTML Elemente bieten hierbei den Vorteil, dass sie einfach zu gestalten sind und gute Interaktionsmöglichkeiten bieten. Bei einer großen Anzahl sich bewegender HTML Elemente sinkt jedoch die Performance. 
-Deswegen wird ab einer bestimmten Zoom-Stufe die Darstellung der Nodes in ein WebGL Canvas gerendert. Dies hat den Vorteil, dass die Performance bei einer großen Anzahl von Nodes konstant bleibt. 
+Der Fokus bei der Implementierung lag darauf, das Interface so simpel und performant wie möglich zu gestalten. Hierfür wurde eine hybride Darstellung aus HTML- und WebGL-Elementen entwickelt. HTML-Elemente bieten den Vorteil, dass sie einfach zu gestalten sind und über gute Interaktionsmöglichkeiten verfügen. Bei einer großen Anzahl sich bewegender HTML Elemente sinkt jedoch die Performance. 
+Deshalb wird ab einer bestimmten Zoom-Stufe die Darstellung der Nodes in ein WebGL Canvas gerendert. Dies hat den Vorteil, dass die Performance bei einer großen Anzahl von Nodes konstant bleibt. 
 \br
-Zur weiteren Verbesserung der Performance werden die abgerundeten Ecken und Rahmen der einzelnen Nodes per \href{https://en.wikipedia.org/wiki/Signed_distance_function}{Signed Distance Function} gerendert. So wird die Anzahl der Polygone reduziert. Auch die Verbindungen zwischen den Nodes werden als WebGL Element gerendert.
+Zur weiteren Verbesserung der Performance werden die abgerundeten Ecken und Rahmen der einzelnen Nodes per \href{https://en.wikipedia.org/wiki/Signed_distance_function}{Signed-Distance-Function} gerendert. So werden für jede Node nur vier Vertices und zwei Polygone benötigt. Auch die Verbindungen zwischen den Nodes werden als WebGL-Elemente gerendert.
 
 \pagebreak
 
-Um das Arbeiten mit dem Interface so effizient wie möglich zu gestalten wurde einige Funktionen implementiert:
+Um das Arbeiten mit dem Interface so effizient wie möglich zu gestalten, wurden einige Funktionen implementiert:
 
 \subsubsection{Drag-and-Drop}
-WebAssembly Dateien können per Drag-and-Drop in das Interface geladen werden. Die Datei wird validiert, dann in die Node-Registry geladen und die Nodes können im Interface benutzt werden. Außerdem können so auch ganze Node-Graphen geladen werden.
+WebAssembly-Dateien können per Drag-and-Drop in das Interface geladen werden. Die Datei wird validiert, dann in die Node-Registry geladen und die Nodes können im Interface benutzt werden. Außerdem können so auch ganze Node-Graphen geladen werden.
 
 \subsubsection{Selektion}
 Das Interface kann jeweils eine aktive Node und mehrere selektierte Nodes haben.
 \br
-Ähnlich wie in Blender können die Nutzenden eine Box um mehrere Nodes ziehen, um diese auszuwählen. Dafür muss die \topic{strg}-Taste gedrückt gehalten werden, nun kann eine Box um die gewünschten Nodes gezogen werden.
+Ähnlich wie in Blender können die Nutzenden eine Box um mehrere Nodes ziehen, um diese auszuwählen. Dafür muss die \topic{strg}-Taste gedrückt gehalten werden und mit gedrückter linker Maustaste eine Box um die gewünschten Nodes gezogen werden.
 \br
 Mit dem Tastenkürzel \topic{strg + a} können alle Nodes ausgewählt werden. 
 \br
-Mit der \topic{l} Taste  werden alle Nodes selektiert die mit der aktiven Node verbunden sind.
+Mit der \topic{l}-Taste  werden alle Nodes selektiert die mit der aktiven Node verbunden sind.
 \br
-Wenn \topic{shift} gedrückt wird, während eine Node ausgewählt wird, werden alle Nodes zwischen der aktiven Node und der gewählten Node selektiert.
+Wird \topic{shift} gedrückt wird, während eine Node ausgewählt wird, werden alle Nodes zwischen der aktiven Node und der gewählten Node selektiert.
 
 \subsubsection{Ripple-Delete}
-Diese Funktion erlaubt das Löschen einzelner Nodes während die Verbindung zwischen deren Eltern und Kindern erhalten werden. Das Tastenkürzel ist \topic{strg + x}.
+Diese Funktion erlaubt das Löschen einzelner Nodes während die Verbindungen zwischen deren Eltern und Kindern erhalten werden. Das Tastenkürzel ist \topic{strg + x}.
 
 \subsubsection{Hilfsmodus}
 Mit dem Tastenkürzel \topic{?} kann der Hilfsmodus aktiviert werden. Hierbei werden dem/der Nutzer/in bei Hover über eine Node die wichtigsten Informationen angezeigt. Dies soll die Einarbeitung in die Anwendung erleichtern.
@@ -732,10 +733,10 @@ Mit dem Tastenkürzel \topic{?} kann der Hilfsmodus aktiviert werden. Hierbei we
 Da die einzelnen Nodes möglichst wenig Raum einnehmen sollen, können einzelne Inputs von Nodes in ein Untermenü verschoben werden. Dieses zeigt dann jeweils die Inputs der aktiven Node an. 
 
 \subsubsection{Copy/Paste}
-Das \link[node_interface]{Node-Interface} unterstützt das Kopieren und Einfügen von Nodes. Dafür wird die \topic{strg + c} und \topic{strg + v} Tastenkombination benutzt.
+Das \link[node_interface]{Node-Interface} unterstützt das Kopieren und Einfügen von Nodes. Dafür werden die Tastenkombinationen \topic{strg + c} und \topic{strg + v} benutzt.
 
 \subsubsection{Undo/Redo}
-Die Anwendung verfügt über ein robustes Undo/Redo System. Dank der losen Kopplung der einzelnen Komponenten konnte das System einfach implementiert werden. Es basiert auf der fantastischen \hyperref[https://github.com/benjamine/jsondiffpatch]{jsondiffpatch} Bibliothek und kann so darauf verzichten für jede Änderung den gesamten \link[node_graph]{Node-Graph} zu speichern, sondern speichert jeweils nur die Änderungen.
+Die Anwendung verfügt über ein robustes Undo/Redo System. Dank der losen Kopplung der einzelnen Komponenten konnte das System einfach implementiert werden. Es basiert auf der leistungsstarken \hyperref[https://github.com/benjamine/jsondiffpatch]{jsondiffpatch} Bibliothek. Dies hat den Vorteil,  das für jede Aktion nur die Differenz gespeichert wird und nicht der gesamte \link[node_graph]{Node-Graph}.
 
 \pagebreak
 
@@ -746,7 +747,7 @@ Die Anwendung verfügt über ein robustes Undo/Redo System. Dank der losen Koppl
 
 \subsubsection{Performance}
 
-Die Performance wurde anhand drei Benchmarks auf drei Geräten jeweils in Chrome (v124) und Firefox (v125) getestet. Die drei Benchmarks waren:
+Die Performance wurde anhand von drei Benchmarks auf drei Geräten jeweils in Chrome (v124) und Firefox (v125) getestet. Die drei Benchmarks im Überblick:
 
 \begin{itemize}
   \item test\_a: 6 Nodes generieren 2,1 Millionen Polygone
@@ -756,8 +757,8 @@ Die Performance wurde anhand drei Benchmarks auf drei Geräten jeweils in Chrome
 
 Die drei Geräte waren ein Smartphone (Google Pixel 4a 2020, 8 GB RAM, Snapdragon 730G), ein Laptop (Razer Blade Stealth 2016, 16 GB RAM, i7-7500U) und eine Workstation (Intel I7-6700K, 16 GB RAM, Nvidia GTX1060). 
 \br
-Die einzelnen Benchmarks wurden End-to-End gemessen, das heißt die Zeit die benötigt wird, um den \link[node_graph]{Node-Graphen} auszuführen, die Polygone in der Szene zu aktualisieren und die Szene zu rendern.
-Dargestellt wird die Durchschnittsdauer von 500 Durchläufen und die Standardabweichung.
+Die einzelnen Benchmarks wurden end-to-end gemessen. Es wurde also die Zeit gemessen die benötigt wird, um den \link[node_graph]{Node-Graphen} auszuführen, die Polygone in der Szene zu aktualisieren und die Szene zu rendern.
+Dargestellt wird die Durchschnittsdauer von 500 Durchläufen sowie die Standardabweichung.
 
 \begin{table}[htbp]
 \begin{tabular}{|l|l|l|l|}
@@ -780,7 +781,7 @@ test\_c          & 316.73ms \stdev{62.54}    & 65.46ms \stdev{15.65} & 67.62ms \
 \end{tabular}
 \end{table}
 
-Die Ergebnisse zeigen, dass auch bei einer großen Anzahl von Nodes und einer hohen Anzahl an Polygonen die Dauer einer Aktualisierung unter 500ms bleibt. 
+Die Ergebnisse zeigen, dass auch bei einer großen Anzahl von Nodes und einer hohen Anzahl an Polygonen die Dauer einer Aktualisierung unter 500 ms bleibt. 
 
 \pagebreak
 
@@ -837,7 +838,7 @@ Nun legt man die Node-Definition an, dafür wird die Datei \topic{src/definition
   \end{code}
 \end{figure}
 
-Nun wird die Implementierung in der Datei \topic{src/lib.rs} angepasst. Der \link[code_cylinder_node]{Beispiel-Code} legt deutlich, dass wenig Boilerplate-Code benötigt wird. Ein Großteil der Implementierung lag darin, den Code zu schreiben der die Zylinder-Geometrie generiert.  Außerdem kann das gesamte Rust-Ökosystem genutzt werden, so zum Beispiel \href{https://docs.rs/glam/latest/glam}{glam}, eine Bibliothek für Vektoren und Matrizen.
+Danach wird die Implementierung in der Datei \topic{src/lib.rs} angepasst. Der \link[code_cylinder_node]{Beispiel-Code} zeigt deutlich, dass wenig Boilerplate-Code benötigt wird. Ein Großteil der Implementierung lag darin, den Code zu schreiben, der die Zylinder-Geometrie generiert.  Außerdem kann das gesamte Rust-Ökosystem genutzt werden, so zum Beispiel \href{https://docs.rs/glam/latest/glam}{glam}, eine Bibliothek für Vektoren und Matrizen.
 
 \pagebreak
 
@@ -851,16 +852,16 @@ $ wasm-pack build --release
   \end{code}
 \end{figure}
 
-Die kompilierte Node liegt unter \topic{pkg/new\_nodarium\_node.wasm}. Bei diesem Beispiel ist sie etwa 28 KB groß. Zum Laden der Node wird diese per drag-and-drop in die Anwendung geladen. 
+Die kompilierte Node liegt unter \topic{pkg/new\_nodarium\_node.wasm}. Bei diesem Beispiel ist sie etwa 28 KB groß. Zum Laden der Node wird diese per Drag-and-Drop in die Anwendung geladen. 
 \br
 Alles in allem hat die Entwicklung und das Laden der Node etwa 30 Minuten gedauert. Die meiste Zeit wurde für die Implementierung der Zylinder-Geometrie benötigt. 
 Durch die Validierung der Node-Definition durch das prozedurale \topic{include\_definition\_file} Rust-Macro und die vielen Hilfsfunktionen die in der \topic{nodarium} Bibliothek enthalten sind, ist es sehr einfach eine neue Node zu implementieren.
 
 \subsubsection{Usability}
 
-Durch das einheitliche Design und der Implementierung vielen Hilfsfunktionen ist das \link[node_interface]{Node-Interface} sehr einfach und intuitiv zu bedienen. Zu diesen Funktionen zählen etwa eine Tastaturkürzelübersicht, ein Hilfsmodus, ein High-Contrast-Modus und vielen weitere.
+Durch das einheitliche Design und die Implementierung vielen Hilfsfunktionen ist das \link[node_interface]{Node-Interface} sehr einfach und intuitiv zu bedienen. Zu diesen Funktionen zählen etwa eine Tastaturkürzel-Übersicht, ein Hilfsmodus, ein High-Contrast-Modus und viele weitere.
 \br
-Um die Usability umgehend zu testen wären Nutzer-Tests sinnvoll. Diese wurden jedoch nicht durchgeführt, da es bei der Entwicklung der Anwendung in erster Linie um technische Funktionalität ging.
+Um die Usability umgehend zu testen, wären Nutzer-Tests sinnvoll. Diese wurden jedoch nicht durchgeführt, da es bei der Entwicklung der Anwendung in erster Linie um technische Funktionalität ging und der zeitliche Rahmen für Nutzer-Tests nicht ausreichte.
 
 \subsection{Forschungsfragen}
 
@@ -872,43 +873,43 @@ Die beiden Forschungsfragen waren:
 \end{itemize}
 
 \subsubsection{WebAssembly als Grundlage}
-Die Implementierung der Anwendung hat gezeigt, dass die Vorteile die WebAssembly bietet die \link[parameter_nodes]{Komplexität der Implementierung}, die durch die Nachteile entstehen weit überwiegen. Durch Bibliotheken und Frameworks wie \href{https://rustwasm.github.io/wasm-bindgen/}{wasm-bindgen} und \href{https://rustwasm.github.io/wasm-pack/book/}{wasm-pack} ist die Implementierung einer WebAssembly-Anwendung relativ einfach. 
+Die Implementierung der Anwendung hat gezeigt, dass die Vorteile, die WebAssembly bietet die \link[parameter_nodes]{Komplexität der Implementierung}, die durch die Nachteile entstehen, weit überwiegen. Durch Bibliotheken und Frameworks wie \href{https://rustwasm.github.io/wasm-bindgen/}{wasm-bindgen} und \href{https://rustwasm.github.io/wasm-pack/book/}{wasm-pack} ist die Implementierung einer WebAssembly-Anwendung relativ einfach. 
 \br
-Des Weiteren existiert diese Komplexität nur in der Implementierung und die Endnutzer/innen der Anwendung profitieren nur von den Vorteilen.
+Des Weiteren existiert diese Komplexität nur in der Implementierung und die Endnutzer/innen der Anwendung profitieren ausschließlich von den Vorteilen.
 
 \subsubsection{Vor- und Nachteile von WebAssembly}
 \textbf{Realisierbarkeit} beschreibt wie einfach es ist, die Anwendung zu implementieren. Hier entsteht durch die Low-Level-Natur von WebAssembly eine gewisse Komplexität. 
-Da WebAssembly allerdings keine neue Technologie ist, existieren bereits viele Tools und Bibliotheken, die viele dieser Probleme lösen.
+Da WebAssembly allerdings keine neue Technologie ist, existieren bereits Tools und Bibliotheken, die viele dieser Probleme lösen.
 \br
-\textbf{Funktionalität} beschreibt, welchen Einfluss die Nutzung von WebAssembly, auf die Umsetzung der Anforderung der Anwendung hat. Hierbei wird deutlich, dass die Nutzung von WebAssembly bei der Optimierung der \textbf{Performance} hilft, da es erlaubt die unterliegen Hardware-Ressource besser zu nutzen.
+\textbf{Funktionalität} beschreibt, welchen Einfluss die Nutzung von WebAssembly auf die Umsetzung der Anforderung der Anwendung hat. Hierbei wird deutlich, dass die Nutzung von WebAssembly bei der Optimierung der \textbf{Performance} hilft, da es erlaubt, die unterliegenden Hardware-Ressourcen besser zu nutzen.
 \br
-\textbf{Flexibilität} beschreibt wie einfach es ist die Anwendung zu erweitern. Auch hier ist WebAssembly eine gute Wahl, da unterschiedliche Sprachen zu WebAssembly kompilieren können und so Entwickler/innen die Wahl haben, welche Sprache sie nutzen wollen. Besonders die Eigenschaft das WebAssembly Module self-contained sind und keine Annahmen über die Umgebung machen, erhöht die Flexibilität.
+\textbf{Flexibilität} beschreibt, wie einfach es ist die Anwendung zu erweitern. Auch hier ist WebAssembly eine gute Wahl, da unterschiedliche Sprachen zu WebAssembly kompilieren können und so Entwickler/innen die Wahl haben, welche Sprache sie nutzen wollen. Besonders die Eigenschaft, dass WebAssembly Module self-contained sind und keine Annahmen über die Umgebung machen, erhöht die Flexibilität.
 
 \section{Fazit}
-Anhand der Analysen der vorher definierten Anforderung und der Evaluation der Forschungsfragen lässt sich sagen, dass die Anwendung die Anforderungen erfüllt und die Forschungsfragen beantwortet ist.
+Anhand der Analysen der vorher definierten Anforderung und der Evaluation der Forschungsfragen lässt sich sagen, dass die Anwendung die Anforderungen erfüllt und die Forschungsfragen beantwortet sind.
 \br
 WebAssembly eignet sich trotz der Komplexität gut als Grundlage für die Implementierung einer node-basierten visuellen Programmiersprache. Die Vorteile, die WebAssembly bietet, wie die Performance, die Flexibilität und die Robustheit, überwiegen die Nachteile, wie die Komplexität und die schwierigen Debugging-Möglichkeiten. Ein weiterer großer Vorteil ist, dass jede Node eine einzelne WebAssembly-Datei ist, was die Anwendung sehr modular macht und die Erweiterbarkeit erhöht.
 
 \section{Ausblick}
 Bei der Entwicklung der Anwendung entstanden eine Reihe von Ideen und Konzepten, die in der aktuellen Version nicht umgesetzt wurden, da 
-dies entweder den zeitlichen Rahmen sprengen würde oder sie nicht in den Kontext dieser Arbeit passten.
+diese entweder den zeitlichen Rahmen gesprengt hätten oder nicht in den Kontext dieser Arbeit passten.
 
-\subsection*{Hosted Node Registry}
-Aus Gründen der Einfachheit und der Performance wurde die Node-Registry als Teil der Anwendung implementiert. Da aber eines der Ziele der Anwendung die Erweiterbarkeit ist, wäre es sinnvoll, die Node-Registry als eigenständigen Service zu implementieren. Die Aufwendung wurde bereits so implementiert, dass dies ohne Änderung an bestehenden Komponenten möglich ist.
+\subsection*{Hosted-Node-Registry}
+Aus Gründen der Einfachheit und der Performance wurde die Node-Registry als Teil der Anwendung implementiert. Da aber eines der Ziele der Anwendung die Erweiterbarkeit ist, wäre es sinnvoll, die Node-Registry als eigenständigen Service zu implementieren. Die Anwendung wurde bereits so implementiert, dass dies ohne Änderung an bestehenden Komponenten möglich ist.
 \br
 Dies ist aber ein recht komplexes Unterfangen, da es nicht nur die Implementierung eines Servers, sondern auch die Implementierung von Autorisierung, Authentifizierung und Versionierung erfordert.
 
-\subsection*{WebAssembly Component Model}
-Wenn das WebAssembly Component Model in Browsern verfügbar wird, könnte man den \link[runtime_executor]{Runtime-Executor} als einzelnen WebAssembly Component implementieren. Dieser könnte nun \link[node]{Nodes} als WebAssembly Module laden und ausführen, so könnte sich der Overhead vermeiden lassen, der durch die Kommunikation zwischen Javascript und WebAssembly entsteht.
+\subsection*{WebAssembly-Component-Model}
+Wenn das WebAssembly-Component-Model in Browsern verfügbar wird, könnte man den \link[runtime_executor]{Runtime-Executor} als einzelnen WebAssembly-Component implementieren. Dieser könnte nun \link[node]{Nodes} als WebAssembly-Module laden und ausführen, so könnte sich der Overhead vermeiden lassen, der durch die Kommunikation zwischen Javascript und WebAssembly entsteht.
 
 \subsection*{Implementation der Namespaces}
 Zu diesem Zeitpunkt kommen alle Nodes in der Anwendung aus dem Namespace \topic{max/plantarium}. In der Zukunft könnten mehrere Namespaces implementiert werden, die verschiedene Implementierungen für die gleichen Nodes enthalten. Die Validation dafür wurde noch nicht implementiert und erfordert noch kleinere Änderungen.
 
 \subsection*{Plugins}
-Eine spannende Möglichkeit ist die Implementierung der Runtime als Plugins in anderen Programmen, zum Beispiel Blender. Dies würde es ermöglichen in der Web-App Pflanzen zu definieren und anhand dieser Definitionen in Blender 3D Pflanzen zu generieren. Dies erfordert die neben der Implementierung eines Plugins die Implementierung eines Backends, das die Projekte speichert, damit das Plugin darauf zugreifen kann.
+Eine spannende Möglichkeit ist die Implementierung der Runtime als Plugin für andere Programme, zum Beispiel Blender. Dies würde es ermöglichen, in der Web-App Pflanzen zu definieren und anhand dieser Definitionen in Blender 3D-Pflanzen zu generieren. Dies erfordert neben der Implementierung eines Plugins die Implementierung eines Backends, das die Projekte speichert, damit das Plugin darauf zugreifen kann.
 
 \subsection*{Weitere Nodes}
-Im aktuellen Stadium ist die Anwendung zur Generierung von Pflanzen mehr eine Demonstration der Möglichkeiten als ein vollwertiges Tool. Es fehlen noch viele Nodes die für eine vollständige Pflanze benötigt werden. So fehlt die Möglichkeit Blätter zu generieren, die Pflanze zu texturieren, Wind zu simulieren, Brechen der Pflanze zu simulieren und viele weitere Nodes.
+Im aktuellen Stadium ist die Anwendung zur Generierung von Pflanzen eher eine Demonstration der Möglichkeiten als ein vollwertiges Tool. Es fehlen noch viele Nodes, die für das Generieren eine vollständige Pflanze benötigt werden. So fehlen die Möglichkeiten Blätter zu generieren, Pflanzen zu texturieren, Wind oder das Abbrechen von Pflanzenteilen zu simulieren – und viele weitere Nodes.
 
 \subsection*{Entwicklung einer visuellen Identität}
 Die Anwendung wurde entwickelt, um durch andere Nutzer/innen erweitert zu werden. 
@@ -931,7 +932,7 @@ Eine Node ist quasi eine Instanz einer Node-Definition. Eine Node-Definition def
 
 \subsection{Node-Graph}
 \label{sec:node_graph}
-Node-Graphs sind ein gerichteter \link[PURE_GRAPH]{azyklischer Graph (DAG)} von \link[node]{Nodes}. Sie bestehen aus einer Menge von Nodes und deren Verknüpfungen. 
+Node-Graphs sind gerichtete \link[PURE_GRAPH]{azyklische Graphen (DAG)} von \link[node]{Nodes}. Sie bestehen aus einer Vielzahl von Nodes und deren Verknüpfungen. 
 
 \subsection{Node-Argumente}
 \label{sec:node_argumente}
